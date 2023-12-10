@@ -43,7 +43,7 @@ def generate_launch_description():
     )
 
     custom_robot_launch_path = PathJoinSubstitution(
-        [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'marrtino2_robot.launch.py']
+        [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'custom_robot.launch.py']
     )
 
     extra_launch_path = PathJoinSubstitution(
@@ -52,9 +52,9 @@ def generate_launch_description():
 
     return LaunchDescription([
         DeclareLaunchArgument(
-            name='marrtino2_robot', 
+            name='custom_robot', 
             default_value='false',
-            description='Use MARRtino2 robot'
+            description='Use custom robot'
         ),
 
         DeclareLaunchArgument(
@@ -107,6 +107,6 @@ def generate_launch_description():
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(custom_robot_launch_path),
-            condition=IfCondition(LaunchConfiguration("marrtino2_robot")),
+            condition=IfCondition(LaunchConfiguration("custom_robot")),
         )
     ])
