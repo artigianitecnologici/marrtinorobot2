@@ -29,7 +29,7 @@ def generate_launch_description():
     joy_launch_path = PathJoinSubstitution(
         [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'joy_teleop.launch.py']
     )
-
+    
     description_launch_path = PathJoinSubstitution(
         [FindPackageShare('marrtinorobot2_description'), 'launch', 'description.launch.py']
     )

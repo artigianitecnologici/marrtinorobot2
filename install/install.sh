@@ -47,12 +47,30 @@ source $WORKSPACE/install/setup.bash
 
 
 # prerequisite teleop and video server
-sudo apt install ros-humble-usb-cam
-sudo apt install ros-humble-async-web-server-cpp 
-sudo apt install ros-humble-rosbridge-server
+sudo apt install -y ros-humble-usb-cam
+sudo apt install -y ros-humble-async-web-server-cpp 
+sudo apt install -y ros-humble-rosbridge-server
 
 ##### no --> sudo apt-get install ros-humble-web-video-server
 # launch rosbridge server
+# run the executable with default settings (without params file)
+ros2 run usb_cam usb_cam_node_exe
+
+# run the executable while passing in parameters via a yaml file
+ros2 run usb_cam usb_cam_node_exe --ros-args --params-file /path/to/colcon_ws/src/usb_cam/config/params.yaml
+
+# launch the usb_cam executable that loads parameters from the same `usb_cam/config/params.yaml` file as above
+# along with an additional image viewer node
+ros2 launch usb_cam camera.launch.py
+ros2 run web_video_server web_video_server
+
+
 ros2 launch rosbridge_server rosbridge_websocket_launch.xml
+
+
+##install nodejs
+sudo apt-get update
+sudo apt-get install nodejs -y
+sudo apt install npm
 
 ##### no -->  git clone -b ros2 https://github.com/RobotWebTools/web_video_server.git
