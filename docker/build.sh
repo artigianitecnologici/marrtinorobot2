@@ -1,0 +1,1 @@
+./run.sh -w marrtinorobot2_ws -i marrtino2:system -b -d Dockerfile

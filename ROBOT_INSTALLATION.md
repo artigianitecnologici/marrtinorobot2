@@ -94,7 +94,7 @@ OAK-D Camera:
 #### 2.1 Download marrtinorobot2:
 
     cd <your_ws> 
-    git clone -b $ROS_DISTRO https://github.com/linorobot/marrtinorobot2 src/marrtinorobot2
+    git clone -b $ROS_DISTRO https://github.com/artigianitecnologici/marrtinorobot2 src/marrtinorobot2
 
 #### 2.2 Ignore Gazebo Packages on robot computer (optional)
 

@@ -141,7 +141,7 @@ All commands below are to be run on the robot computer unless you're running a s
 
 #### 1.1a Using a real robot:
 
-    ros2 launch marrtinorobot2_bringup bringup.launch.py
+    ros2 launch marrtinorobot2_bringup bringup.launch.py 
 
 Optional parameters:
 - **base_serial_port** - Serial port of the robot's microcontroller. The assumed value is `/dev/ttyACM0`. Otherwise, change the default value to the correct serial port. For example:

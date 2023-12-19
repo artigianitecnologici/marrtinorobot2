@@ -1,193 +1,82 @@
-ARG USE_ROS_DISTRO=
-ARG UBUNTU_VER=
-ARG RUNTIME=
-ARG DEPLOY=
+FROM osrf/ros:humble-desktop-full
 
-FROM --platform=$BUILDPLATFORM ros:${USE_ROS_DISTRO}-ros-base as ros2
-SHELL ["/bin/bash", "-c"]
-ENV DEBIAN_FRONTEND=noninteractive
+ARG WORKSPACE=humble_dev_ws
+WORKDIR /root/$WORKSPACE
 
-# Install language
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+ENV QT_X11_NO_MITSHM=1
+ENV EDITOR=nano
+ENV XDG_RUNTIME_DIR=/tmp
+
 RUN apt-get update && apt-get install -y \
-        locales \
-        && locale-gen en_US.UTF-8 \
-        && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 \
-    && rm -rf /var/lib/apt/lists/*
-ENV LANG en_US.UTF-8
+    cmake \
+    curl \
+    gazebo \
+    libglu1-mesa-dev \
+    nano \
+    python3-pip \
+    python3-pydantic \
+    ros-humble-gazebo-ros \
+    ros-humble-gazebo-ros-pkgs \
+    ros-humble-joint-state-publisher \
+    ros-humble-robot-localization \
+    ros-humble-plotjuggler-ros \
+    ros-humble-robot-state-publisher \
+    ros-humble-ros2bag \
+    ros-humble-rosbag2-storage-default-plugins \
+    ros-humble-rqt-tf-tree \
+    ros-humble-rmw-fastrtps-cpp \
+    ros-humble-rmw-cyclonedds-cpp \
+    ros-humble-slam-toolbox \
+    ros-humble-turtlebot3 \
+    ros-humble-turtlebot3-msgs \
+    ros-humble-twist-mux \
+    ros-humble-usb-cam \
+    ros-humble-xacro \
+    ruby-dev \
+    rviz \
+    tmux \
+    wget \
+    xorg-dev \
+    zsh
 
-# Install timezone
-RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime \
-        && export DEBIAN_FRONTEND=noninteractive \
-        && apt-get update \
-        && apt-get install -y tzdata \
-        && dpkg-reconfigure --frontend noninteractive tzdata \
-    && rm -rf /var/lib/apt/lists/*
+RUN pip3 install setuptools==58.2.0
 
-RUN apt-get update && apt-get -y upgrade \
-    && rm -rf /var/lib/apt/lists/*
+RUN wget https://github.com/openrr/urdf-viz/releases/download/v0.38.2/urdf-viz-x86_64-unknown-linux-gnu.tar.gz && \
+    tar -xvzf urdf-viz-x86_64-unknown-linux-gnu.tar.gz -C /usr/local/bin/ && \
+    chmod +x /usr/local/bin/urdf-viz && \
+    rm -f urdf-viz-x86_64-unknown-linux-gnu.tar.gz
 
-# Install common programs
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        gnupg2 \
-        lsb-release \
-        software-properties-common \
-        wget \
-        curl \
-    && rm -rf /var/lib/apt/lists/*
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
+    -p git \
+    -p https://github.com/zsh-users/zsh-autosuggestions \
+    -p https://github.com/zsh-users/zsh-completions
 
-FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu${UBUNTU_VER} as ros2nvidia
-SHELL ["/bin/bash", "-c"]
-ENV DEBIAN_FRONTEND=noninteractive
+RUN gem install tmuxinator && \
+    wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh -O /usr/local/share/zsh/site-functions/_tmuxinator
 
-# Install language
-RUN apt-get update && apt-get install -y \
-        locales \
-        && locale-gen en_US.UTF-8 \
-        && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 \
-    && rm -rf /var/lib/apt/lists/*
-ENV LANG en_US.UTF-8
-
-# Install timezone
-RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime \
-        && export DEBIAN_FRONTEND=noninteractive \
-        && apt-get update \
-        && apt-get install -y tzdata \
-        && dpkg-reconfigure --frontend noninteractive tzdata \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && apt-get -y upgrade \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install common programs
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        gnupg2 \
-        lsb-release \
-        software-properties-common \
-        wget \
-        curl \
-        libegl1-mesa libglu1-mesa libxv1 libxtst6 \
+RUN apt-get autoremove -y \
+    && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-ARG VIRTUALGL_VER="3.1"
-RUN wget -O /tmp/virtualgl.deb https://zenlayer.dl.sourceforge.net/project/virtualgl/${VIRTUALGL_VER}/virtualgl_${VIRTUALGL_VER}_amd64.deb
-RUN dpkg -i /tmp/virtualgl.deb 
+RUN echo "export DISABLE_AUTO_TITLE=true" >> /root/.zshrc
+RUN echo 'LC_NUMERIC="en_US.UTF-8"' >> /root/.zshrc
+RUN echo "source /opt/ros/humble/setup.zsh" >> /root/.zshrc
+RUN echo "source /usr/share/gazebo/setup.sh" >> /root/.zshrc
 
-# Install ROS2
-ARG USE_ROS_DISTRO=
-RUN add-apt-repository universe \
-        && curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg \
-        && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null \
-        && apt-get update && apt-get install -y --no-install-recommends \
-            ros-${USE_ROS_DISTRO}-ros-base \
-            python3-argcomplete \
-    && rm -rf /var/lib/apt/lists/*
+RUN echo 'alias rosdi="rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y"' >> /root/.zshrc
+RUN echo 'alias cbuild="colcon build --symlink-install"' >> /root/.zshrc
+RUN echo 'alias ssetup="source ./install/local_setup.zsh"' >> /root/.zshrc
+RUN echo 'alias cyclone="export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp"' >> /root/.zshrc
+RUN echo 'alias fastdds="export RMW_IMPLEMENTATION=rmw_fastrtps_cpp"' >> /root/.zshrc
+RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> /root/.zshrc
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        ros-dev-tools \
-        ros-humble-ament-* \
-    && rm -rf /var/lib/apt/lists/*
+RUN echo "autoload -U bashcompinit" >> /root/.zshrc
+RUN echo "bashcompinit" >> /root/.zshrc
+RUN echo 'eval "$(register-python-argcomplete3 ros2)"' >> /root/.zshrc
+RUN echo 'eval "$(register-python-argcomplete3 colcon)"' >> /root/.zshrc
 
-RUN source /opt/ros/${USE_ROS_DISTRO}/setup.bash
-RUN rosdep init 
-ENV ROS_DISTRO=${USE_ROS_DISTRO}
-
-from ros2${RUNTIME} as common
-SHELL ["/bin/bash", "-c"]
-
-RUN wget -O /root/.shm_off.xml https://raw.githubusercontent.com/eProsima/Fast-DDS/107ea8d64942102696840cd7d3e4cf93fa7a143e/examples/cpp/dds/AdvancedConfigurationExample/shm_off.xml
-
-RUN mkdir -p /root/marrtinorobot2_ws/src/marrtinorobot2
-RUN mkdir -p /root/preinstall/base \
-    /root/preinstall/description \
-    /root/preinstall/navigation 
-
-COPY ./marrtinorobot2_base/package.xml /root/preinstall/base
-COPY ./marrtinorobot2_description/package.xml /root/preinstall/description
-COPY ./marrtinorobot2_navigation/package.xml /root/preinstall/navigation
-
-RUN apt-get update \
-        && rosdep update --rosdistro=${ROS_DISTRO} \
-        && rosdep install --rosdistro=${ROS_DISTRO} --from-paths /root/preinstall -iry --os=ubuntu:$(lsb_release -sc) \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY docker/entrypoint.sh /root
-ARG RUNTIME=
-RUN if [ ${RUNTIME} == "nvidia" ]; then \
-        sed -i 's/\$\@/vglrun +v -d \/dev\/dri\/card0 \$@/' /root/entrypoint.sh; \
-    fi
-RUN sed -i "s/rosdistro/${ROS_DISTRO}/" /root/entrypoint.sh
-RUN chmod +x /root/entrypoint.sh
-
-from common as hardware
-SHELL ["/bin/bash", "-c"]
-
-RUN mkdir -p /root/preinstall/bringup
-COPY ./marrtinorobot2_bringup/package.xml /root/preinstall/bringup
-
-RUN apt-get update \
-        && rosdep update --rosdistro=${ROS_DISTRO} \
-        && rosdep install --rosdistro=${ROS_DISTRO} --from-paths /root/preinstall -iry --os=ubuntu:$(lsb_release -sc) \
-    && rm -rf /var/lib/apt/lists/*
-
-ARG ROBOT_BASE=2wd
-ARG LASER_SENSOR=
-ARG DEPTH_SENSOR=
-COPY ./docker/install_sensors.bash /root
-RUN /bin/bash /root/install_sensors.bash $ROBOT_BASE $LASER_SENSOR $DEPTH_SENSOR $ROS_DISTRO
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        python3-vcstool \
-        build-essential \  
-    && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /root/marrtinorobot2_ws
-RUN git clone -b $ROS_DISTRO https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup
-RUN apt-get update \
-        && rosdep update --rosdistro=${ROS_DISTRO} \
-        && rosdep install --rosdistro=${ROS_DISTRO} --from-paths src -iry --os=ubuntu:$(lsb_release -sc) --skip-keys micro_ros_agent \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN source /opt/ros/$ROS_DISTRO/setup.bash \
-    && colcon build --packages-select micro_ros_setup
-
-RUN source /opt/ros/$ROS_DISTRO/setup.bash  \
-    && source /root/marrtinorobot2_ws/install/setup.bash \
-    && ros2 run micro_ros_setup create_agent_ws.sh
-
-RUN source /opt/ros/$ROS_DISTRO/setup.bash \
-    && source /root/marrtinorobot2_ws/install/setup.bash \
-    && ros2 run micro_ros_setup build_agent.sh
-
-RUN source /opt/ros/$ROS_DISTRO/setup.bash \
-    && colcon build
-
-from common as simulation
-SHELL ["/bin/bash", "-c"]
-
-RUN git clone https://github.com/osrf/gazebo_models.git /root/.gazebo/models
-RUN rm -rf /root/.gazebo/models/.git
-
-RUN mkdir -p /root/preinstall/gazebo
-COPY ./marrtinorobot2_gazebo/package.xml /root/preinstall/gazebo
-RUN apt-get update \
-        && rosdep update --rosdistro=${ROS_DISTRO} \
-        && rosdep install --rosdistro=${ROS_DISTRO} --from-paths /root/preinstall -iry --os=ubuntu:$(lsb_release -sc) \
-    && rm -rf /var/lib/apt/lists/*
-
-from ${DEPLOY} as base
-SHELL ["/bin/bash", "-c"]
-
-COPY . /root/marrtinorobot2_ws/src/marrtinorobot2
-
-ARG DEPLOY=
-RUN if [ ${DEPLOY} == "hardware" ]; then \
-        touch /root/marrtinorobot2_ws/src/marrtinorobot2/marrtinorobot2_gazebo/COLCON_IGNORE; \
-    elif [ ${DEPLOY} == "simulation" ]; then \
-        touch /root/marrtinorobot2_ws/src/marrtinorobot2/marrtinorobot2_bringup/COLCON_IGNORE; \
-    fi
-
-WORKDIR /root/marrtinorobot2_ws
-RUN source /opt/ros/$ROS_DISTRO/setup.bash \
-    && colcon build
-
-ENTRYPOINT ["/root/entrypoint.sh"]
+CMD [ "tmuxinator", "start", "-p", "/root/.session.yml" ]
