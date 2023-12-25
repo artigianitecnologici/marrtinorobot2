@@ -220,7 +220,7 @@ Drive the robot manually until the robot has fully covered its area of operation
 #### 3.3 Save the map
 
     cd marrtinorobot2/marrtinorobot2_navigation/maps
-    ros2 run nav2_map_server map_saver_cli -f <map_name> --ros-args -p save_map_timeout:=10000.
+    ros2 run nav2_map_server map_saver_cli -f test.map --ros-args -p save_map_timeout:=10000.
 
 ### 4. Autonomous Navigation
 
