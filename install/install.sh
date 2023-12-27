@@ -47,10 +47,12 @@ source $WORKSPACE/install/setup.bash
 
 
 # prerequisite teleop and video server
-sudo apt install -y ros-humble-usb-cam
-sudo apt install -y ros-humble-async-web-server-cpp 
-sudo apt install -y ros-humble-rosbridge-server
-
+sudo apt install -y ros-$ROS_DISTRO-usb-cam
+sudo apt install -y ros-$ROS_DISTRO-async-web-server-cpp 
+sudo apt install -y ros-$ROS_DISTRO-rosbridge-server
+sudo apt-get install -y ros-$ROS_DISTRO-teleop-twist-keyboard
+#sudo apt-get -y install libegl-mesa0
+sudo apt install -y ros-$ROS_DISTRO-teleop-twist-joy
 ##### no --> sudo apt-get install ros-humble-web-video-server
 # launch rosbridge server
 # run the executable with default settings (without params file)
@@ -66,7 +68,7 @@ ros2 run web_video_server web_video_server
 
 
 ros2 launch rosbridge_server rosbridge_websocket_launch.xml
-
+ros2 launch teleop_twist_joy teleop-launch.py joy_config:='xbox'
 
 ##install nodejs
 sudo apt-get update
