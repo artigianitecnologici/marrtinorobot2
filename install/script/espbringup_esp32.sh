@@ -1,2 +1,2 @@
  . install/setup.bash
- ros2 launch linorobot2_bringup bringup.launch.py
+ ros2 launch marrtinorobot2_bringup bringup.launch.py
