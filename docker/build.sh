@@ -1,1 +1,1 @@
-./run.sh -w marrtinorobot2_ws -i marrtino2:system -b -d Dockerfile
+docker build -t marrtinorobot2:system -f Dockerfile.system .
