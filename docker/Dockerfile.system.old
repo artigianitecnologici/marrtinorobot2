@@ -115,8 +115,6 @@ RUN mkdir -p $HOME/src && \
     cd $HOME/src && \
     git clone  https://github.com/artigianitecnologici/marrtinorobot2.git
 
-    
-
 #### create workspace
 RUN cd $HOME
 RUN mkdir -p $HOME/marrtinorobot2_ws/src
@@ -131,7 +129,22 @@ RUN cd $HOME/marrtinorobot2_ws/src && \
 
 USER root
 
+  
+WORKDIR /home/robot
+RUN . /opt/ros/$ROS_DISTRO/setup.sh \ 
+    cd marrtinorobot2_ws  && \ 
+    rm -rf /etc/ros/rosdep/sources.list.d/20-default.list  && \
+    rosdep init && \
+    rosdep update
 
+USER robot
+RUN . /opt/ros/$ROS_DISTRO/setup.sh \ 
+     rosdep install --from-path src --ignore-src -y --skip-keys microxrcedds_agent --skip-keys micro_ros_agent
+
+USER robot
+
+RUN cd marrtinorobot2_ws  && \ 
+    colcon build
 
 
 #RUN echo ". /marrtinorobot2_ws/install/setup.bash" >> ~/.bashrc
