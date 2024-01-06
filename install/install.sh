@@ -31,7 +31,6 @@ git clone -b $ROS_DISTRO https://github.com/lartigianitecnologici/marrtinorobot2
 
 
 cd $WORKSPACE/src
-ln -s $HOME/src/marrtinorobot2/marrtinorobot2 .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_base .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_bringup .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_description .
