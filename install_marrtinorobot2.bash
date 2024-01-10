@@ -282,7 +282,7 @@ git clone -b $ROS_DISTRO https://github.com/linorobot/marrtinorobot2 src/marrtin
 #### 2.2 Ignore Gazebo Packages on robot computer (optional) for raspberry pi 
 cd $WORKSPACE/src/marrtinorobot2/marrtinorobot2_gazebo
 
-#touch COLCON_IGNORE
+touch COLCON_IGNORE
 
 #### 2.3 Install marrtinorobot2 package:
 cd $WORKSPACE

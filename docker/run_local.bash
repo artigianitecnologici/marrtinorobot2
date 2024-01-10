@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGENAME=marrtinorobot2:system
+IMAGENAME=marrtinorobot2:desktop
 
 # change setings here if needed
 if [ "$ROBOT_IP" == "" ]; then

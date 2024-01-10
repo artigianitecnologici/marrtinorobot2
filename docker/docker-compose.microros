@@ -1,0 +1,15 @@
+  orazio:
+    image: marrtinorobot2:microros
+    build:
+      dockerfile: Dockerfile.microros
+    container_name: microros
+    dns: 8.8.8.8
+    network_mode: "host"
+    tty: true
+    privileged: true
+    environment:
+    - ROS_IP=$ROS_IP
+    volumes:
+    - /dev:/dev
+   
+

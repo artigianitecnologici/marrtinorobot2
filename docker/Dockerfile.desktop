@@ -1,156 +1,26 @@
-FROM osrf/ros:humble-desktop-full
+# Docker file for MARRtinorobot2 software
+# ROS humble
+# System image - humble
+# docker build -t marrtinorobot2:desktop -f Dockerfile.desktop .
+FROM marrtinorobot2:microros
 
-ARG WORKSPACE=humble_dev_ws
-WORKDIR /root/$WORKSPACE
-
-ENV NVIDIA_VISIBLE_DEVICES \
-    ${NVIDIA_VISIBLE_DEVICES:-all}
-ENV NVIDIA_DRIVER_CAPABILITIES \
-    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
-ENV QT_X11_NO_MITSHM=1
-ENV EDITOR=nano
-ENV XDG_RUNTIME_DIR=/tmp
-
-RUN apt-get update && apt-get install -y \
-    cmake \
-    curl \
-    gazebo \
-    libglu1-mesa-dev \
-    nano \
-    python3-pip \
-    python3-pydantic \
-    ros-humble-gazebo-ros \
-    ros-humble-gazebo-ros-pkgs \
-    ros-humble-joint-state-publisher \
-    ros-humble-robot-localization \
-    ros-humble-plotjuggler-ros \
-    ros-humble-robot-state-publisher \
-    ros-humble-ros2bag \
-    ros-humble-rosbag2-storage-default-plugins \
-    ros-humble-rqt-tf-tree \
-    ros-humble-rmw-fastrtps-cpp \
-    ros-humble-rmw-cyclonedds-cpp \
-    ros-humble-slam-toolbox \
-    ros-humble-turtlebot3 \
-    ros-humble-turtlebot3-msgs \
-    ros-humble-twist-mux \
-    ros-humble-usb-cam \
-    ros-humble-xacro \
-    ruby-dev \
-    rviz \
-    tmux \
-    wget \
-    xorg-dev \
-    zsh
-
-RUN pip3 install setuptools==58.2.0
-
-RUN wget https://github.com/openrr/urdf-viz/releases/download/v0.38.2/urdf-viz-x86_64-unknown-linux-gnu.tar.gz && \
-    tar -xvzf urdf-viz-x86_64-unknown-linux-gnu.tar.gz -C /usr/local/bin/ && \
-    chmod +x /usr/local/bin/urdf-viz && \
-    rm -f urdf-viz-x86_64-unknown-linux-gnu.tar.gz
-
-RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
-    -p git \
-    -p https://github.com/zsh-users/zsh-autosuggestions \
-    -p https://github.com/zsh-users/zsh-completions
-
-RUN gem install tmuxinator && \
-    wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh -O /usr/local/share/zsh/site-functions/_tmuxinator
+WORKDIR /marrtinorobot2_ws
+RUN . /opt/ros/$ROS_DISTRO/setup.sh \
+&&  apt update \
+&&  apt -y install ros-humble-desktop ros-humble-rviz tmux
 
 RUN apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    tmux less sudo eom nano git \
-    openssl shellinabox netcat \
-    wget iputils-ping net-tools openssh-client nginx \
-    python3-pip libwebsockets-dev \
-    build-essential \
-    python3-rosdep \
-    python3-rosinstall \
-    python3-vcstools \
-    build-essential \
-    libserial-dev \
-    python3-serial \
-    && rm -rf /var/lib/apt/lists/*
 
-# Bumperbot
-RUN command apt-get update && sudo apt-get install -y \
-     ros-$ROS_DISTRO-ros2-controllers \
-     ros-$ROS_DISTRO-ros2-control \
-     ros-$ROS_DISTRO-gazebo-ros \
-     ros-$ROS_DISTRO-gazebo-ros-pkgs \
-     ros-$ROS_DISTRO-gazebo-ros2-control \
-     ros-$ROS_DISTRO-joint-state-publisher-gui \
-     ros-$ROS_DISTRO-teleop-twist-keyboard \
-     ros-$ROS_DISTRO-teleop-twist-joy \
-     ros-$ROS_DISTRO-turtlesim \
-     ros-$ROS_DISTRO-robot-localization \
-     ros-$ROS_DISTRO-tf-transformations
+ENV RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+ENV MICROROS_DISABLE_SHM=1
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        ros-dev-tools \
-        ros-$ROS_DISTRO-ament-* \
-    && rm -rf /var/lib/apt/lists/*
+RUN echo ". /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
+RUN echo ". /marrtinorobot2_ws/install/setup.bash" >> ~/.bashrc
 
-
-RUN mkdir -p $HOME/src && \
-    cd $HOME/src && \
-    git clone  https://github.com/artigianitecnologici/marrtino_ros2.git
-RUN mkdir -p $HOME/marrtino2_ws/src
-
-RUN mkdir -p /root/preinstall/msgs \
-    /root/preinstall/description \
-    /root/preinstall/localization \
-    /root/preinstall/controller \
-    /root/preinstall/firmware \
-    /root/preinstall/bringup
-
-
-COPY ./marrtino2_bringup/package.xml /root/preinstall/bringup
-COPY ./marrtino2_controller/package.xml /root/preinstall/controller
-COPY ./marrtino2_description/package.xml /root/preinstall/description
-COPY ./marrtino2_firmware/package.xml /root/preinstall/firmware
-COPY ./marrtino2_localization/package.xml /root/preinstall/localization
-COPY ./marrtino2_msgs/package.xml /root/preinstall/msgs
-
-RUN apt-get update \
-        && rosdep update --rosdistro=${ROS_DISTRO} \
-        && rosdep install --rosdistro=${ROS_DISTRO} --from-paths /root/preinstall -iry --os=ubuntu:$(lsb_release -sc) \
-    && rm -rf /var/lib/apt/lists/*
-
-
-#RUN source /opt/ros/$ROS_DISTRO/setup.bash
-RUN cd $HOME/marrtino2_ws/src && \
-    ln -s $HOME/src/marrtino_ros2/src/marrtino2_controller . && \
-    ln -s $HOME/src/marrtino_ros2/src/marrtino2_bringup . && \
-    ln -s $HOME/src/marrtino_ros2/src/marrtino2_description . && \
-    ln -s $HOME/src/marrtino_ros2/src/marrtino2_firmware . && \
-    ln -s $HOME/src/marrtino_ros2/src/marrtino2_localization . && \
-    ln -s $HOME/src/marrtino_ros2/src/marrtino2_msgs .
-
-WORKDIR /root/marrtino2_ws
-
-RUN cp $HOME/src/marrtino_ros2/*.sh $HOME/marrtino2_ws/.
-
-
-RUN echo "export DISABLE_AUTO_TITLE=true" >> /root/.zshrc
-RUN echo 'LC_NUMERIC="en_US.UTF-8"' >> /root/.zshrc
-RUN echo "source /opt/ros/humble/setup.zsh" >> /root/.zshrc
-RUN echo "source /usr/share/gazebo/setup.sh" >> /root/.zshrc
-
-RUN echo 'alias rosdi="rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y"' >> /root/.zshrc
-RUN echo 'alias cbuild="colcon build --symlink-install"' >> /root/.zshrc
-RUN echo 'alias ssetup="source ./install/local_setup.zsh"' >> /root/.zshrc
-RUN echo 'alias cyclone="export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp"' >> /root/.zshrc
-RUN echo 'alias fastdds="export RMW_IMPLEMENTATION=rmw_fastrtps_cpp"' >> /root/.zshrc
-RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> /root/.zshrc
-
-RUN echo "autoload -U bashcompinit" >> /root/.zshrc
-RUN echo "bashcompinit" >> /root/.zshrc
-RUN echo 'eval "$(register-python-argcomplete3 ros2)"' >> /root/.zshrc
-RUN echo 'eval "$(register-python-argcomplete3 colcon)"' >> /root/.zshrc
-
-CMD [ "tmuxinator", "start", "-p", "/root/.session.yml" ]
+# setup entrypoint
+#COPY ./microros/micro-ros_entrypoint.sh /
+#ENTRYPOINT ["/bin/sh", "/micro-ros_entrypoint.sh"]
+CMD [ "/usr/bin/tmux" ]
