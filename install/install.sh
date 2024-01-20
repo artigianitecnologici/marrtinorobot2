@@ -10,18 +10,20 @@ ARCH="$(uname -m)"
 WORKSPACE="$HOME/marrtinorobot2_ws"
 
 #### 1.4 Download and install micro-ROS:
-cd $WORKSPACE
+cd $HOME/marrtinorobot2_ws
 git clone -b $ROS_DISTRO https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup
 sudo apt install -y python3-vcstool build-essential
 sudo apt update && rosdep update
 rosdep install --from-path src --ignore-src -y
 colcon build
-source $WORKSPACE/install/setup.bash
+source install/setup.bash
 
 #### 1.5 Setup micro-ROS agent:
 ros2 run micro_ros_setup create_agent_ws.sh
 ros2 run micro_ros_setup build_agent.sh
-source $WORKSPACE/install/setup.bash
+source  install/setup.bash
+
+
 
 mkdir -p $HOME/src
 cd $HOME/src
@@ -68,6 +70,8 @@ ros2 run web_video_server web_video_server
 
 ros2 launch rosbridge_server rosbridge_websocket_launch.xml
 ros2 launch teleop_twist_joy teleop-launch.py joy_config:='xbox'
+# important
+# hold R2 or X 
 
 ##install nodejs
 sudo apt-get update

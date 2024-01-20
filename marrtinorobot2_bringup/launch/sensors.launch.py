@@ -23,8 +23,8 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    laser_sensor_name = os.getenv('marrtinorobot2_LASER_SENSOR', '')
-    depth_sensor_name = os.getenv('marrtinorobot2_DEPTH_SENSOR', '')
+    laser_sensor_name = os.getenv('MARRTINOROBOT2_LASER_SENSOR', '')
+    depth_sensor_name = os.getenv('MARRTINOROBOT2_DEPTH_SENSOR', '')
     
     fake_laser_config_path = PathJoinSubstitution(
         [FindPackageShare('marrtinorobot2_bringup'), 'config', 'fake_laser.yaml']

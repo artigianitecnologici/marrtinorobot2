@@ -3,7 +3,8 @@
 # System image - humble
 
 # docker build -t marrtinorobot2:base -f Dockerfile.base .
-FROM ros:humble
+# FROM ros:humble
+FROM ros:humble-ros-base-jammy
 
 WORKDIR /marrtinorobot2_ws
 
@@ -23,6 +24,8 @@ RUN git clone --depth 1 -b humble https://github.com/micro-ROS/micro_ros_setup.g
 COPY ./base/micro-ros_entrypoint.sh /micro-ros_entrypoint.sh
 
 ENV RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+
+
 
 RUN echo ". /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 RUN echo ". /marrtinorobot2_ws/install/setup.bash" >> ~/.bashrc

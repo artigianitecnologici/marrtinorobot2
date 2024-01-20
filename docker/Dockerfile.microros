@@ -13,7 +13,7 @@ RUN . /opt/ros/$ROS_DISTRO/setup.sh \
 &&  ros2 run micro_ros_setup build_agent.sh \
 &&  rm -rf log/ build/ src/
 
-RUN apt -y install tmuxinator 
+RUN apt -y install tmuxinator tmux
 
 RUN apt-get autoremove -y \
     && apt-get clean -y \
@@ -36,5 +36,5 @@ RUN echo ". /marrtinorobot2_ws/install/setup.bash" >> ~/.bashrc
 
 # setup entrypoint
 COPY ./microros/micro-ros_entrypoint.sh /
-#ENTRYPOINT ["/bin/sh", "/micro-ros_entrypoint.sh"]
-CMD [ "/usr/bin/tmux" ]
+ENTRYPOINT ["/bin/sh", "/micro-ros_entrypoint.sh"]
+#CMD [ "/usr/bin/tmux" ]
