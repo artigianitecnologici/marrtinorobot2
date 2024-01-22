@@ -1,0 +1,42 @@
+version: "3.3"
+
+services:
+
+  base:
+    image: marrtinorobot2:base
+    build:
+      context: $MARRTINOROBOT2_HOME/docker
+      dockerfile: Dockerfile.base
+    container_name: base
+    dns: 8.8.8.8
+    network_mode: "host"
+    tty: true
+    environment:
+    - DISPLAY=$DISPLAY
+    - ROS_IP=$ROS_IP
+    - ROBOT_TYPE=$ROBOT_TYPE
+    volumes:
+    - $MARRTINO_APPS_HOME:/home/robot/src/marrtino_apps
+    - $HOME/log:/home/robot/log
+
+
+
+  microros:
+    image: marrtinorobot2:microros
+    build:
+      context: $MARRTINOROBOT2_HOME/docker
+      dockerfile: Dockerfile.microros
+    container_name: microros
+    dns: 8.8.8.8
+    network_mode: "host"
+    tty: true
+    privileged: true
+    environment:
+    - ROS_IP=$ROS_IP
+    volumes:
+    - /dev:/dev
+
+  
+
+ 
+  

@@ -12,3 +12,4 @@ fi
 #exec ros2 run micro_ros_agent micro_ros_agent "$@"
 exec ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyACM0
 
+#marrtino@192.168.1.14

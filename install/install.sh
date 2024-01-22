@@ -8,8 +8,6 @@ LASER_SENSOR=$2
 DEPTH_SENSOR=$3
 ARCH="$(uname -m)"
 WORKSPACE="$HOME/marrtinorobot2_ws"
-sudo apt-get -y install xml2
-## prerequisite important
 
 #### 1.4 Download and install micro-ROS:
 cd $HOME/marrtinorobot2_ws

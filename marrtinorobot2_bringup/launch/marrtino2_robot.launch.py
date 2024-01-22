@@ -18,9 +18,9 @@ def generate_launch_description():
         [FindPackageShare('marrtinorobot2_description'), 'launch', 'description.launch.py']
     )
      
-    #joy_launch_path = PathJoinSubstitution(
-    #    [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'joy_teleop.launch.py']
-    #)
+    joy_launch_path = PathJoinSubstitution(
+        [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'joy_teleop.launch.py']
+    )
 
 
     return LaunchDescription([
@@ -39,9 +39,9 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(description_launch_path)
         ),
-        #IncludeLaunchDescription(
-        #    PythonLaunchDescriptionSource(joy_launch_path)
-        #),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(joy_launch_path)
+        ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(sensors_launch_path),
         )
