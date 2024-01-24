@@ -20,6 +20,9 @@ ln -s $HOME/src/marrtinorobot2/marrtinorobot2_bringup .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_description .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_gazebo .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_navigation .
+ln -s $HOME/src/marrtinorobot2/marrtinorobot2_teleop .
+
+### 2.3 Install mexplorer
 
 
 ### 2.3 Install marrtinorobot2 package:
