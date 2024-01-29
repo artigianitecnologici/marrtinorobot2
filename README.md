@@ -1,3 +1,12 @@
+source /opt/ros/humble/setup.bash
+source /home/marrtino/marrtinorobot2_ws/install/setup.bash
+
+export MARRTINOROBOT2_BASE=2wd
+export MARRTINOROBOT2_LASER_SENSOR=rplidar
+
+
+
+
 # marrtinorobot2
 ![marrtinorobot2](docs/marrtinorobot2.gif)
 
