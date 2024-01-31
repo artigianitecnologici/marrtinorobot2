@@ -20,10 +20,10 @@ class TTSNode(Node):
     def tts_callback(self, msg):
         text = msg.data
         self.get_logger().info('Received text: "%s"' % text)
-        tts = gTTS(text, lang='it')
+        #tts = gTTS(text, lang='it')
 
         # Convert text to speech
-        tts = gTTS(text)
+        tts = gTTS(text,lang='it')
         tts.save('output.mp3')
         os.system('mpg321 output.mp3')
 
