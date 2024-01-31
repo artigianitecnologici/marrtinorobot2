@@ -1,5 +1,5 @@
 
-<b>DISABLE POWER OFF WIFI </b>
+# DISABLE POWER OFF WIFI  
 
 1. To disable power saving mode for your wifi on Raspberry Pi running Ubuntu 22.04, you can try the following steps:
 2. Open a terminal window and type sudo nano /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf to open the configuration file.
