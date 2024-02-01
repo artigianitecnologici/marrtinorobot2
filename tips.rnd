@@ -16,3 +16,8 @@
     docker0   no wireless extensions.
 
 7 iw wlan0 info
+
+
+# CREATE A PUBLISHER 
+
+ros2 pkg create --build-type ament_python --license Apache-2.0 py_pubsub

@@ -9,10 +9,10 @@ class TTSNode(Node):
 
     def __init__(self):
         super().__init__('tts_node')
-        self.publisher_ = self.create_publisher(String, 'tts_output', 10)
+        self.publisher_ = self.create_publisher(String, '/speech/status', 10)
         self.subscription = self.create_subscription(
             String,
-            'tts_input',
+            '/speech/to_speak',
             self.tts_callback,
             10)
         self.subscription
