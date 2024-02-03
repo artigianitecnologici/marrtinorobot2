@@ -1,0 +1,33 @@
+<!-- templates/blockly.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockly Programming</title>
+    <script src="{{ url_for('static', filename='blockly/blockly_compressed.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/blocks_compressed.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/javascript_compressed.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='blockly/css/blockly.css') }}">
+</head>
+<body>
+    <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+    <textarea id="code" style="height: 200px; width: 600px;"></textarea>
+    <button onclick="generateCode()">Generate Code</button>
+    <script src="{{ url_for('static', filename='blockly/msg/js/en.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/python_compressed.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/python.js') }}"></script>
+    <script>
+        var workspace = Blockly.inject('blocklyDiv', {
+            media: '{{ url_for("static", filename="blockly/media/") }}',
+            toolbox: document.getElementById('toolbox')
+        });
+
+        function generateCode() {
+            var code = Blockly.Python.workspaceToCode(workspace);
+            document.getElementById('code').value = code;
+        }
+    </script>
+</body>
+</html>

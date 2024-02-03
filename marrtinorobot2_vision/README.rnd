@@ -1,0 +1,9 @@
+# Vision
+
+# prerequisite f
+pip3 install gtts
+sudo apt install mpg321
+
+ros2 topic pub  -1 /tts_input std_msgs/msg/String '{data: "tutti i sistemi sono operativi"}'
+
+
