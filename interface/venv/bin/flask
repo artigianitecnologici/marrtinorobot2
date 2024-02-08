@@ -1,4 +1,4 @@
-#!/home/ubuntu/src/marrtinorobot2/interface/venv/bin/python3
+#!/home/ubuntu/src/marrtinorobot2/interface/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

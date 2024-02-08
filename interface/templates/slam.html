@@ -1,0 +1,46 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bringup MARRtino ROS 2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+</head>
+<body>
+   
+    <div class="container-fluid">
+        <div class="row">   
+            <!-- Include the navigation -->
+                {% include 'navbar.html' %}
+         <!--<div class="col-md-12"  style="background-color:yellow;" align="center" ><h2>EMOTIONS</h2></div>--> 
+      
+        </div>
+        <div class="row">  
+            <div class="col">
+            <h1>Interface ROS 2</h1>
+            <h1>NAVIGATION </h1>
+            </div>
+        </div>
+        <form action="/execute_slam" method="post">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="rviz" id="rvizCheckbox" {% if options_state.rviz%}checked{% endif %}>
+                <label class="form-check-label" for="rvizCheckbox"> Rviz 2</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="sim" id="simCheckbox" {% if options_state.sim %}checked{% endif %}>
+                <label class="form-check-label" for="webcamCheckbox"> Simulation</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Execute Slam</button>
+            
+        </form>
+       
+     </div>   
+     <!-- Bootstrap JS and jQuery -->
+     <script src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
+     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>

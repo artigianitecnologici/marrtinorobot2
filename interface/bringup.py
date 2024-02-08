@@ -22,8 +22,23 @@ def read_options_state():
 initial_options_state = read_options_state()
 save_options_state(initial_options_state['joy'], initial_options_state['webcam'], initial_options_state['audio'])
 
+
+# Definisci una lista di voci del menu con i loro percorsi
+menu_items = [
+    {"name": "Home", "url": "/"},
+    {"name": "Bringup", "url": "/bringup"},
+    {"name": "Slam", "url": "/slam"},
+    {"name": "Navigation", "url": "/navigation"},
+    {"name": "Programming", "url": "/programming"}
+]
+
 @app.route('/')
 def index():
+    return render_template('index.html', menu_items=menu_items)
+
+
+@app.route('/bringup')
+def bringup():
     options_state = read_options_state()
     return render_template('bringup.html', options_state=options_state)
 
@@ -53,6 +68,30 @@ def execute_bringup():
 def blockly():
     return render_template('blockly.html')
 
+@app.route('/slam')
+def slam():
+    options_state = read_options_state()
+    return render_template('slam.html', options_state=options_state)
+
+@app.route('/execute_slam')
+def execute_slam():
+    rviz = request.form.get('rviz') == 'on'
+    sim = request.form.get('sim') == 'on'
+    commands = ['ros2 launch marrtinorobot2_navigation slam.launch.py ']
+    if rviz:
+        commands = ['ros2 launch marrtinorobot2_navigation slam.launch.py rviz:=true']
+    if sim:
+        commands = ['ros2 launch marrtinorobot2_navigation slam.launch.py sim:=true']
+    if ( rviz and sim):
+        commands = ['ros2 launch marrtinorobot2_navigation slam.launch.py rviz:=true sim:=true']
+    try:
+        result = subprocess.check_output(' && '.join(commands), shell=True, stderr=subprocess.STDOUT, text=True)
+        return render_template('result.html', result=result)
+    except subprocess.CalledProcessError as e:
+        return render_template('result.html', result=f"Error executing commands: {e.output}")
+     
+
+    return render_template('blockly.html')
 
 def execute_shutdown():
     try:
