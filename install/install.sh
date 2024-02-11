@@ -74,6 +74,9 @@ ros2 launch rosbridge_server rosbridge_websocket_launch.xml
 ros2 launch teleop_twist_joy teleop-launch.py joy_config:='xbox'
 # important
 # hold R2 or X 
+echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"' | sudo tee /etc/udev/rules.d/80-movidius.rules
+sudo udevadm control --reload-rules && sudo udevadm trigger
+sudo apt install ros-$ROS_DISTRO-depthai-ros
 
 ##install nodejs
 sudo apt-get update
