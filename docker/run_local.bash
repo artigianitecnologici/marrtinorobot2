@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGENAME=marrtinorobot2:microros
+IMAGENAME=marrtinorobot2:robot
 
 # change setings here if needed
 if [ "$ROBOT_IP" == "" ]; then
