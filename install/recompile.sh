@@ -25,7 +25,10 @@ ln -s $HOME/src/marrtinorobot2/marrtinorobot2_bringup .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_description .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_gazebo .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_navigation .
+ln -s $HOME/src/m-explore-ros2 .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_teleop .
+#ln -s $HOME/src/marrtinorobot2/marrtinorobot2_vision .
+#ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
 
 ### 2.3 Install mexplorer
 
@@ -40,3 +43,7 @@ cp $HOME/src/marrtinorobot2/install/script/*.sh .
 
 
 sudo apt install -y ros-$ROS_DISTRO-rplidar-ros
+echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"' | sudo tee /etc/udev/rules.d/80-movidius.rules
+sudo udevadm control --reload-rules && sudo udevadm trigger
+sudo apt install ros-$ROS_DISTRO-depthai-ros
+
