@@ -29,6 +29,7 @@ menu_items = [
     {"name": "Bringup", "url": "/bringup"},
     {"name": "Slam", "url": "/slam"},
     {"name": "Navigation", "url": "/navigation"},
+    {"name": "Simulation", "url": "/simulation"},
     {"name": "Programming", "url": "/programming"}
 ]
 
@@ -92,6 +93,36 @@ def execute_slam():
      
 
     return render_template('blockly.html')
+
+@app.route('/navigation')
+def navigation():
+    options_state = read_options_state()
+    return render_template('navigation.html', options_state=options_state)
+
+
+@app.route('/simulation')
+def simulation():
+    options_state = read_options_state()
+    return render_template('simulation.html', options_state=options_state)
+
+
+    
+@app.route('/execute_simulation', methods=['POST'])
+def execute_simulation():
+    try:
+        # Command to start tmux session and execute the script within it
+        tmux_command = ['tmux', 'new-session', '-d', '-s', 'simulation', 'bash', 'script/gazebo.sh']
+
+        # Run the tmux command
+        subprocess.run(tmux_command, check=True)
+
+        return render_template('result.html', result="Simulation started successfully")
+    except subprocess.CalledProcessError as e:
+        return render_template('result.html', result=f"Error starting simulation: {e}")
+
+
+
+
 
 def execute_shutdown():
     try:

@@ -1,6 +1,5 @@
 
 ## CREATE virtualenv
-
 python -m venv venv
 
 ## Activate

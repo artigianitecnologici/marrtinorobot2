@@ -1,9 +1,10 @@
 source /opt/ros/humble/setup.bash
 source /home/marrtino/marrtinorobot2_ws/install/setup.bash
 
-export MARRTINOROBOT2_BASE=2wd
+export MARRTINOROBOT2_BASE=yellow
 export MARRTINOROBOT2_LASER_SENSOR=rplidar
 
+export MARRTINOROBOT2_DEPTH_SENSOR=oakdlite
 
 
 

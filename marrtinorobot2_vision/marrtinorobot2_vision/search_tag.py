@@ -4,19 +4,18 @@ from sensor_msgs.msg import Image
 from geometry_msgs.msg import Twist
 from cv_bridge import CvBridge
 import cv2
-import numpy as np
+import apriltag
 
 class SearchTagNode(Node):
     def __init__(self):
         super().__init__('search_tag_node')
         self.subscription = self.create_subscription(
             Image,
-            'camera/image',
+            '/camera/image_raw',
             self.image_callback,
             10)
         self.cv_bridge = CvBridge()
         self.pub_cmd_vel = self.create_publisher(Twist, 'cmd_vel', 10)
-        self.target_tag_id = 42  # ID del tag da cercare
         self.desired_distance = 1.0  # Distanza desiderata dal tag
         self.k_linear = 0.1  # Costante di proporzionalità per il controllo lineare
         self.k_angular = 0.1  # Costante di proporzionalità per il controllo angolare
@@ -24,7 +23,7 @@ class SearchTagNode(Node):
     def image_callback(self, msg):
         cv_image = self.cv_bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
         
-        # Rileva i tag ArUco nell'immagine utilizzando OpenCV
+        # Rileva i tag Apriltag nell'immagine utilizzando apriltag
         tag_center, tag_orientation = self.detect_tag(cv_image)
 
         if tag_center is not None:
@@ -44,16 +43,24 @@ class SearchTagNode(Node):
             self.publish_velocity(0.0, 0.0)
 
     def detect_tag(self, image):
-        # Esegui il riconoscimento dei tag ArUco utilizzando OpenCV
-        aruco_dict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_ARUCO_ORIGINAL)
-        parameters = cv2.aruco.DetectorParameters_create()
-        corners, ids, _ = cv2.aruco.detectMarkers(image, aruco_dict, parameters=parameters)
+        # Converti l'immagine in scala di grigi
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         
-        if ids is not None and self.target_tag_id in ids:
-            # Se il tag è trovato, calcola il centro e l'orientazione del tag
-            index = np.where(ids == self.target_tag_id)[0][0]
-            rvec, tvec, _ = cv2.aruco.estimatePoseSingleMarkers(corners[index], 0.1, self.camera_matrix, self.dist_coeff)
-            return tuple(tvec.squeeze()), tuple(rvec.squeeze())
+        # Crea un oggetto apriltag.Detector
+        detector = apriltag.Detector()
+        
+        # Rileva i tag Apriltag nell'immagine
+        detections, _ = detector.detect(gray_image)
+        
+        if detections:
+            # Se vengono rilevati tag, prendi il primo tag rilevato
+            detection = detections[0]
+            
+            # Estrai il centro e l'orientazione del tag
+            center = detection.center
+            orientation = detection.homography[0:2, 0:2]
+            
+            return center, orientation
         else:
             # Se il tag non è trovato, restituisci None
             return None, None
@@ -67,6 +74,7 @@ class SearchTagNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     search_tag_node = SearchTagNode()
+    search_tag_node.get_logger().info('Start find tag')
     rclpy.spin(search_tag_node)
     search_tag_node.destroy_node()
     rclpy.shutdown()

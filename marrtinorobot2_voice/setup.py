@@ -13,7 +13,7 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='ubuntu',
+    maintainer='ferrarini fabio',
     maintainer_email='ferrarini09@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
