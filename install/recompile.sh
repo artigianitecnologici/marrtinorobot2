@@ -52,3 +52,9 @@ sudo apt install ros-$ROS_DISTRO-rtabmap-ros
 ## cartographer
 sudo apt install ros-$ROS_DISTRO-cartographer 
 sudo apt install ros-$ROS_DISTRO-cartographer-ros
+
+ sudo apt-get install ros-${ROS_DISTRO}-v4l2-camera
+ sudo apt install v4l-utils
+ sudo apt install ros-$ROS_DISTRO-camera-calibration-parsers
+ sudo apt install ros-$ROS_DISTRO-camera-info-manager
+ sudo apt install ros-$ROS_DISTRO-launch-testing-ament-cmake

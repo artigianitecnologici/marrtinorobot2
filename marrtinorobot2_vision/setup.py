@@ -19,7 +19,11 @@ setup(
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': [
-        ],
+    'console_scripts': [
+      'img_publisher = marrtinorobot2_vision.webcam_pub:main',
+      'img_subscriber = marrtinorobot2_vision.webcam_sub:main',
+	
+
+      ],
     },
 )
