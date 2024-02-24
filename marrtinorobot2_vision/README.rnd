@@ -31,3 +31,8 @@ sudo apt install v4l-utils
 
  sudo apt-get install ros-humble-rosbridge-suite
 sudo apt-get install ros-humble-webviz
+
+
+
+-To use the the calibration file unzip the calibration.tar.gz
+tar -xvf calibration.tar.gz

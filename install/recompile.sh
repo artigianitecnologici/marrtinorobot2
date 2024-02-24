@@ -58,3 +58,6 @@ sudo apt install ros-$ROS_DISTRO-cartographer-ros
  sudo apt install ros-$ROS_DISTRO-camera-calibration-parsers
  sudo apt install ros-$ROS_DISTRO-camera-info-manager
  sudo apt install ros-$ROS_DISTRO-launch-testing-ament-cmake
+
+# prerequisite marrtinorobot2_voice
+pip3 install gtts

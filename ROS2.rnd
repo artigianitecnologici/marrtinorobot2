@@ -1,0 +1,15 @@
+# create a package 
+
+ros2 pkg create marrtinorobot2_test --build-type ament_python --dependencies rclpy
+
+
+# install code 
+
+# fix error warning when compile 
+https://www.youtube.com/watch?v=iBGZ8LEvkCY
+# 
+sudo apt install python3-pip
+pip3 list | grep setuptools
+
+pip3 install setuptools==58.2.0
+pip3 list | grep setuptools

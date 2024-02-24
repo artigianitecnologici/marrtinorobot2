@@ -22,8 +22,8 @@ class TagRecognizerNode(Node):
         self.base_apriltag_id = 99  # ID of the Apriltag representing the charging base
         # Define control constants
         self.linear_speed = 0.2
-        self.angular_speed = 0.5
-        self.target_distance = 1.0  # Distance from the base marker where the robot should stop
+        self.angular_speed = 0.1
+        self.target_distance = 0.3  # Distance from the base marker where the robot should stop
         # Flag to indicate whether the base marker has been found
         self.base_apriltag_found = False
 
@@ -44,6 +44,7 @@ class TagRecognizerNode(Node):
         else:
             # Calculate the distance from the robot to the base tag
             distance = self.calculate_distance_to_base(msg)
+            print(distance)
             if distance is not None:
                 # If the distance is less than the target distance, stop the robot
                 if distance < self.target_distance:

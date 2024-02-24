@@ -34,6 +34,7 @@ def generate_launch_description():
         [FindPackageShare('marrtinorobot2_description'), 'launch', 'description.launch.py']
     )
 
+
     ekf_config_path = PathJoinSubstitution(
         [FindPackageShare("marrtinorobot2_base"), "config", "ekf.yaml"]
     )
