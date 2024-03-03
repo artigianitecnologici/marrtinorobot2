@@ -61,3 +61,4 @@ sudo apt install ros-$ROS_DISTRO-cartographer-ros
 
 # prerequisite marrtinorobot2_voice
 pip3 install gtts
+sudo apt install mpg321
