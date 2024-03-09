@@ -26,6 +26,7 @@ ln -s $HOME/src/marrtinorobot2/marrtinorobot2_description .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_gazebo .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_navigation .
 ln -s $HOME/src/m-explore-ros2 .
+ln -s $HOME/src/OrbbecSDK_ROS2 .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_teleop .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_vision .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
@@ -58,7 +59,8 @@ sudo apt install ros-$ROS_DISTRO-cartographer-ros
  sudo apt install ros-$ROS_DISTRO-camera-calibration-parsers
  sudo apt install ros-$ROS_DISTRO-camera-info-manager
  sudo apt install ros-$ROS_DISTRO-launch-testing-ament-cmake
-
+ # astra camera
+ sudo apt install ros-$ROS_DISTRO-image-pipeline libuvc-dev
 # prerequisite marrtinorobot2_voice
 pip3 install gtts
 sudo apt install mpg321

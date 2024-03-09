@@ -6,7 +6,8 @@ export MARRTINOROBOT2_LASER_SENSOR=rplidar
 
 export MARRTINOROBOT2_DEPTH_SENSOR=oakdlite
 
-
+# install astra camera 
+git clone https://github.com/orbbec/OrbbecSDK_ROS2.git
 
 # marrtinorobot2
 ![marrtinorobot2](docs/marrtinorobot2.gif)

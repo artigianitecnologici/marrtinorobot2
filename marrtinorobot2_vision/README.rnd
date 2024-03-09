@@ -1,8 +1,13 @@
 # Vision
 
-# prerequisite f
+# prerequisite for python
 pip3 install gtts
+pip3 install mediapipe
 sudo apt install mpg321
+
+# install astra camera 
+git clone https://github.com/orbbec/OrbbecSDK_ROS2.git
+
 
 ros2 topic pub  -1 /tts_input std_msgs/msg/String '{data: "tutti i sistemi sono operativi"}'
 
@@ -29,7 +34,7 @@ sudo apt install v4l-utils
  https://automaticaddison.com/getting-started-with-opencv-in-ros-2-foxy-fitzroy-python/
 
 
- sudo apt-get install ros-humble-rosbridge-suite
+sudo apt-get install ros-humble-rosbridge-suite
 sudo apt-get install ros-humble-webviz
 
 

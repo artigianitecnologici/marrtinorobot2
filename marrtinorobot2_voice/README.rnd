@@ -15,3 +15,4 @@ sudo apt-get install ros-humble-rosbridge-suite
 sudo apt-get install ros-humble-webviz
 
 
+sudo apt install sox
