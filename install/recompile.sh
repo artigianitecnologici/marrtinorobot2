@@ -30,7 +30,7 @@ ln -s $HOME/src/m-explore-ros2/explore .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_teleop .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_vision .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
-
+ln -s $HOME/src/marrtinorobot2/marrtinorobot2_social .
 ### 2.3 Install mexplorer
 
 
