@@ -21,3 +21,21 @@
 # CREATE A PUBLISHER 
 
 ros2 pkg create --build-type ament_python --license Apache-2.0 py_pubsub
+
+# terminator
+sudo apt install terminator
+
+
+# rqt_graph
+
+ros2 pkg list | grep cartographer
+
+
+# turtlebot 3
+git clone -b humble-devel https://github.com/ROBOTIS-GIT/marrtinorobot2_simulations.git
+git clone -b humble-devel https://github.com/ROBOTIS-GIT/marrtinorobot2.git
+git clone -b humble-devel
+
+
+orbtec ros2
+https://github.com/orbbec/OrbbecSDK_ROS2

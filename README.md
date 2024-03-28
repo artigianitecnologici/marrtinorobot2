@@ -247,7 +247,7 @@ Alternatively, `map` argument can be used when launching Nav2 (next step) to dyn
     ros2 launch marrtinorobot2_navigation navigation.launch.py map:=<path_to_map_file>/<map_name>.yaml
 
 
-#### 4.2 Run [Nav2](https://navigation.ros.org/tutorials/docs/navigation2_on_real_turtlebot3.html) package:
+#### 4.2 Run [Nav2](https://navigation.ros.org/tutorials/docs/navigation2_on_real_marrtinorobot2.html) package:
 
     ros2 launch marrtinorobot2_navigation navigation.launch.py
 
@@ -263,7 +263,7 @@ The `rviz` argument for navigation.launch.py won't work on headless setup but yo
 
     ros2 launch marrtinorobot2_viz navigation.launch.py
 
-Check out Nav2 [tutorial](https://navigation.ros.org/tutorials/docs/navigation2_on_real_turtlebot3.html#initialize-the-location-of-turtlebot-3) for more details on how to initialize and send goal pose. 
+Check out Nav2 [tutorial](https://navigation.ros.org/tutorials/docs/navigation2_on_real_marrtinorobot2.html#initialize-the-location-of-turtlebot-3) for more details on how to initialize and send goal pose. 
 
 navigation.launch.py will continue to throw this error `Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist` until the robot's pose has been initialized.
 

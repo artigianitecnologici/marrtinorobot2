@@ -21,10 +21,10 @@ from launch.conditions import IfCondition
 from launch_ros.substitutions import FindPackageShare
 from launch_ros.actions import Node
 
-MAP_NAME='playground' #change to the name of your own map here
+MAP_NAME='demo' #change to the name of your own map here
 
 def generate_launch_description():
-    depth_sensor = os.getenv('marrtinorobot2_DEPTH_SENSOR', '')
+    depth_sensor = os.getenv('MARRTINOROBOT2_DEPTH_SENSOR', '')
 
     nav2_launch_path = PathJoinSubstitution(
         [FindPackageShare('nav2_bringup'), 'launch', 'bringup_launch.py']

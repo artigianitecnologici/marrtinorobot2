@@ -56,7 +56,7 @@ sudo apt install -y ros-$ROS_DISTRO-rosbridge-server
 sudo apt-get install -y ros-$ROS_DISTRO-teleop-twist-keyboard
 #sudo apt-get -y install libegl-mesa0
 sudo apt install -y ros-$ROS_DISTRO-teleop-twist-joy
-##### no --> sudo apt-get install ros-humble-web-video-server
+##### no --> sudo apt-get install ros-$ROS_DISTRO-web-video-server
 # launch rosbridge server
 # run the executable with default settings (without params file)
 ros2 run usb_cam usb_cam_node_exe
@@ -82,5 +82,11 @@ sudo apt install ros-$ROS_DISTRO-depthai-ros
 sudo apt-get update
 sudo apt-get install nodejs -y
 sudo apt install npm
+# cartographer 
+sudo apt install ros-$ROS_DISTRO-cartographer 
+sudo apt install ros-$ROS_DISTRO-cartographer-ros
+#  Navigation Stack for ROS 2
 
+sudo apt install ros-$ROS_DISTRO-navigation2 
+sudo apt install ros-$ROS_DISTRO-nav2-bringup
 ##### no -->  git clone -b ros2 https://github.com/RobotWebTools/web_video_server.git

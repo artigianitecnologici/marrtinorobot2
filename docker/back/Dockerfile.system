@@ -48,8 +48,8 @@ RUN apt-get update && apt-get install -y \
     ros-$ROS_DISTRO-rmw-fastrtps-cpp \
     ros-$ROS_DISTRO-rmw-cyclonedds-cpp \
     ros-$ROS_DISTRO-slam-toolbox \
-    ros-$ROS_DISTRO-turtlebot3 \
-    ros-$ROS_DISTRO-turtlebot3-msgs \
+    ros-$ROS_DISTRO-marrtinorobot2 \
+    ros-$ROS_DISTRO-marrtinorobot2-msgs \
     ros-$ROS_DISTRO-twist-mux \
     ros-$ROS_DISTRO-usb-cam \
     ros-$ROS_DISTRO-xacro \

@@ -31,8 +31,8 @@ RUN apt-get update && apt-get install -y \
     ros-humble-rmw-fastrtps-cpp \
     ros-humble-rmw-cyclonedds-cpp \
     ros-humble-slam-toolbox \
-    ros-humble-turtlebot3 \
-    ros-humble-turtlebot3-msgs \
+    ros-humble-marrtinorobot2 \
+    ros-humble-marrtinorobot2-msgs \
     ros-humble-twist-mux \
     ros-humble-usb-cam \
     ros-humble-xacro \
