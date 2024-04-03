@@ -29,7 +29,7 @@ def generate_launch_description():
     )
 
     world_path = PathJoinSubstitution(
-        [FindPackageShare("marrtinorobot2_gazebo"), "worlds", "demo.world"]
+        [FindPackageShare("marrtinorobot2_gazebo"), "worlds", "office.world"]
     )
 
     description_launch_path = PathJoinSubstitution(
