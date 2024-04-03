@@ -32,8 +32,7 @@ ln -s $HOME/src/marrtinorobot2/marrtinorobot2_description .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_gazebo .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_navigation .
 ln -s $HOME/src/m-explore-ros2/explore .
-ln -s $HOME/src/OrbbecSDK_ROS2 .
-ln -s $HOME/src/marrtinorobot2/marrtinorobot2_teleop .
+#ln -s $HOME/src/OrbbecSDK_ROS2 .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_vision .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_social .

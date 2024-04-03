@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
-<robot name="marrtinorobot2_4wd" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="marrtinorobot2_marrtino" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find marrtinorobot2_description)/urdf/4wd_properties.urdf.xacro" />
+  <xacro:include filename="$(find marrtinorobot2_description)/urdf/marrtino_properties.urdf.xacro" />
   <xacro:include filename="$(find marrtinorobot2_description)/urdf/mech/base.urdf.xacro" />
   <xacro:include filename="$(find marrtinorobot2_description)/urdf/mech/wheel.urdf.xacro" />
+  <xacro:include filename="$(find marrtinorobot2_description)/urdf/mech/caster_wheel.urdf.xacro" />
   <xacro:include filename="$(find marrtinorobot2_description)/urdf/sensors/imu.urdf.xacro" />
   <xacro:include filename="$(find marrtinorobot2_description)/urdf/sensors/generic_laser.urdf.xacro" />
   <xacro:include filename="$(find marrtinorobot2_description)/urdf/sensors/depth_sensor.urdf.xacro" />
-  <xacro:include filename="$(find marrtinorobot2_description)/urdf/controllers/skid_steer.urdf.xacro" />
+  <xacro:include filename="$(find marrtinorobot2_description)/urdf/controllers/diff_drive.urdf.xacro" />
 
   <xacro:base 
     length="${base_length}" 
@@ -19,7 +20,7 @@
 />
 
   <xacro:wheel 
-    side="front_left"
+    side="left"
     radius="${wheel_radius}" 
     width="${wheel_width}" 
     pos_x="${wheel_pos_x}" 
@@ -29,7 +30,7 @@
   />
 
   <xacro:wheel 
-    side="front_right"
+    side="right"
     radius="${wheel_radius}" 
     width="${wheel_width}" 
     pos_x="${wheel_pos_x}" 
@@ -37,28 +38,29 @@
     pos_z="${wheel_pos_z}" 
     mass="${wheel_mass}"
   />
-  <xacro:wheel 
-    side="rear_left"
-    radius="${wheel_radius}" 
-    width="${wheel_width}" 
-    pos_x="${-wheel_pos_x}" 
-    pos_y="${wheel_pos_y}" 
-    pos_z="${wheel_pos_z}" 
-    mass="${wheel_mass}"
-  />
 
-  <xacro:wheel 
-    side="rear_right"
-    radius="${wheel_radius}" 
-    width="${wheel_width}" 
-    pos_x="${-wheel_pos_x}" 
-    pos_y="${-wheel_pos_y}" 
-    pos_z="${wheel_pos_z}" 
-    mass="${wheel_mass}"
-  />
+  <xacro:if value="${front_caster_wheel}">
+    <xacro:caster_wheel 
+      side="front"
+      mass="0.01"
+      base_length="${base_length}" 
+      wheel_radius="${wheel_radius}" 
+      wheel_pos_z="${wheel_pos_z}" 
+    />
+  </xacro:if>
+
+  <xacro:if value="${rear_caster_wheel}">
+    <xacro:caster_wheel 
+      side="rear"
+      mass="0.01"
+      base_length="${base_length}" 
+      wheel_radius="${wheel_radius}" 
+      wheel_pos_z="${wheel_pos_z}" 
+    />
+  </xacro:if>
 
   <xacro:imu/>
-  
+
   <xacro:generic_laser>
     <xacro:insert_block name="laser_pose" />
   </xacro:generic_laser>

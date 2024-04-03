@@ -70,12 +70,12 @@ def generate_launch_description():
         
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(PathJoinSubstitution(
-                [FindPackageShare('depthai_examples'), 'launch', 'stereo.launch.py']
+                [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'stereo.launch.py']
             )),
-            #condition=IfCondition(PythonExpression(['"', LaunchConfiguration('sensor'), '" in "', str(oakd_sensors), '"'])),
-            #launch_arguments={
-            #    'camera_model': to_oakd_vars.get(LaunchConfiguration('sensor'), None),              
-            #}.items()   
+            condition=IfCondition(PythonExpression(['"', LaunchConfiguration('sensor'), '" in "', str(oakd_sensors), '"'])),
+            launch_arguments={
+                'camera_model': 'OAK-D_LITE',              
+            }.items()   
         ),
     ])
 
