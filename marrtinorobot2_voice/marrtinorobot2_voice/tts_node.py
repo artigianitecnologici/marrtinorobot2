@@ -19,6 +19,9 @@ class TTSNode(Node):
             self.tts_callback,
             10)
         self.subscription
+        msgstart = "ros2 topic pub  -1 /speech/to_speak std_msgs/msg/String '{data: "' "tutti i sistemi sono operativi"'"}'"
+        os.system(msgstart)
+
 
     def tts_callback(self, msg):
         text = msg.data
@@ -30,8 +33,9 @@ class TTSNode(Node):
         if self.is_connected():
             # Convert text to speech
             tts = gTTS(text, lang='it')
-            tts.save('output.mp3')
-            os.system('mpg321 output.mp3')
+            filename="/tmp/output.mp3"
+            tts.save(filename)
+            os.system('mpg321 ' + filename)
             # Publish the fact that the TTS is done
             self.publisher_.publish(String(data='TTS done'))
         else:
