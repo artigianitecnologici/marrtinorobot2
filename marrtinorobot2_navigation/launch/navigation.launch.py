@@ -21,7 +21,7 @@ from launch.conditions import IfCondition
 from launch_ros.substitutions import FindPackageShare
 from launch_ros.actions import Node
 
-MAP_NAME='demo' #change to the name of your own map here
+MAP_NAME='house' #change to the name of your own map here
 
 def generate_launch_description():
     depth_sensor = os.getenv('MARRTINOROBOT2_DEPTH_SENSOR', '')
