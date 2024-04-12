@@ -41,41 +41,41 @@ def generate_launch_description():
             description='Sensor to launch'
         ),
 
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(PathJoinSubstitution(
-                [FindPackageShare('realsense2_camera'), 'launch', 'rs_launch.py']
-            )),
-            condition=LaunchConfigurationEquals('sensor', 'realsense'),
-            launch_arguments={
-                'pointcloud.enable': 'true',
-                'ordered_pc': 'true', 
-                'initial_reset': 'true'
-            }.items()   
-        ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(PathJoinSubstitution(
+        #         [FindPackageShare('realsense2_camera'), 'launch', 'rs_launch.py']
+        #     )),
+        #     condition=LaunchConfigurationEquals('sensor', 'realsense'),
+        #     launch_arguments={
+        #         'pointcloud.enable': 'true',
+        #         'ordered_pc': 'true', 
+        #         'initial_reset': 'true'
+        #     }.items()   
+        # ),
 
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(PathJoinSubstitution(
+        #         [FindPackageShare('zed_wrapper'), 'launch/include', 'zed_camera.launch.py']
+        #     )),
+        #     condition=IfCondition(PythonExpression(['"', LaunchConfiguration('sensor'), '" in "', str(zed_sensors), '"'])),
+        #     launch_arguments={
+        #         'camera_model': LaunchConfiguration('sensor'),
+        #         'config_common_path': zed_common_config_path,
+        #         'camera_name': '',
+        #         'node_name': 'zed',
+        #         'publish_urdf': 'true',
+        #         'base_frame': 'camera_link'
+        #     }.items()   
+        # ),
+        
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(PathJoinSubstitution(
-                [FindPackageShare('zed_wrapper'), 'launch/include', 'zed_camera.launch.py']
+                [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'stereo.launch.py']
             )),
-            condition=IfCondition(PythonExpression(['"', LaunchConfiguration('sensor'), '" in "', str(zed_sensors), '"'])),
+            condition=IfCondition(PythonExpression(['"', LaunchConfiguration('sensor'), '" in "', str(oakd_sensors), '"'])),
             launch_arguments={
-                'camera_model': LaunchConfiguration('sensor'),
-                'config_common_path': zed_common_config_path,
-                'camera_name': '',
-                'node_name': 'zed',
-                'publish_urdf': 'true',
-                'base_frame': 'camera_link'
+                'camera_model': 'OAK-D_LITE',              
             }.items()   
         ),
-        
-#        IncludeLaunchDescription(
-#            PythonLaunchDescriptionSource(PathJoinSubstitution(
-#                [FindPackageShare('depthai_examples'), 'launch', 'stereo.launch.py']
-#            )),
-#            condition=IfCondition(PythonExpression(['"', LaunchConfiguration('sensor'), '" in "', str(oakd_sensors), '"'])),
-#            launch_arguments={
-#                'camera_model': 'OAK-D_LITE',              
-#            }.items()   
-#        ),
     ])
 
