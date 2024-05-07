@@ -1,1 +1,0 @@
-docker build -t marrtinorobot2:system -f Dockerfile.system .
