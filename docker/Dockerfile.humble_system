@@ -120,7 +120,7 @@ RUN useradd -m -s /bin/bash marrtino && \
 # Cambio utente a marrtino
 USER marrtino
 
-# Clonare il repository marrtinorobot2
+# Clone  repository marrtinorobot2
 RUN mkdir -p $HOME/src && \
     cd $HOME/src && \
     git clone https://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@github.com/artigianitecnologici/marrtinorobot2.git && \
