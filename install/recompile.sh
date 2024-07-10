@@ -61,6 +61,7 @@ sudo apt install -y ros-$ROS_DISTRO-rtabmap-ros
 ## cartographer
 sudo apt install -y ros-$ROS_DISTRO-cartographer 
 sudo apt install -y ros-$ROS_DISTRO-cartographer-ros
+sudo apt install -y ros-$ROS_DISTRO-localization
 #  Navigation Stack for ROS 2
 sudo apt install -y ros-$ROS_DISTRO-navigation2 
 sudo apt install -y ros-$ROS_DISTRO-nav2-bringup
