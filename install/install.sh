@@ -83,10 +83,12 @@ sudo apt-get update
 sudo apt-get install nodejs -y
 sudo apt install npm
 # cartographer 
-sudo apt install ros-$ROS_DISTRO-cartographer 
-sudo apt install ros-$ROS_DISTRO-cartographer-ros
+sudo apt install ros-$ROS_DISTRO-cartographer -y
+sudo apt install ros-$ROS_DISTRO-cartographer-ros -y
 #  Navigation Stack for ROS 2
 
-sudo apt install ros-$ROS_DISTRO-navigation2 
-sudo apt install ros-$ROS_DISTRO-nav2-bringup
+sudo apt install ros-$ROS_DISTRO-navigation2 -y
+sudo apt install ros-$ROS_DISTRO-nav2-bringup -y 
+sudo apt install ros-$ROS_DISTRO-gazebo-ros-pkgs -y
+sudo apt install ros-$ROS_DISTRO-robot-localization -y
 ##### no -->  git clone -b ros2 https://github.com/RobotWebTools/web_video_server.git

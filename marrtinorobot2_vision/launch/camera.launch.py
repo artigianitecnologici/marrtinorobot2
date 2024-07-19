@@ -16,5 +16,6 @@ def generate_launch_description():
                 'camera_frame_id': 'camera_link_optical',
                 'calibration_file': os.path.expanduser('~/marrtinorobot2_ws/src/marrtinorobot2_vision/calibration/arducam/ost.yaml')
             }]
+            
         )
     ])

@@ -38,13 +38,13 @@ ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_social .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_cartographer .
 
-### 2.3 Install mexplorer
-
-
+### 2.3 Install prerequisite gazebo
+sudo apt install ros-humble-gazebo-ros-pkgs -y
+sudo apt install ros-humble-robot-localization -y
 ### 2.3 Install marrtinorobot2 package:
 cd ..
 rosdep update && rosdep install --from-path src --ignore-src -y --skip-keys microxrcedds_agent
-colcon build 
+
 source  install/setup.bash
 
 cp $HOME/src/marrtinorobot2/install/script/*.sh .
