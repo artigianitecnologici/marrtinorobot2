@@ -62,16 +62,19 @@ sudo apt install -y ros-$ROS_DISTRO-rtabmap-ros
 sudo apt install -y ros-$ROS_DISTRO-cartographer 
 sudo apt install -y ros-$ROS_DISTRO-cartographer-ros
 sudo apt install -y ros-$ROS_DISTRO-localization
-#  Navigation Stack for ROS 2
+## Navigation Stack for ROS 2
 sudo apt install -y ros-$ROS_DISTRO-navigation2 
 sudo apt install -y ros-$ROS_DISTRO-nav2-bringup
-
+## camera
 sudo apt-get install -y ros-${ROS_DISTRO}-v4l2-camera
-sudo apt install v4l-utils
+sudo apt install -y v4l-utils
 sudo apt install -y ros-$ROS_DISTRO-camera-calibration-parsers
 sudo apt install -y ros-$ROS_DISTRO-camera-info-manager
 sudo apt install -y ros-$ROS_DISTRO-launch-testing-ament-cmake
- # astra camera
+## gazebo
+sudo apt install -y ros-$ROS_DISTRO-gazebo-ros-pkg
+sudo apt install -y ros-$ROS_DISRTO-robot-localization
+# astra camera
 # sudo apt install ros-$ROS_DISTRO-image-pipeline libuvc-dev
 # prerequisite marrtinorobot2_voice
 pip3 install gtts
