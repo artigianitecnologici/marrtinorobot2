@@ -9,6 +9,7 @@
   <xacro:include filename="$(find marrtinorobot2_description)/urdf/sensors/generic_laser.urdf.xacro" />
   <xacro:include filename="$(find marrtinorobot2_description)/urdf/sensors/depth_sensor.urdf.xacro" />
   <xacro:include filename="$(find marrtinorobot2_description)/urdf/controllers/diff_drive.urdf.xacro" />
+  <!-- <xacro:include filename="$(find marrtinorobot2_description)/urdf/sensors/depthai_oak.urdf.xacro" /> -->
 
   <xacro:base 
     length="${base_length}" 
