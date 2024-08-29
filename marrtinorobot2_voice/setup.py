@@ -14,11 +14,10 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='ubuntu',
+    maintainer='ferrarini fabio',
     maintainer_email='ferrarini09@gmail.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
-    tests_require=['pytest'],
+    description='module tts',
+    license='',
     entry_points={
         'console_scripts': [
           'tts_node = marrtinorobot2_voice.tts_node:main',
