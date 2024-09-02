@@ -30,6 +30,10 @@ def generate_launch_description():
         [FindPackageShare('marrtinorobot2_description'), 'launch', 'description.launch.py']
     )
 
+    tts_robot_launch_path = PathJoinSubstitution(
+       [FindPackageShare('marrtinorobot2_voice'), 'launch', 'tts_node.launch.py']
+    )
+
     return LaunchDescription([
         DeclareLaunchArgument(
             name='base_serial_port', 
@@ -48,5 +52,8 @@ def generate_launch_description():
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(sensors_launch_path),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(tts_robot_launch_path),
         )
     ])
