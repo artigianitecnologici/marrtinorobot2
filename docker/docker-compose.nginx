@@ -4,5 +4,4 @@
     ports:
       - "80:80"
     volumes:
-      - $MARRTINO_APPS_HOME/www:/usr/share/nginx/html
-   
+      - $MARRTINOROBOT2_APPS/www:/usr/share/nginx/html
