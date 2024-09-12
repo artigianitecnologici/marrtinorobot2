@@ -1,4 +1,5 @@
 # create a package 
+sudo update-alternatives --config x-session-manager
 
 ros2 pkg create marrtinorobot2_test --build-type ament_python --dependencies rclpy
 

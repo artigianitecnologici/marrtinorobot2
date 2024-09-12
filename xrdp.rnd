@@ -1,0 +1,28 @@
+
+
+Configura XRDP per usare MATE:
+Crea o modifica il file ~/.xsession:
+echo mate-session > ~/.xsession
+
+Riavvia il servizio XRDP:
+sudo systemctl restart xrdp
+
+
+
+Per configurare /etc/xrdp/startwm.sh in modo che avvii una sessione con MATE, segui questi passaggi:
+
+Apri il file /etc/xrdp/startwm.sh con un editor di testo:
+sudo nano /etc/xrdp/startwm.sh
+
+Modifica il file:
+Trova la riga che contiene:
+test -x /etc/X11/Xsession && exec /etc/X11/Xsession
+
+Commenta questa riga aggiungendo un # all’inizio:
+# test -x /etc/X11/Xsession && exec /etc/X11/Xsession
+
+Aggiungi le seguenti righe sopra questa linea:
+unset DBUS_SESSION_BUS_ADDRESS
+unset XDG_RUNTIME_DIR
+mate-session
+
