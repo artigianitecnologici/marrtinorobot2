@@ -57,10 +57,7 @@ class MyWebSocketServer(tornado.websocket.WebSocketHandler):
         if (what=='robot' or what=='ALL'):
             r = check_robot()
             self.write_message('RESULT robot '+str(r))
-            r = check_turtle()
-            self.write_message('RESULT turtle '+str(r))
-            r = check_simrobot()
-            self.write_message('RESULT simrobot '+str(r))
+           
             r = check_odom()
             self.write_message('RESULT odom '+str(r))
 
@@ -81,19 +78,19 @@ class MyWebSocketServer(tornado.websocket.WebSocketHandler):
             self.write_message('RESULT depth '+str(r))
 
         print("Checking tf ...")
-        r = check_tf('map', 'odom')
-        self.write_message('RESULT tf_map_odom '+str(r))
-        r = check_tf('odom', 'base_frame')
-        self.write_message('RESULT tf_odom_base '+str(r))
-        r = check_tf('base_frame', 'laser_frame')
-        self.write_message('RESULT tf_base_laser '+str(r))
-        r = check_tf('base_frame', 'rgb_camera_frame')
-        self.write_message('RESULT tf_base_rgb '+str(r))
-        r = check_tf('base_frame', 'depth_camera_frame')
-        self.write_message('RESULT tf_base_depth '+str(r))
-        rr = check_nodes()
-        for [m,t] in rr:
-            self.write_message('RESULT %s %s ' %(m,t))
+        # r = check_tf('map', 'odom')
+        # self.write_message('RESULT tf_map_odom '+str(r))
+        # r = check_tf('odom', 'base_frame')
+        # self.write_message('RESULT tf_odom_base '+str(r))
+        # r = check_tf('base_frame', 'laser_frame')
+        # self.write_message('RESULT tf_base_laser '+str(r))
+        # r = check_tf('base_frame', 'rgb_camera_frame')
+        # self.write_message('RESULT tf_base_rgb '+str(r))
+        # r = check_tf('base_frame', 'depth_camera_frame')
+        # self.write_message('RESULT tf_base_depth '+str(r))
+        # rr = check_nodes()
+        # for [m,t] in rr:
+        #     self.write_message('RESULT %s %s ' %(m,t))
 
         self.setStatus('Idle')
         time.sleep(1)
