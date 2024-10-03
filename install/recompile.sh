@@ -39,6 +39,7 @@ ln -s $HOME/src/m-explore-ros2/explore .
 #ln -s $HOME/src/OrbbecSDK_ROS2 .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_vision .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
+ln -s $HOME/src/marrtinorobot2/marrtinorobot2_ui .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_social .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_cartographer .
 

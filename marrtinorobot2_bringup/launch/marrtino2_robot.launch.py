@@ -1,5 +1,3 @@
-# MARRtino2 robot
-
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, PythonExpression
@@ -17,9 +15,13 @@ def generate_launch_description():
     description_launch_path = PathJoinSubstitution(
         [FindPackageShare('marrtinorobot2_description'), 'launch', 'description.launch.py']
     )
-     
-    joy_launch_path = PathJoinSubstitution(
-        [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'joy_teleop.launch.py']
+
+    tts_robot_launch_path = PathJoinSubstitution(
+       [FindPackageShare('marrtinorobot2_voice'), 'launch', 'tts_node.launch.py']
+    )
+
+    camera_robot_launch_path = PathJoinSubstitution(
+        [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'camera.launch.py']
     )
 
 
@@ -40,9 +42,12 @@ def generate_launch_description():
             PythonLaunchDescriptionSource(description_launch_path)
         ),
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(joy_launch_path)
+            PythonLaunchDescriptionSource(camera_robot_launch_path),
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(sensors_launch_path),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(tts_robot_launch_path),
         )
     ])
