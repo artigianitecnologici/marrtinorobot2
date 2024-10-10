@@ -21,7 +21,7 @@ def generate_launch_description():
     )
 
     camera_robot_launch_path = PathJoinSubstitution(
-        [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'camera.launch.py']
+        [FindPackageShare('marrtinorobot2_vision'), 'launch', 'camera.launch.py']
     )
 
 

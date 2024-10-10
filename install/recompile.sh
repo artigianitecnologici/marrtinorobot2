@@ -29,7 +29,19 @@ source  install/setup.bash
 # cd $HOME/marrtinorobot2_ws/src
 # ln -s $HOME/src/sllidar_ros2 .
 
+cd $HOME/src
+git clone -b humble-devel https://github.com/ROBOTIS-GIT/dynamixel-workbench.git
+git clone -b humble-devel https://github.com/ROBOTIS-GIT/dynamixel-workbench-msgs.git
+git clone -b humble-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git
+
+
+
 cd $HOME/marrtinorobot2_ws/src
+ln -s $HOME/src/DynamixelSDK .
+ln -s $HOME/src/dynamixel-workbench .
+ln -s $HOME/src/dynamixel-workbench-msgs .
+
+#
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_base .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_bringup .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_description .
@@ -40,8 +52,10 @@ ln -s $HOME/src/m-explore-ros2/explore .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_vision .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_ui .
-ln -s $HOME/src/marrtinorobot2/marrtinorobot2_social .
+#ln -s $HOME/src/marrtinorobot2/marrtinorobot2_social .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_cartographer .
+ln -s $HOME/src/marrtinorobot2/marrtinorobot2_dynamixel .
+
 
 ### 2.3 Install prerequisite gazebo
 sudo apt install ros-humble-gazebo-ros-pkgs -y
@@ -83,7 +97,10 @@ sudo apt install -y ros-$ROS_DISRTO-robot-localization
 # sudo apt install ros-$ROS_DISTRO-image-pipeline libuvc-dev
 # prerequisite marrtinorobot2_voice
 pip3 install gtts
-sudo apt install -y mpg321
+sudo apt install mpg321 sox  libttspico-utils -y
+# prerequisiti vision
+pip3 install opencv-python opencv-python-headless
+
 
 
 

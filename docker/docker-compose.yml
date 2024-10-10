@@ -6,9 +6,26 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./html:/usr/share/nginx/html
+      - "${MARRTINOROBOT2_APPS}/www:/usr/share/nginx/html"
     networks:
       - nginx-network
+
+  marrtinorobot2: 
+    image: marrtinorobot2:system
+    build:
+      context: $MARRTINOROBOT2_HOME/docker
+      dockerfile: Dockerfile.system
+    container_name: system
+    dns: 8.8.8.8
+    network_mode: "host"
+    tty: true
+    privileged: true
+    environment:
+    - ROS_IP=$ROS_IP
+    volumes:
+    - /dev:/dev
+    - $MARRTINOROBOT2_HOME:/home/robot/src/marrtinorobot2
+
 
 networks:
   nginx-network:

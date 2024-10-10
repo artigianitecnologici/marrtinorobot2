@@ -1,0 +1,13 @@
+
+# for check .env
+docker-compose config
+# start
+docker-compose up
+# ckear all image
+docker container stop $(docker container ls -aq) && docker system prune -af --volumes
+
+sudo chown -R $USER:$USER ${MARRTINOROBOT2_APPS}/www
+sudo chmod -R 755 ${MARRTINOROBOT2_APPS}/www
+
+docker exec -it cd695ecdb47a /bin/bash
+
