@@ -13,8 +13,8 @@ class DynamixelController(Node):
         self.port_handler = PortHandler('/dev/dynamixel')  # Porta seriale
         self.packet_handler = PacketHandler(1.0)         # Versione protocollo
         self.baudrate = 1000000
-        self.pan_motor_id = 1
-        self.tilt_motor_id = 2
+        self.pan_motor_id = 2
+        self.tilt_motor_id = 1
         self.init_dynamixel()
 
         # Sottoscrittori per i comandi pan e tilt
@@ -73,6 +73,10 @@ def main(args=None):
 
     # Inizializza il nodo DynamixelController
     controller = DynamixelController()
+     # Imposta il motore pan a posizione 512 (centrale) e velocità 100
+    controller.set_position(1, 512,40)
+    # Imposta il motore tilt a posizione 512 (centrale) e velocità 200
+    controller.set_position(2, 512, 40)
 
     # Esegui il nodo in modalità loop
     rclpy.spin(controller)

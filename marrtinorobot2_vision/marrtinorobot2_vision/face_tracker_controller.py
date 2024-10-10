@@ -35,10 +35,12 @@ class FaceRecognitionAndTrackingNode(Node):
         self.servomaxx = 1023   # Massima rotazione servo orizzontale (x)
         self.servomaxy = 1023   # Massima rotazione servo verticale (y)
         self.servomin = 0       # Minima rotazione servo
-        self.center_pos_x = 512  # Posizione centrale servo orizzontale (x)
+        self.center_pos_x = 512  # Posizione centrale servo orizzontale (x) 
+        
         self.center_pos_y = 512  # Posizione centrale servo verticale (y)
-        self.servo_step_distancex = 5  # Passi di rotazione servo (x)
-        self.servo_step_distancey = 5  # Passi di rotazione servo (y)
+        # pan_controller 
+        self.servo_step_distancex = 2  # Passi di rotazione servo (x)
+        self.servo_step_distancey = 2  # Passi di rotazione servo (y)
         self.current_pos_x = float(self.center_pos_x)
         self.current_pos_y = float(self.center_pos_y)
 
@@ -105,36 +107,81 @@ class FaceRecognitionAndTrackingNode(Node):
             # Se non ci sono volti, puoi decidere se lasciare i servos fermi
             pass
 
-        # Mostra l'immagine con il volto rilevato
+        # Aggiungi le linee delle ordinate X e Y con le etichette
+        center_x, center_y = w // 2, h // 2
+        # Disegna la linea X
+        cv2.line(frame, (0, center_y), (w, center_y), (0, 255, 0), 2)
+        cv2.putText(frame, 'X', (w - 20, center_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+
+        # Disegna la linea Y
+        cv2.line(frame, (center_x, 0), (center_x, h), (255, 0, 0), 2)
+        cv2.putText(frame, 'Y', (center_x + 10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
+
+        # Aggiungi una scala per l'asse X e Y
+        scale_length = 50  # Lunghezza della scala in pixel
+        for i in range(-2, 3):
+            # Scala per l'asse X
+            cv2.line(frame, (center_x + i * scale_length, center_y - 5), (center_x + i * scale_length, center_y + 5), (0, 255, 0), 2)
+            cv2.putText(frame, f'{i*scale_length}', (center_x + i * scale_length - 10, center_y + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1)
+
+            # Scala per l'asse Y
+            cv2.line(frame, (center_x - 5, center_y + i * scale_length), (center_x + 5, center_y + i * scale_length), (255, 0, 0), 2)
+            cv2.putText(frame, f'{i*scale_length}', (center_x + 10, center_y + i * scale_length + 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 0, 0), 1)
+
+        # Disegna i margini centrali per il tracciamento
+        # Margine sinistro
+        cv2.line(frame, (int(self.center_left), 0), (int(self.center_left), h), (255, 255, 0), 2)
+        cv2.putText(frame, 'Left Margin', (int(self.center_left) - 60, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
+
+        # Margine destro
+        cv2.line(frame, (int(self.center_right), 0), (int(self.center_right), h), (255, 255, 0), 2)
+        cv2.putText(frame, 'Right Margin', (int(self.center_right) - 60, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
+
+        # Margine superiore
+        cv2.line(frame, (0, int(self.center_up)), (w, int(self.center_up)), (255, 255, 0), 2)
+        cv2.putText(frame, 'Upper Margin', (30, int(self.center_up) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
+
+        # Margine inferiore
+        cv2.line(frame, (0, int(self.center_down)), (w, int(self.center_down)), (255, 255, 0), 2)
+        cv2.putText(frame, 'Lower Margin', (30, int(self.center_down) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
+
+        # Mostra l'immagine con il volto rilevato, le ordinate e i margini centrali
         cv2.imshow('Face Recognition', frame)
         cv2.waitKey(1)
 
+   
     def track_face(self, x, y):
-        # Controllo asse X (pan)
-        print(x,self.center_left, self.center_right , y,self.center_up ,self.center_down)
-        if x < self.center_left:
+        # Imposta una "dead zone" per ridurre l'oscillazione
+        dead_zone_x = 20  # Definisci la zona morta per l'asse X (orizzontale)
+        dead_zone_y = 20  # Definisci la zona morta per l'asse Y (verticale)
+
+        # Stampa per debug (puoi rimuovere in seguito)
+        print(f"Offset X: {x}, Offset Y: {y}")
+    
+        # Controllo asse X (pan) - Muove il servo solo se il volto è fuori dalla zona morta
+        if x < -dead_zone_x:  # Se il volto è a sinistra della zona morta
             self.current_pos_x += self.servo_step_distancex
             if self.current_pos_x <= self.servomaxx and self.current_pos_x >= self.servomin:
                 current_pose_x = Float64()
                 current_pose_x.data = self.current_pos_x
                 self.dynamixel_control.publish(current_pose_x)
 
-        elif x > self.center_right:
+        elif x > dead_zone_x:  # Se il volto è a destra della zona morta
             self.current_pos_x -= self.servo_step_distancex
             if self.current_pos_x <= self.servomaxx and self.current_pos_x >= self.servomin:
                 current_pose_x = Float64()
                 current_pose_x.data = self.current_pos_x
                 self.dynamixel_control.publish(current_pose_x)
 
-        # Controllo asse Y (tilt)
-        if y < self.center_up:
+        # Controllo asse Y (tilt) - Muove il servo solo se il volto è fuori dalla zona morta
+        if y < -dead_zone_y:  # Se il volto è sopra la zona morta
             self.current_pos_y -= self.servo_step_distancey
             if self.current_pos_y <= self.servomaxy and self.current_pos_y >= self.servomin:
                 current_pose_y = Float64()
                 current_pose_y.data = self.current_pos_y
                 self.dynamixel_control_tilt.publish(current_pose_y)
 
-        elif y > self.center_down:
+        elif y > dead_zone_y:  # Se il volto è sotto la zona morta
             self.current_pos_y += self.servo_step_distancey
             if self.current_pos_y <= self.servomaxy and self.current_pos_y >= self.servomin:
                 current_pose_y = Float64()
