@@ -1,2 +1,2 @@
  . install/setup.bash
-ros2 launch marrtinorobot2_bringup camera.launch.py 
+ros2 launch marrtinorobot2_vision camera.launch.py

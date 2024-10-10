@@ -5,7 +5,7 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     dynamixel_config_path = PathJoinSubstitution(
-        [FindPackageShare('marrtinorobot2_social'), 'config', 'dynamixel_config.yaml']
+        [FindPackageShare('marrtinorobot2_dynamixel'), 'config', 'dynamixel_config.yaml']
     )
 
     return LaunchDescription([
