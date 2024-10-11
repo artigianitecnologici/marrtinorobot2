@@ -55,7 +55,7 @@ ln -s $HOME/src/marrtinorobot2/marrtinorobot2_ui .
 #ln -s $HOME/src/marrtinorobot2/marrtinorobot2_social .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_cartographer .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_dynamixel .
-
+sudo apt install tmux -y
 
 ### 2.3 Install prerequisite gazebo
 sudo apt install ros-humble-gazebo-ros-pkgs -y

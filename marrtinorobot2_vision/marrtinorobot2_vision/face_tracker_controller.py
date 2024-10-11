@@ -6,6 +6,23 @@ import cv2
 import numpy as np
 from cv_bridge import CvBridge
 
+class PIDController:
+    def __init__(self, kp, ki, kd):
+        self.kp = kp
+        self.ki = ki
+        self.kd = kd
+        self.prev_error = 0
+        self.integral = 0
+
+    def compute(self, error):
+        # Calcolo PID
+        self.integral += error
+        derivative = error - self.prev_error
+        output = self.kp * error + self.ki * self.integral + self.kd * derivative
+        self.prev_error = error
+        return output
+
+
 class FaceRecognitionAndTrackingNode(Node):
     def __init__(self):
         super().__init__('face_recognition_and_tracking_node')
@@ -31,18 +48,21 @@ class FaceRecognitionAndTrackingNode(Node):
         self.dynamixel_control = self.create_publisher(Float64, '/pan_controller/command', 10)
         self.dynamixel_control_tilt = self.create_publisher(Float64, '/tilt_controller/command', 10)
 
+        # Publisher per il numero di volti
+        self.face_count_pub = self.create_publisher(Float64, '/nroface', 10)
+
         # Parametri di default per il servo pan/tilt
         self.servomaxx = 1023   # Massima rotazione servo orizzontale (x)
         self.servomaxy = 1023   # Massima rotazione servo verticale (y)
         self.servomin = 0       # Minima rotazione servo
-        self.center_pos_x = 512  # Posizione centrale servo orizzontale (x) 
-        
+        self.center_pos_x = 512  # Posizione centrale servo orizzontale (x)
         self.center_pos_y = 512  # Posizione centrale servo verticale (y)
-        # pan_controller 
-        self.servo_step_distancex = 2  # Passi di rotazione servo (x)
-        self.servo_step_distancey = 2  # Passi di rotazione servo (y)
         self.current_pos_x = float(self.center_pos_x)
         self.current_pos_y = float(self.center_pos_y)
+
+        # PID controller per pan e tilt
+        self.pid_x = PIDController(0.05, 0.001, 0.01)  # Regola questi valori per rallentare il movimento
+        self.pid_y = PIDController(0.05, 0.001, 0.01)
 
         # Calcolo dei margini centrali per il tracciamento
         self.screenmaxx = 640  # Risoluzione massima dello schermo (x)
@@ -57,10 +77,8 @@ class FaceRecognitionAndTrackingNode(Node):
         # Imposta la posizione iniziale centrale
         self.initial_pose_x = Float64()
         self.initial_pose_x.data = float(self.center_pos_x)
-
         self.initial_pose_y = Float64()
-        self.initial_pose_y.data = float(self.center_pos_y)
-
+        self.initial_pose_y.data = float(self.center_pos_y-100)
         self.dynamixel_control.publish(self.initial_pose_x)
         self.dynamixel_control_tilt.publish(self.initial_pose_y)
 
@@ -68,6 +86,8 @@ class FaceRecognitionAndTrackingNode(Node):
         try:
             # Converti il messaggio ROS in un'immagine OpenCV
             frame = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
+            # Capovolgi l'immagine orizzontalmente
+            frame = cv2.flip(frame, 1)
         except Exception as e:
             self.get_logger().error(f'Failed to convert image: {e}')
             return
@@ -79,11 +99,13 @@ class FaceRecognitionAndTrackingNode(Node):
         self.net.setInput(blob)
         detections = self.net.forward()
 
-        face_found = False  # Variabile per tenere traccia se un volto è stato trovato
+        face_count = 0
+        face_found = False
 
         for i in range(detections.shape[2]):
             confidence = detections[0, 0, i, 2]
             if confidence > 0.5:
+                face_count += 1  # Incrementa il contatore dei volti
                 box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
                 (startX, startY, endX, endY) = box.astype("int")
 
@@ -103,90 +125,33 @@ class FaceRecognitionAndTrackingNode(Node):
 
                 face_found = True  # Indica che un volto è stato trovato
 
-        if not face_found:
-            # Se non ci sono volti, puoi decidere se lasciare i servos fermi
-            pass
+        # Pubblica il numero di volti rilevati
+        face_count_msg = Float64()
+        face_count_msg.data = float(face_count)
+        self.face_count_pub.publish(face_count_msg)
 
-        # Aggiungi le linee delle ordinate X e Y con le etichette
-        center_x, center_y = w // 2, h // 2
-        # Disegna la linea X
-        cv2.line(frame, (0, center_y), (w, center_y), (0, 255, 0), 2)
-        cv2.putText(frame, 'X', (w - 20, center_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+        # Mostra l'immagine con il volto rilevato
+        #cv2.imshow('Face Recognition', frame)
+        #cv2.waitKey(1)
 
-        # Disegna la linea Y
-        cv2.line(frame, (center_x, 0), (center_x, h), (255, 0, 0), 2)
-        cv2.putText(frame, 'Y', (center_x + 10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
-
-        # Aggiungi una scala per l'asse X e Y
-        scale_length = 50  # Lunghezza della scala in pixel
-        for i in range(-2, 3):
-            # Scala per l'asse X
-            cv2.line(frame, (center_x + i * scale_length, center_y - 5), (center_x + i * scale_length, center_y + 5), (0, 255, 0), 2)
-            cv2.putText(frame, f'{i*scale_length}', (center_x + i * scale_length - 10, center_y + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1)
-
-            # Scala per l'asse Y
-            cv2.line(frame, (center_x - 5, center_y + i * scale_length), (center_x + 5, center_y + i * scale_length), (255, 0, 0), 2)
-            cv2.putText(frame, f'{i*scale_length}', (center_x + 10, center_y + i * scale_length + 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 0, 0), 1)
-
-        # Disegna i margini centrali per il tracciamento
-        # Margine sinistro
-        cv2.line(frame, (int(self.center_left), 0), (int(self.center_left), h), (255, 255, 0), 2)
-        cv2.putText(frame, 'Left Margin', (int(self.center_left) - 60, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
-
-        # Margine destro
-        cv2.line(frame, (int(self.center_right), 0), (int(self.center_right), h), (255, 255, 0), 2)
-        cv2.putText(frame, 'Right Margin', (int(self.center_right) - 60, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
-
-        # Margine superiore
-        cv2.line(frame, (0, int(self.center_up)), (w, int(self.center_up)), (255, 255, 0), 2)
-        cv2.putText(frame, 'Upper Margin', (30, int(self.center_up) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
-
-        # Margine inferiore
-        cv2.line(frame, (0, int(self.center_down)), (w, int(self.center_down)), (255, 255, 0), 2)
-        cv2.putText(frame, 'Lower Margin', (30, int(self.center_down) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
-
-        # Mostra l'immagine con il volto rilevato, le ordinate e i margini centrali
-        cv2.imshow('Face Recognition', frame)
-        cv2.waitKey(1)
-
-   
     def track_face(self, x, y):
-        # Imposta una "dead zone" per ridurre l'oscillazione
-        dead_zone_x = 20  # Definisci la zona morta per l'asse X (orizzontale)
-        dead_zone_y = 20  # Definisci la zona morta per l'asse Y (verticale)
+        # Calcolo PID per X e Y
+        control_x = self.pid_x.compute(x)
+        control_y = self.pid_y.compute(y)
 
-        # Stampa per debug (puoi rimuovere in seguito)
-        print(f"Offset X: {x}, Offset Y: {y}")
-    
-        # Controllo asse X (pan) - Muove il servo solo se il volto è fuori dalla zona morta
-        if x < -dead_zone_x:  # Se il volto è a sinistra della zona morta
-            self.current_pos_x += self.servo_step_distancex
-            if self.current_pos_x <= self.servomaxx and self.current_pos_x >= self.servomin:
-                current_pose_x = Float64()
-                current_pose_x.data = self.current_pos_x
-                self.dynamixel_control.publish(current_pose_x)
+        # Controllo asse X (pan)
+        self.current_pos_x += control_x
+        if self.current_pos_x <= self.servomaxx and self.current_pos_x >= self.servomin:
+            current_pose_x = Float64()
+            current_pose_x.data = self.current_pos_x
+            self.dynamixel_control.publish(current_pose_x)
 
-        elif x > dead_zone_x:  # Se il volto è a destra della zona morta
-            self.current_pos_x -= self.servo_step_distancex
-            if self.current_pos_x <= self.servomaxx and self.current_pos_x >= self.servomin:
-                current_pose_x = Float64()
-                current_pose_x.data = self.current_pos_x
-                self.dynamixel_control.publish(current_pose_x)
-
-        # Controllo asse Y (tilt) - Muove il servo solo se il volto è fuori dalla zona morta
-        if y < -dead_zone_y:  # Se il volto è sopra la zona morta
-            self.current_pos_y -= self.servo_step_distancey
-            if self.current_pos_y <= self.servomaxy and self.current_pos_y >= self.servomin:
-                current_pose_y = Float64()
-                current_pose_y.data = self.current_pos_y
-                self.dynamixel_control_tilt.publish(current_pose_y)
-
-        elif y > dead_zone_y:  # Se il volto è sotto la zona morta
-            self.current_pos_y += self.servo_step_distancey
-            if self.current_pos_y <= self.servomaxy and self.current_pos_y >= self.servomin:
-                current_pose_y = Float64()
-                current_pose_y.data = self.current_pos_y
-                self.dynamixel_control_tilt.publish(current_pose_y)
+        # Controllo asse Y (tilt)
+        self.current_pos_y += control_y
+        if self.current_pos_y <= self.servomaxy and self.current_pos_y >= self.servomin:
+            current_pose_y = Float64()
+            current_pose_y.data = self.current_pos_y
+            self.dynamixel_control_tilt.publish(current_pose_y)
 
 
 def main(args=None):
