@@ -45,27 +45,24 @@ ln -s $HOME/src/dynamixel-workbench-msgs .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_base .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_bringup .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_description .
+ln -s $HOME/src/marrtinorobot2/marrtinorobot2_webinterface .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_gazebo .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_navigation .
 ln -s $HOME/src/m-explore-ros2/explore .
 #ln -s $HOME/src/OrbbecSDK_ROS2 .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_vision .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
-ln -s $HOME/src/marrtinorobot2/marrtinorobot2_ui .
+#ln -s $HOME/src/marrtinorobot2/marrtinorobot2_ui .
 #ln -s $HOME/src/marrtinorobot2/marrtinorobot2_social .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_cartographer .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_dynamixel .
 sudo apt install tmux -y
 
-### 2.3 Install prerequisite gazebo
-sudo apt install ros-humble-gazebo-ros-pkgs -y
-sudo apt install ros-humble-robot-localization -y
+
 ### 2.3 Install marrtinorobot2 package:
 cd ..
 rosdep update && rosdep install --from-path src --ignore-src -y --skip-keys microxrcedds_agent
-
 source  install/setup.bash
-
 cp $HOME/src/marrtinorobot2/install/script/*.sh .
 
 
@@ -92,7 +89,13 @@ sudo apt install -y ros-$ROS_DISTRO-camera-info-manager
 sudo apt install -y ros-$ROS_DISTRO-launch-testing-ament-cmake
 ## gazebo
 sudo apt install -y ros-$ROS_DISTRO-gazebo-ros-pkg
-sudo apt install -y ros-$ROS_DISRTO-robot-localization
+sudo apt install -y ros-$ROS_DISTRO-robot-localization
+## web interface 
+sudo apt install ros-$ROS_DISTRO-rosbridge-server -y
+### 2.3 Install prerequisite gazebo
+sudo apt install ros-$ROS_DISTRO-gazebo-ros-pkgs -y
+sudo apt install ros-$ROS_DISTROe-robot-localization -y
+
 # astra camera
 # sudo apt install ros-$ROS_DISTRO-image-pipeline libuvc-dev
 # prerequisite marrtinorobot2_voice

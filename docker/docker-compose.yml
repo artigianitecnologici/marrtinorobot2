@@ -6,7 +6,7 @@ services:
     volumes:
       - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
       - "./etc/ssl:/etc/ssl"
-      - "${MARRTINOROBOT2_APPS}/www:/var/www/html"
+      - "${MARRTINOROBOT2_WEBI}/www:/var/www/html"
       - "./etc/nginx/default.template.conf:/etc/nginx/conf.d/default.template"
     ports:
       - "8080:80"
@@ -23,7 +23,7 @@ services:
     restart: always
     volumes:
       - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
-      - "${MARRTINOROBOT2_APPS}/www:/var/www/html"
+      - "${MARRTINOROBOT2_WEBI}/www:/var/www/html"
 
 
 networks:
