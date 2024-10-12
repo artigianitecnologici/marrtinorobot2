@@ -131,8 +131,8 @@ class FaceRecognitionAndTrackingNode(Node):
         self.face_count_pub.publish(face_count_msg)
 
         # Mostra l'immagine con il volto rilevato
-        #cv2.imshow('Face Recognition', frame)
-        #cv2.waitKey(1)
+        cv2.imshow('Face Recognition', frame)
+        cv2.waitKey(1)
 
     def track_face(self, x, y):
         # Calcolo PID per X e Y

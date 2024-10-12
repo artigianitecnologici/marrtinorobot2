@@ -16,7 +16,7 @@
       <li class="nav-item">
         <a class="nav-link" href="../social/facerobot.php" aria-haspopup="true"  >Facerobot</a>
       </li>
-       <!--<li class="nav-item dropdown">
+       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Facerobot
         </a>
@@ -29,7 +29,7 @@
       <li class="nav-item">
         <a class="nav-link" href="../social/facerobot.php" aria-haspopup="true"  >Social Interface</a>
       </li>
-      -->
+     
       <li class="nav-item">
         <a class="nav-link" href="../program/blockly_robot.php" aria-haspopup="true"  >Blocky</a>
       </li>

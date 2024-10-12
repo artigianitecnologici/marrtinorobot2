@@ -57,7 +57,7 @@ h6 {text-align: center;}
 </head>
 
 <body>
-<?php include "nav.php" ?>
+<?php include "../nav.php" ?>
 
 <div class="container">
     
@@ -92,7 +92,7 @@ h6 {text-align: center;}
             <div class="col-md-3">
               <div class="card mb-4 box-shadow">
 
-                <a  href="../bringup/index.html">
+                <a  href="../bringup,php">
                 <img class="card-img-top" src="image/bringup.png" width="50%" alt="bringup">
                  </a>
 
@@ -101,7 +101,7 @@ h6 {text-align: center;}
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                        
-                      <a class="btn btn-primary" href="../bringup/index.php" role="button">BRINGUP</a>
+                      <a class="btn btn-primary" href="../bringup.php" role="button">BRINGUP</a>
                     </div>
                    
                   </div>
@@ -279,6 +279,3 @@ h6 {text-align: center;}
 </html>
 
 
-</body>
-
-</html>

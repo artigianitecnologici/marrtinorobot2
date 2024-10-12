@@ -81,6 +81,18 @@
       document.getElementById("logerr_msg").innerHTML += m.data + "\n";  // Append new error messages
     });
 
+    var txt_nodes = new ROSLIB.Topic({
+      ros: ros,
+      name: '/nodes_list',
+      messageType: 'std_msgs/String'
+    });
+
+    txt_nodes.subscribe(function (m) {
+      var formattedNodes = m.data.replace(/,/g, '\n');  // Sostituisci le virgole con ritorni a capo
+      document.getElementById("nodes_msg").innerHTML = formattedNodes + "\n";  // Visualizza la lista con ritorni a capo
+    });
+
+
     // Function to execute selected commands one by one
     function executeSelectedCommands() {
       var commands = [];
@@ -249,7 +261,10 @@
           <h5>Error Log Messages:</h5>
           <pre id="logerr_msg" class="p-3 mb-2 bg-light border rounded" style="height: 150px; overflow-y: scroll;">Error log messages will appear here...</pre>
         </div>
-
+        <div class="mt-4">
+          <h5>Nodes:</h5>
+          <pre id="nodes_msg" class="p-3 mb-2 bg-light border rounded" style="height: 150px; overflow-y: scroll;">Nodes will appear here...</pre>
+        </div>
         <!-- Output message display -->
         <div class="mt-4">
           <h5>Command Output:</h5>
