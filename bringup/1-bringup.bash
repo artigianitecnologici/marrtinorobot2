@@ -1,47 +1,54 @@
 #!/bin/bash
+# Script to set up and manage a tmux session for running robot-related processes
+# The script creates a tmux session, opens multiple windows, and executes commands.
+# It also logs the output of each command to log files.
 
-# 
-
+# Get the current date and print it
 date
 
-if [ "$MARRTINO_APPS_HOME" == "" ]; then
-  export MARRTINO_APPS_HOME=$HOME/src/marrtino_apps
-fi
-
-if [ "$MODIM_HOME" == "" ]; then
-  export MODIM_HOME=$HOME/src/modim
-fi
-
-source $HOME/ros/catkin_ws/devel/setup.bash
-
+# Define the name of the tmux session
 SESSION=init
 
-# check if session already exists
+# Check if the session already exists
 tmux has-session -t $SESSION 2>/dev/null
 
 if [ $? != 0 ]; then
-  # Set up your session
+  # If the session doesn't exist, set up a new tmux session
   tmux -2 new-session -d -s $SESSION
-  tmux rename-window -t $SESSION:0 'config'
-  tmux new-window -t $SESSION:1 -n 'bringup'
-  tmux new-window -t $SESSION:2 -n 'roscore'
-  tmux new-window -t $SESSION:3 -n 'wsrobot'
+  tmux rename-window -t $SESSION:0 'config'  # Window 0 is renamed to 'config'
+  tmux new-window -t $SESSION:1 -n 'rosbridge'  # Window 1 named 'docker'
+  tmux new-window -t $SESSION:2 -n 'cmdexe'  # Window 2 named 'cmdexe'
+  tmux new-window -t $SESSION:3 -n 'robot_bringup'  # Window 3 named 'robot_bringup'
 fi
 
-tmux send-keys -t $SESSION:0 "cd \$MARRTINO_APPS_HOME/config" C-m
-tmux send-keys -t $SESSION:0 "python wsconfig.py" C-m
+# Log files for command output
+CMD_EXE_LOG="/tmp/cmdexe.log"
+ROBOT_BRINGUP_LOG="/tmp/robot_bringup.log"
 
-tmux send-keys -t $SESSION:1 "cd \$MARRTINO_APPS_HOME/bringup" C-m
-tmux send-keys -t $SESSION:1 "python wsbringup.py" C-m
+# Commands to be executed in window 2 ('cmdexe')
+tmux send-keys -t $SESSION:1 "cd \$MARRTINOROBOT2_WS" C-m
+tmux send-keys -t $SESSION:1 "./rosbridge.sh > $CMD_EXE_LOG 2>&1 &" C-m  # Log output to cmdexe.lo
 
-#tmux send-keys -t $SESSION:2 "roscore" C-m
+# Commands to be executed in window 2 ('cmdexe')
+tmux send-keys -t $SESSION:2 "cd \$MARRTINOROBOT2_HOME/marrtinorobot2_webinterface/marrtinorobot2_webinterface" C-m
+tmux send-keys -t $SESSION:2 "python3 command_executor.py > $CMD_EXE_LOG 2>&1 &" C-m  # Log output to cmdexe.log
 
-sleep 5
+# Commands to be executed in window 3 ('robot_bringup')
+tmux send-keys -t $SESSION:3 "cd \$MARRTINOROBOT2_HOME/marrtinorobot2_webinterface/marrtinorobot2_webinterface" C-m
+tmux send-keys -t $SESSION:3 "python3 robot_bringup.py > $ROBOT_BRINGUP_LOG 2>&1 &" C-m  # Log output to robot_bringup.log
 
-tmux send-keys -t $SESSION:3 "cd \$MARRTINO_APPS_HOME/blockly" C-m
-tmux send-keys -t $SESSION:3 "python websocket_robot.py" C-m
+# Optional: Start other processes if needed (currently commented out)
+# sleep 5
+# tmux send-keys -t $SESSION:3 "cd \$MARRTINO_APPS_HOME/blockly" C-m
+# tmux send-keys -t $SESSION:3 "python websocket_robot.py > /tmp/websocket_robot.log 2>&1 &" C-m  # Log to websocket_robot.log
 
-while [ ! -f "/tmp/quitrequest" ]; do
-  sleep 5
-done
+# Uncomment the lines below if you want to check for a quit request
+# while [ ! -f "/tmp/quitrequest" ]; do
+#   sleep 5
+# done
+
+# Instructions:
+# - The output of 'command_executor.py' will be logged in /tmp/cmdexe.log.
+# - The output of 'robot_bringup.py' will be logged in /tmp/robot_bringup.log.
+# - You can access the tmux session with 'tmux attach-session -t init' to view the commands being run in real time.
 

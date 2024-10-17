@@ -26,6 +26,7 @@ setup(
       'img_publisher = marrtinorobot2_vision.webcam_pub:main',
       'img_subscriber = marrtinorobot2_vision.webcam_sub:main',
       'face_recognition_node = marrtinorobot2_vision.face_recognition_node:main'
+	  'face_tracker_controller = marrtinorobot2_vision.face_tracker_controller:main'
 	
 
       ],
