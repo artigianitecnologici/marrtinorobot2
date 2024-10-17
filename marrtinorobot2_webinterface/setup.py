@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'marrtinorobot2_apps'
+package_name = 'marrtinorobot2_webinterface'
 
 setup(
     name=package_name,
@@ -16,11 +16,11 @@ setup(
     zip_safe=True,
     maintainer='ferrarini fabio',
     maintainer_email='ferrarini09@gmail.com',
-    description='module marrtino apps',
+    description='module marrtino web interface',
     license='',
     entry_points={
         'console_scripts': [
-          'apps_node = marrtinorobot2_apps.apps_node:main',
+          'apps_node = marrtinorobot2_webinterface.apps_node:main',
         ],
     },
 )
