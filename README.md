@@ -48,20 +48,14 @@ laser_sensor:
 - `ydlidar` - [YDLIDAR](https://www.ydlidar.com/lidars.html)
 - `xv11` - [XV11](http://xv11hacking.rohbotics.com/mainSpace/home.html)
 - `realsense` - * [Intel RealSense](https://www.intelrealsense.com/stereo-depth/) D435, D435i
-- `zed` - * [Zed](https://www.stereolabs.com/zed)
-- `zed2` - * [Zed 2](https://www.stereolabs.com/zed-2)
-- `zed2i` - * [Zed 2i](https://www.stereolabs.com/zed-2i)
-- `zedm` - * [Zed Mini](https://www.stereolabs.com/zed-mini) 
+
 - `-` - If the robot's sensor is not listed above.
 
 Sensors marked with an asterisk are depth sensors. If a depth sensor is used as a laser sensor, the launch files will run [depthimage_to_laserscan](https://github.com/ros-perception/depthimage_to_laserscan) to convert the depth sensor's depth image to laser scans.
 
 depth_sensor:
 - `realsense` - [Intel RealSense](https://www.intelrealsense.com/stereo-depth/) D435, D435i
-- `zed` - [Zed](https://www.stereolabs.com/zed)
-- `zed2` - [Zed 2](https://www.stereolabs.com/zed-2)
-- `zed2i` - [Zed 2i](https://www.stereolabs.com/zed-2i)
-- `zedm` - [Zed Mini](https://www.stereolabs.com/zed-mini)
+
 - `oakd` - [OAK D](https://shop.luxonis.com/collections/oak-cameras-1/products/oak-d)
 - `oakdlite` - [OAK D Lite](https://shop.luxonis.com/collections/oak-cameras-1/products/oak-d-lite-1)
 - `oakdpro` - [OAK-D Pro](https://shop.luxonis.com/collections/oak-cameras-1/products/oak-d-pro)

@@ -125,10 +125,7 @@ The Nav2 config file has been configured to support [Voxel Layer](https://naviga
 Tested sensors are:
 - `realsense` - [Intel RealSense](https://www.intelrealsense.com/stereo-depth/) D435, D435i
 - `astra` - [Orbec Astra](https://orbbec3d.com/product-astra-pro/)
-- `zed` - [Zed](https://www.stereolabs.com/zed)
-- `zed2` - [Zed 2](https://www.stereolabs.com/zed-2)
-- `zed2i` - [Zed 2i](https://www.stereolabs.com/zed-2i)
-- `zedm` - [Zed Mini](https://www.stereolabs.com/zed-mini)
+
 
 For example:
 

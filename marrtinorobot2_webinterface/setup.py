@@ -10,19 +10,16 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-         (f'share/{package_name}/launch', ['launch/appsnode.launch.py']), 
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='ferrarini fabio',
+    maintainer='marrtino',
     maintainer_email='ferrarini09@gmail.com',
-    description='module marrtino web interface',
-    license='',
+    description='TODO: Package description',
+    license='TODO: License declaration',
+    tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-          'apps_node = marrtinorobot2_webinterface.apps_node:main',
         ],
     },
 )
-
-

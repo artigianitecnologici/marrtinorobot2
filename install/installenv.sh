@@ -6,3 +6,6 @@ echo "export MARRTINOROBOT2_LASER_SENSOR=rplidar" >> $HOME/.bashrc
 echo "export MARRTINOROBOT2_DEPTH_SENSOR=oakdlite" >> $HOME/.bashrc
 echo "export MARRTINOROBOT2_WEBI=$HOME/src/marrtinorobot2/marrtinorobot2_webinterface/www" >> $HOME/.bashrc
 echo "export MARRTINOROBOT2_WS=$HOME/marrtinorobot2_ws" >> $HOME/.bashrc
+echo "alias cdmd='cd ~/src/marrtinorobot2/docker'" >> $HOME/.bashrc
+echo "alias cdm='cd ~/src/marrtinorobot2'" >> $HOME/.bashrc
+echo "alias cb='cd ~/marrtinorobot2 && colcon build'" >> $HOME/.bashrc
