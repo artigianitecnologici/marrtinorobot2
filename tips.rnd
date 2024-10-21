@@ -39,3 +39,6 @@ git clone -b humble-devel
 
 orbtec ros2
 https://github.com/orbbec/OrbbecSDK_ROS2
+
+https://github.com/naoki-mizuno/ds4_driver.git
+git clone https://github.com/naoki-mizuno/ds4_driver.git -b humble-devel

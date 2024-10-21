@@ -26,9 +26,9 @@ def generate_launch_description():
         [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'sensors.launch.py']
     )
 
-    joy_launch_path = PathJoinSubstitution(
-        [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'joy_teleop.launch.py']
-    )
+    # joy_launch_path = PathJoinSubstitution(
+    #     [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'joy_teleop.launch.py']
+    # )
 
     description_launch_path = PathJoinSubstitution(
         [FindPackageShare('marrtinorobot2_description'), 'launch', 'description.launch.py']
@@ -65,11 +65,11 @@ def generate_launch_description():
             description='EKF out odometry topic'
         ),
         
-        DeclareLaunchArgument(
-            name='joy', 
-            default_value='false',
-            description='Use Joystick'
-        ),
+        # DeclareLaunchArgument(
+        #     name='joy', 
+        #     default_value='false',
+        #     description='Use Joystick'
+        # ),
 
         Node(
             package='robot_localization',

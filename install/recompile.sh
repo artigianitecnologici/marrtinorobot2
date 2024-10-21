@@ -53,7 +53,7 @@ ln -s $HOME/src/m-explore-ros2/explore .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_vision .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
 #ln -s $HOME/src/marrtinorobot2/marrtinorobot2_ui .
-#ln -s $HOME/src/marrtinorobot2/marrtinorobot2_social .
+ln -s $HOME/src/marrtinorobot2/marrtinorobot2_ps4_joy_controller .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_cartographer .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_dynamixel .
 sudo apt install tmux -y
@@ -95,6 +95,8 @@ sudo apt install ros-$ROS_DISTRO-rosbridge-server -y
 ### 2.3 Install prerequisite gazebo
 sudo apt install ros-$ROS_DISTRO-gazebo-ros-pkgs -y
 sudo apt install ros-$ROS_DISTROe-robot-localization -y
+# joy 
+sudo apt install ros-humble-joy
 
 # astra camera
 # sudo apt install ros-$ROS_DISTRO-image-pipeline libuvc-dev
