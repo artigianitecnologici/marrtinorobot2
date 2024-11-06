@@ -25,6 +25,22 @@ services:
       - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
       - "${MARRTINOROBOT2_WEBI}/www:/var/www/html"
 
+  marrtino_robot:
+    image: marrtinorobot2:system
+    ports:
+      - "8085:80"
+    security_opt:
+      - seccomp=unconfined
+    shm_size: "512m"
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - TARGETPLATFORM=linux/amd64
+    volumes:
+      - $MARRTINOROBOT2_HOME:/home/ubuntu/src/marrtinorobot2
+      - /dev:/dev
+    networks:
+      - nginx-network
+    restart: always
 
 networks:
   nginx-network:

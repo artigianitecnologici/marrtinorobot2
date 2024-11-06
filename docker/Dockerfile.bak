@@ -17,8 +17,8 @@ RUN apt-get update && \
         build-essential vim lsb-release locales bash-completion tzdata \
         terminator dos2unix net-tools htop xrdp tmux \
         libgflags-dev nlohmann-json3-dev libgoogle-glog-dev \
-        mpg321 sox libttspico-utils \
-        v4l-utils && \
+        mpg321 sox  libttspico-utils \
+        v4l-utils mpg321 sox libttspico-utils && \
     apt-get autoclean && apt-get autoremove && \
     rm -rf /var/lib/apt/lists/*
 
@@ -47,25 +47,21 @@ RUN apt-get update && \
     rosdep init && rosdep update && \
     rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && \ 
-    apt-get install -y \
-    ros-${ROS_DISTRO}-rplidar-ros \
-    ros-${ROS_DISTRO}-v4l2-camera \
-    ros-${ROS_DISTRO}-depthai-ros \
-    ros-${ROS_DISTRO}-rtabmap-ros \
-    ros-${ROS_DISTRO}-cartographer \
-    ros-${ROS_DISTRO}-cartographer-ros \
-    ros-${ROS_DISTRO}-navigation2 \
-    ros-${ROS_DISTRO}-nav2-bringup \
-    ros-${ROS_DISTRO}-camera-calibration-parsers \
-    ros-${ROS_DISTRO}-camera-info-manager \
-    ros-${ROS_DISTRO}-launch-testing-ament-cmake \
-    ros-${ROS_DISTRO}-robot-localization \
-    ros-${ROS_DISTRO}-rosbridge-server \
+RUN apt-get update && \
+    apt-get install -y ros-$ROS_DISTRO-rplidar-ros  && \
+    ros-${ROS_DISTRO}-localization && \
+    ros-${ROS_DISTRO}-navigation2  && \
+    ros-${ROS_DISTRO}-nav2-bringup && \
+    ros-${ROS_DISTRO}-camera-calibration-parsers && \
+    ros-${ROS_DISTRO}-camera-info-manager && \
+    ros-${ROS_DISTRO}-launch-testing-ament-cmake && \
+    ros-${ROS_DISTRO}-robot-localization && \
+    ros-${ROS_DISTRO}-rosbridge-server -y && \
     ros-${ROS_DISTRO}-joy
 
+
 RUN pip3 install gtts opencv-python opencv-python-headless
-RUN apt install -y mpg321 sox libttspico-utils
+RUN apt install mpg321 sox  libttspico-utils -y
 
 # Installazione pacchetti simulazione solo su amd64
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
@@ -73,6 +69,9 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
     apt-get install -y ros-${ROS_DISTRO}-gazebo-ros-pkgs ros-${ROS_DISTRO}-ros-ign && \
     rm -rf /var/lib/apt/lists/*; \
     fi
+
+
+
 
 # Creazione utente 'ubuntu' e abilitazione sudo
 RUN useradd -m -s /bin/bash ubuntu && \
@@ -107,9 +106,11 @@ RUN ln -s /home/ubuntu/src/DynamixelSDK . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_vision . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_voice . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_ps4_joy_controller . && \
-    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_cartographer . && \
+    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_cartographer .&& \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_dynamixel . && \
     ln -s /home/ubuntu/src/m-explore-ros2/explore .
+
+
 
 USER root
 WORKDIR /home/ubuntu/marrtinorobot2_ws/
@@ -124,6 +125,8 @@ RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/ubuntu/.bashrc && \
     echo "export MARRTINOROBOT2_BASE=2wd" >> /home/ubuntu/.bashrc && \
     echo "export MARRTINOROBOT2_LASER_SENSOR=rplidar" >> /home/ubuntu/.bashrc && \
     echo "export MARRTINOROBOT2_DEPTH_SENSOR=oakdlite" >> /home/ubuntu/.bashrc
+
+
 
 # Copia e permessi entrypoint.sh
 USER root
