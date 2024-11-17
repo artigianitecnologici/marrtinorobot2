@@ -1,53 +1,47 @@
-# Copyright (c) 2021 Juan Miguel Jimeno
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http:#www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
+# Import necessary modules
 import os
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription
-from launch.substitutions import LaunchConfiguration, Command, PathJoinSubstitution
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    # Use simulation time (synchronized with Gazebo)
     use_sim_time = True
 
+    # Default path to the world file if no parameter is passed
+    default_world_path = PathJoinSubstitution(
+        [FindPackageShare("marrtinorobot2_gazebo"), "worlds", "my_world.world"]
+    )
+
+    # Path to the EKF configuration file
     ekf_config_path = PathJoinSubstitution(
         [FindPackageShare("marrtinorobot2_base"), "config", "ekf.yaml"]
     )
 
-    world_path = PathJoinSubstitution(
-        [FindPackageShare("marrtinorobot2_gazebo"), "worlds", "my_world.world"]
-    )
-
+    # Path to the robot description launch file
     description_launch_path = PathJoinSubstitution(
         [FindPackageShare('marrtinorobot2_description'), 'launch', 'description.launch.py']
     )
 
     return LaunchDescription([
+        # Declare the 'world' argument, allowing it to be passed at runtime
         DeclareLaunchArgument(
-            name='world', 
-            default_value=world_path,
-            description='Gazebo world'
+            name='world',
+            default_value=default_world_path,
+            description='Gazebo world file path'
         ),
 
+        # Launch Gazebo with the specified world file
         ExecuteProcess(
-            cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_factory.so',  '-s', 'libgazebo_ros_init.so', LaunchConfiguration('world')],
+            cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_factory.so', '-s', 'libgazebo_ros_init.so', LaunchConfiguration('world')],
             output='screen'
         ),
 
+        # Spawn the robot entity in Gazebo using the 'robot_description' topic
         Node(
             package='gazebo_ros',
             executable='spawn_entity.py',
@@ -56,34 +50,32 @@ def generate_launch_description():
             arguments=["-topic", "robot_description", "-entity", "marrtinorobot2"]
         ),
 
+        # Node to handle command timeouts for safety
         Node(
             package='marrtinorobot2_gazebo',
             executable='command_timeout.py',
             name='command_timeout'
         ),
 
+        # Launch the EKF node for sensor fusion and localization
         Node(
             package='robot_localization',
             executable='ekf_node',
             name='ekf_filter_node',
             output='screen',
             parameters=[
-                {'use_sim_time': use_sim_time}, 
-                ekf_config_path
+                {'use_sim_time': use_sim_time},  # Use simulation time
+                ekf_config_path  # EKF configuration file path
             ],
-            remappings=[("odometry/filtered", "odom")]
+            remappings=[("odometry/filtered", "odom")]  # Remap the filtered odometry topic
         ),
 
+        # Include the robot description launch file
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(description_launch_path),
             launch_arguments={
-                'use_sim_time': str(use_sim_time),
-                'publish_joints': 'false',
+                'use_sim_time': str(use_sim_time),  # Pass simulation time argument
+                'publish_joints': 'false',  # Disable joint state publication (optimization)
             }.items()
         ),
     ])
-
-#sources: 
-#https://navigation.ros.org/setup_guides/index.html#
-#https://answers.ros.org/question/374976/ros2-launch-gazebolaunchpy-from-my-own-launch-file/
-#https://github.com/ros2/rclcpp/issues/940

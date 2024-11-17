@@ -42,3 +42,8 @@ https://github.com/orbbec/OrbbecSDK_ROS2
 
 https://github.com/naoki-mizuno/ds4_driver.git
 git clone https://github.com/naoki-mizuno/ds4_driver.git -b humble-devel
+
+
+joystick
+sudo apt install ros-humble-joy ros-humble-teleop-twist-joystick
+ros2 run joy joy_node

@@ -14,7 +14,7 @@ ros2 topic pub  -1 /speech/to_speak std_msgs/msg/String '{data: "tutti i sistemi
 sudo apt-get install ros-humble-rosbridge-suite
 sudo apt-get install ros-humble-webviz
 
-
-sudo apt install sox
 sudo apt update
+sudo apt install sox
+
 sudo apt install libttspico-utils

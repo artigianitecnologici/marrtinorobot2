@@ -66,7 +66,10 @@ RUN apt-get update && \
     ros-${ROS_DISTRO}-launch-testing-ament-cmake \
     ros-${ROS_DISTRO}-robot-localization \
     ros-${ROS_DISTRO}-rosbridge-server \
-    ros-${ROS_DISTRO}-joy
+    ros-${ROS_DISTRO}-joy \
+    ros-humble-teleop-twist-joy
+   # ros-${ROS_DISTRO}-joy-teleop-twist-joystick
+
 
 RUN echo "# Installazione di pip e pacchetti Python"
 RUN apt-get update && \
@@ -171,7 +174,7 @@ RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/ubuntu/.bashrc && \
 
 # Copia e permessi entrypoint.sh
 USER ubuntu
-WORKDIR /home/ubunt
+WORKDIR /home/ubuntu
 # COPY ./entrypoint.sh /
 # RUN chmod +x /entrypoint.sh && dos2unix /entrypoint.sh
 

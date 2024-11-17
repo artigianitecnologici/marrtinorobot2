@@ -1,7 +1,7 @@
 
 ### 1.0 Create WorkSpaces
 cd $HOME/src
-git clone https://github.com/orbbec/OrbbecSDK_ROS2.git
+# git clone https://github.com/orbbec/OrbbecSDK_ROS2.git
 # assume you have sourced ROS environment, same blow
 sudo apt install -y libgflags-dev nlohmann-json3-dev libgoogle-glog-dev \
 ros-$ROS_DISTRO-image-transport ros-$ROS_DISTRO-image-publisher ros-$ROS_DISTRO-camera-info-manager
@@ -53,7 +53,6 @@ ln -s $HOME/src/m-explore-ros2/explore .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_vision .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
 #ln -s $HOME/src/marrtinorobot2/marrtinorobot2_ui .
-ln -s $HOME/src/marrtinorobot2/marrtinorobot2_ps4_joy_controller .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_cartographer .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_dynamixel .
 sudo apt install tmux -y
@@ -94,9 +93,11 @@ sudo apt install -y ros-$ROS_DISTRO-robot-localization
 sudo apt install ros-$ROS_DISTRO-rosbridge-server -y
 ### 2.3 Install prerequisite gazebo
 sudo apt install ros-$ROS_DISTRO-gazebo-ros-pkgs -y
-sudo apt install ros-$ROS_DISTROe-robot-localization -y
+sudo apt install ros-$ROS_DISTRO-robot-localization -y
 # joy 
-sudo apt install ros-humble-joy
+sudo apt install -y ros-$ROS_DISTRO-joy 
+sudo apt install -y ros-$ROS_DISTRO-teleop-twist-joystick
+
 
 # astra camera
 # sudo apt install ros-$ROS_DISTRO-image-pipeline libuvc-dev
