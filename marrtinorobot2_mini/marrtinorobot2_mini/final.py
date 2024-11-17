@@ -45,7 +45,7 @@ servoB = kit.servo[13]#Reference at 90
 
 frame_count = {'blink':39, 'happy':60, 'sad':47,'dizzy':67,'excited':24,'neutral':61,'happy2':20,'angry':20,'happy3':26,'bootup3':124,'blink2':20}
 
-emotion = ['angry','sad','excited']
+emotion = ['angry','sad','excited','dizzy','happy2']
 
 normal = ['neutral','blink2']
 
@@ -61,6 +61,10 @@ def check_sensor():
                 if (q.qsize()==0):
                     event.set()
                     q.put('happy')
+
+                if (q.qsize()==0):
+                    event.set()
+                    q.put(emotion[randint(0,4)])    
                 current_state = 1
             else:
                 current_state = 0
@@ -141,6 +145,7 @@ def angry2():
 
 def sad():
     servoDown()
+    time.sleep(5)
     for i in range(0,60):
         if i<=15:
             servoB.angle = 90 - i
@@ -167,6 +172,8 @@ def blink():
     servoB.angle = 90
 
 def bootup():
+    servoDown()
+    #time.sleep(5)
     show('bootup3',1)
     for i in range(1):
         p2 = multiprocessing.Process(target=show,args=('blink2',3))
@@ -181,7 +188,7 @@ def bootup():
     
 def sound(emotion):
     for i in range(1):
-	    os.system("aplay /home/pi/Desktop/EmoBot/sound/"+emotion+".wav")
+	    os.system("aplay ./sound/"+emotion+".wav")
     
 def show(emotion,count):
     for i in range(count):
@@ -189,7 +196,7 @@ def show(emotion,count):
             disp = LCD_2inch.LCD_2inch()
             disp.Init()
             for i in range(frame_count[emotion]):
-                image = Image.open('/home/pi/Desktop/EmoBot/emotions/'+emotion+'/frame'+str(i)+'.png')	
+                image = Image.open('./emotions/'+emotion+'/frame'+str(i)+'.png')	
                 disp.ShowImage(image)
         except IOError as e:
             logging.info(e)    
@@ -203,9 +210,10 @@ if __name__ == '__main__':
     p1 = multiprocessing.Process(target=check_sensor, name='p1')
     p1.start()
     bootup()
+   # sound('start')
     while True:
         if event.is_set():
-                p5.terminate()
+                #p5.terminate()
                 event.clear()
                 emotion = q.get()
                 q.empty()

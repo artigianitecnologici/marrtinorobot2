@@ -1,10 +1,8 @@
 pip install adafruit-blinka
 pip install adafruit-circuitpython-servokit
 pip install spidev
-# for pc
 pip install numpy
 pip install pillow
-pip install pygame
 
 
 pip install adafruit-blinka

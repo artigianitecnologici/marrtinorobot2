@@ -33,11 +33,16 @@ services:
     security_opt:
       - seccomp=unconfined
     shm_size: "512m"
+    environment:
+      - PULSE_SERVER=unix:/run/user/1000/pulse/native
     volumes:
       - $MARRTINOROBOT2_HOME:/home/ubuntu/src/marrtinorobot2
       - /dev:/dev
+      - /run/user/1000/pulse/native:/run/user/1000/pulse/native
+    dns: 8.8.8.8
     networks:
       - nginx-network
+    privileged: true
     tty: true
     stdin_open: true
     restart: always
