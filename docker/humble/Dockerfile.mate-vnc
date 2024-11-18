@@ -119,44 +119,117 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
     rm -rf /var/lib/apt/lists/*; \
     fi
 
-    USER ubuntu
-
-    RUN echo -e "\033[1;32mInstall Repository MARRtino Robot 2\033[0m"
-    #
     
-  
 
-    # Installazione di pacchetti e repository MARRtino
-    RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src && \
-        mkdir -p /home/ubuntu/src && \
-        cd /home/ubuntu/src && \
-        git clone -b humble-devel https://github.com/ROBOTIS-GIT/dynamixel-workbench.git && \
-        git clone -b humble-devel https://github.com/ROBOTIS-GIT/dynamixel-workbench-msgs.git && \
-        git clone -b humble-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git && \
-        git clone https://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@github.com/artigianitecnologici/marrtinorobot2.git
+RUN echo -e "\033[1;32mInstall Repository MARRtino Robot 2\033[0m"
+    #
+# USER root
+RUN apt-get update && \
+    apt-get install -y python3-vcstool build-essential
+RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src 
+
+
+WORKDIR /home/ubuntu/marrtinorobot2_ws
+
+    RUN git clone --depth 1 -b ${ROS_DISTRO} https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup && \
+        . /opt/ros/$ROS_DISTRO/setup.sh && \
+        apt update && \
+        apt install -y ed python3-pip && \
+        apt install -y ros-$ROS_DISTRO-rmw-fastrtps-cpp && \
+        apt remove -y ros-$ROS_DISTRO-rmw-cyclonedds-cpp && \
+        apt autoremove -y && \
+        rosdep update --rosdistro $ROS_DISTRO && \
+        rosdep install --from-paths src --ignore-src -y && \
+        colcon build && \
+        echo $(/home/ubuntu/marrtinorobot2_ws /home/ubuntu/marrtinorobot2_ws/src/micro_ros_setup/package.xml | grep '<version>' | sed -r 's/.*<version>([0-9]+.[0-9]+.[0-9]+)<\/version>/\1/g') > /version.txt && \
+        rm -rf log/ build/ src/* && \
+        rm -rf /var/lib/apt/lists/*
+    
+    RUN . /opt/ros/$ROS_DISTRO/setup.sh && \
+        . install/local_setup.sh && \
+        apt update && \
+        ros2 run micro_ros_setup create_agent_ws.sh && \
+        ros2 run micro_ros_setup build_agent.sh && \
+        rm -rf log/ build/ src/
+# RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src && \
+#      git clone -b ${ROS_DISTRO} https://github.com/micro-ROS/micro_ros_setup.git /home/ubuntu/marrtinorobot2_ws/src/micro_ros_setup 
+# #     cd /home/ubuntu/marrtinorobot2_ws && \
+# #     apt-get update && \
+# #     rosdep update  && \
+# #     rosdep install --from-path src --ignore-src -y && \
+# #     colcon build && \     
+# #     rm -rf /var/lib/apt/lists/*
+
+# RUN cd /home/ubuntu/marrtinorobot2_ws && \
+#     apt-get update && \
+#     apt-get install -y ros-${ROS_DISTRO}-ament-cmake && \
+#     rosdep update && \
+#     rosdep install --from-paths /home/ubuntu/marrtinorobot2_ws/src --ignore-src -r -y && \
+#     colcon build && \
+#     rm -rf /var/lib/apt/lists/*
+
+# RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc && \
+#     echo "source /home/ubuntu/marrtinorobot2_ws/install/setup.bash" >> ~/.bashrc && \
+#     source ~/.bashrc && \
+#     colcon build --packages-select micro_ros_setup
+
+# RUN source /opt/ros/$ROS_DISTRO/setup.bash \
+#     && colcon build --packages-select micro_ros_setup
+
+# RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
+#     colcon build --base-paths /home/ubuntu/marrtinorobot2_ws && \
+#     source /home/ubuntu/marrtinorobot2_ws/install/setup.bash
+    
+# RUN source /opt/ros/$ROS_DISTRO/setup.bash  \
+#     && source /home/ubuntu/marrtinorobot2_ws/install/setup.bash \
+#     && ros2 run micro_ros_setup create_agent_ws.sh
+    
+   
+    
+#     RUN source /opt/ros/$ROS_DISTRO/setup.bash \
+#         && colcon build
+RUN apt-get update -q && \
+    apt-get install -y \
+    mpg321 sox  libttspico-utils 
+
+RUN pip3 install gtts opencv-python opencv-python-headless
+ 
+
+# Installazione di pacchetti e repository MARRtino
+RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src && \
+    mkdir -p /home/ubuntu/src && \
+    cd /home/ubuntu/src && \
+    git clone -b humble-devel https://github.com/ROBOTIS-GIT/dynamixel-workbench.git && \
+    git clone -b humble-devel https://github.com/ROBOTIS-GIT/dynamixel-workbench-msgs.git && \
+    git clone -b humble-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git && \
+    git clone https://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@github.com/artigianitecnologici/marrtinorobot2.git
     
         # git clone https://github.com/orbbec/OrbbecSDK_ROS2.git && \
         #git clone -b ${ROS_DISTRO} https://github.com/micro-ROS/micro_ros_setup.git /home/ubuntu/marrtinorobot2_ws/src/micro_ros_setup && \
-    WORKDIR /home/ubuntu/marrtinorobot2_ws/src
-    
-    RUN ln -s /home/ubuntu/src/DynamixelSDK . && \
-        ln -s /home/ubuntu/src/dynamixel-workbench-msgs . && \
-        ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_base . && \
-        ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_bringup . && \
-        ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_description . && \
-        ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_webinterface . && \
-        ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_gazebo . && \
-        ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_navigation . && \
-        ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_vision . && \
-        ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_voice . && \
-        ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_ps4_joy_controller . && \
-        ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_cartographer . && \
-        ln -s /home/ubuntu/src/m-explore-ros2/explore .
+
+
+WORKDIR /home/ubuntu/marrtinorobot2_ws/src
+
+RUN ln -s /home/ubuntu/src/DynamixelSDK . && \
+    ln -s /home/ubuntu/src/dynamixel-workbench-msgs . && \
+    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_base . && \
+    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_bringup . && \
+    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_description . && \
+    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_webinterface . && \
+    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_gazebo . && \
+    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_navigation . && \
+    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_vision . && \
+    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_voice . && \
+    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_ps4_joy_controller . && \
+    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_cartographer . && \
+    ln -s /home/ubuntu/src/m-explore-ros2/explore .
 
 # Configurazione finale per l'utente 'ubuntu'
+WORKDIR /home/ubuntu/marrtinorobot2_ws
 
-USER root
-
+RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
+    colcon build  && \
+    source /home/ubuntu/marrtinorobot2_ws/install/setup.bash
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/ubuntu/.bashrc && \
     echo "source /home/ubuntu/marrtinorobot2_ws/install/setup.bash" >> /home/ubuntu/.bashrc && \
