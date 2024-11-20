@@ -23,10 +23,10 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    zed_sensors = ['zed', 'zed2', 'zed2i', 'zedm']
-    zed_common_config_path = PathJoinSubstitution(
-        [FindPackageShare('marrtinorobot2_bringup'), 'config', 'zed_common.yaml']
-    )
+    # zed_sensors = ['zed', 'zed2', 'zed2i', 'zedm']
+    # zed_common_config_path = PathJoinSubstitution(
+    #     [FindPackageShare('marrtinorobot2_bringup'), 'config', 'zed_common.yaml']
+    # )
 
     oakd_sensors = ['oakd', 'oakdlite', 'oakdpro']
     to_oakd_vars = {
@@ -53,20 +53,20 @@ def generate_launch_description():
             }.items()   
         ),
 
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(PathJoinSubstitution(
-                [FindPackageShare('zed_wrapper'), 'launch/include', 'zed_camera.launch.py']
-            )),
-            condition=IfCondition(PythonExpression(['"', LaunchConfiguration('sensor'), '" in "', str(zed_sensors), '"'])),
-            launch_arguments={
-                'camera_model': LaunchConfiguration('sensor'),
-                'config_common_path': zed_common_config_path,
-                'camera_name': '',
-                'node_name': 'zed',
-                'publish_urdf': 'true',
-                'base_frame': 'camera_link'
-            }.items()   
-        ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(PathJoinSubstitution(
+        #         [FindPackageShare('zed_wrapper'), 'launch/include', 'zed_camera.launch.py']
+        #     )),
+        #     condition=IfCondition(PythonExpression(['"', LaunchConfiguration('sensor'), '" in "', str(zed_sensors), '"'])),
+        #     launch_arguments={
+        #         'camera_model': LaunchConfiguration('sensor'),
+        #         'config_common_path': zed_common_config_path,
+        #         'camera_name': '',
+        #         'node_name': 'zed',
+        #         'publish_urdf': 'true',
+        #         'base_frame': 'camera_link'
+        #     }.items()   
+        # ),
         
        IncludeLaunchDescription(
            PythonLaunchDescriptionSource(PathJoinSubstitution(

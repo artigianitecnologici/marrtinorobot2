@@ -55,6 +55,7 @@ ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
 #ln -s $HOME/src/marrtinorobot2/marrtinorobot2_ui .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_cartographer .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_dynamixel .
+ln -s $HOME/src/depthai-ros .
 sudo apt install tmux -y
 
 

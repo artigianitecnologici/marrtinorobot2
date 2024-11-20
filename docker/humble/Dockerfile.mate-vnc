@@ -111,6 +111,14 @@ RUN useradd -m -s /bin/bash ubuntu && \
 # Install simulation package only on amd64
 # Not ready for arm64 for now (July 28th, 2020)
 # https://github.com/Tiryoh/docker-ros2-desktop-vnc/pull/56#issuecomment-1196359860
+
+RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
+    git clone https://github.com/osrf/gazebo_models.git /root/.gazebo/models; \
+    fi
+RUN rm -rf /root/.gazebo/models/.git
+
+
+
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
     apt-get update -q && \
     apt-get install -y \
@@ -202,8 +210,8 @@ RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src && \
     git clone -b humble-devel https://github.com/ROBOTIS-GIT/dynamixel-workbench.git && \
     git clone -b humble-devel https://github.com/ROBOTIS-GIT/dynamixel-workbench-msgs.git && \
     git clone -b humble-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git && \
-    git clone https://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@github.com/artigianitecnologici/marrtinorobot2.git
-    
+    git clone https://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@github.com/artigianitecnologici/marrtinorobot2.git && \
+    git clone https://github.com/robo-friends/m-explore-ros2.git
         # git clone https://github.com/orbbec/OrbbecSDK_ROS2.git && \
         #git clone -b ${ROS_DISTRO} https://github.com/micro-ROS/micro_ros_setup.git /home/ubuntu/marrtinorobot2_ws/src/micro_ros_setup && \
 
@@ -226,7 +234,9 @@ RUN ln -s /home/ubuntu/src/DynamixelSDK . && \
 
 # Configurazione finale per l'utente 'ubuntu'
 WORKDIR /home/ubuntu/marrtinorobot2_ws
-
+RUN rosdep update && \
+    rosdep install --from-paths src --ignore-src -r -y
+    
 RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
     colcon build  && \
     source /home/ubuntu/marrtinorobot2_ws/install/setup.bash

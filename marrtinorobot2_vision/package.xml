@@ -14,7 +14,6 @@
   <depend>sensor_msgs</depend>
   <depend>std_msgs</depend>
   <depend>opencv-python</depend>
-  <depend>opencv</depend>
   <depend>apriltag</depend>
  
   <export>

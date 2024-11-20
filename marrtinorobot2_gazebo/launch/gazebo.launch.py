@@ -1,21 +1,28 @@
-# Import necessary modules
 import os
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription
+from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+
     # Use simulation time (synchronized with Gazebo)
     use_sim_time = True
 
-    # Default path to the world file if no parameter is passed
-    default_world_path = PathJoinSubstitution(
-        [FindPackageShare("marrtinorobot2_gazebo"), "worlds", "my_world.world"]
-    )
+    # Get the package share directory
+    pkg_share = get_package_share_directory("marrtinorobot2_gazebo")
+
+    # Set the path to the SDF model files
+    gazebo_models_path = os.path.join(pkg_share, 'models')
+    os.environ["GAZEBO_MODEL_PATH"] = f"{gazebo_models_path}:{os.environ.get('GAZEBO_MODEL_PATH', '')}"
+
+    # Set the path to the world file
+    world_file_name = 'cafe.world'
+    world_path = os.path.join(pkg_share, 'worlds', world_file_name)
 
     # Path to the EKF configuration file
     ekf_config_path = PathJoinSubstitution(
@@ -31,7 +38,7 @@ def generate_launch_description():
         # Declare the 'world' argument, allowing it to be passed at runtime
         DeclareLaunchArgument(
             name='world',
-            default_value=default_world_path,
+            default_value=world_path,
             description='Gazebo world file path'
         ),
 
