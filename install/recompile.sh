@@ -65,7 +65,7 @@ rosdep update && rosdep install --from-path src --ignore-src -y --skip-keys micr
 source  install/setup.bash
 cp $HOME/src/marrtinorobot2/install/script/*.sh .
 
-
+sudo apt install gazebo -y
 sudo apt install -y ros-$ROS_DISTRO-rplidar-ros
 sudo apt-get install -y ros-${ROS_DISTRO}-v4l2-camera
 echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"' | sudo tee /etc/udev/rules.d/80-movidius.rules
@@ -98,6 +98,8 @@ sudo apt install ros-$ROS_DISTRO-robot-localization -y
 # joy 
 sudo apt install -y ros-$ROS_DISTRO-joy 
 sudo apt install -y ros-$ROS_DISTRO-teleop-twist-joystick
+
+sudo apt install -y ros-$ROS_DISTRO-joint-state-publisher
 
 
 # astra camera

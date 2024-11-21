@@ -89,5 +89,5 @@ if [ "$answer" != "${answer#[Yy]}" ] ;
         echo "export MARRTINOROBOT2_BASE=2wd" >> $HOME/.bashrc
         echo "export MARRTINOROBOT2_LASER_SENSOR=rplidar" >> $HOME/.bashrc
 fi
-
+sudo apt install gazebo -y
 echo "To start using ROS2, run: source $HOME/.bashrc"
