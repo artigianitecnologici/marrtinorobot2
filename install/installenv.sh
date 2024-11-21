@@ -9,3 +9,4 @@ echo "export MARRTINOROBOT2_WS=$HOME/marrtinorobot2_ws" >> $HOME/.bashrc
 echo "alias cdmd='cd ~/src/marrtinorobot2/docker'" >> $HOME/.bashrc
 echo "alias cdm='cd ~/src/marrtinorobot2'" >> $HOME/.bashrc
 echo "alias cb='cd ~/marrtinorobot2 && colcon build'" >> $HOME/.bashrc
+echo 'export GAZEBO_RESOURCE_PATH=/usr/share/gazebo-11:$GAZEBO_RESOURCE_PATH' >> ~/.bashrc
