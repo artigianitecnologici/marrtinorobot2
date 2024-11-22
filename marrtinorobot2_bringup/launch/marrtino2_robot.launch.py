@@ -8,9 +8,9 @@ from launch.conditions import IfCondition
 
 
 def generate_launch_description():
-    sensors_launch_path = PathJoinSubstitution(
-        [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'sensors.launch.py']
-    )
+    # sensors_launch_path = PathJoinSubstitution(
+    #     [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'sensors.launch.py']
+    # )
 
     description_launch_path = PathJoinSubstitution(
         [FindPackageShare('marrtinorobot2_description'), 'launch', 'description.launch.py']
@@ -44,9 +44,9 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(camera_robot_launch_path),
         ),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(sensors_launch_path),
-        ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(sensors_launch_path),
+        # ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(tts_robot_launch_path),
         )

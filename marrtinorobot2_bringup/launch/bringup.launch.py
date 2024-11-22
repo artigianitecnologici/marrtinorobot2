@@ -22,9 +22,9 @@ from launch.conditions import IfCondition, UnlessCondition
 
 
 def generate_launch_description():
-    sensors_launch_path = PathJoinSubstitution(
-        [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'sensors.launch.py']
-    )
+    # sensors_launch_path = PathJoinSubstitution(
+    #     [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'sensors.launch.py']
+    # )
 
     # joy_launch_path = PathJoinSubstitution(
     #     [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'joy_teleop.launch.py']
