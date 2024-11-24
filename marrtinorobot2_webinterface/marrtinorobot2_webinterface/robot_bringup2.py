@@ -6,7 +6,6 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 
-
 # Classe TmuxSend aggiornata
 class TmuxSend:
     def __init__(self, session_name, names):
@@ -107,7 +106,7 @@ def run_server(port, log_publisher):
                 continue
 
             if '_kill' in data:
-                base_command = data.replace('_kill', '').replace('.sh', '')  # Normalizza il nome
+                base_command = data.replace('_kill', '')
                 try:
                     index = panel_names.index(base_command)
                     if base_command in processes:
@@ -119,18 +118,21 @@ def run_server(port, log_publisher):
                 except ValueError:
                     log_publisher.publish_log(f"Command '{base_command}' not found.")
             else:
-                base_command = f"cd {pfolder} && " + './' + data
+
+                base_command = f"cd {pfolder} && " +  './' + data
                 try:
-                    index = panel_names.index(data.replace('.sh', ''))  # Normalizza il nome
-                    command_key = data.replace('.sh', '')  # Chiave per il dizionario dei processi
-                    if command_key not in processes:
+                    index = panel_names.index(data.replace('.sh', ''))
+                    if data not in processes:
                         process = execute_command(base_command, tmux, index, log_publisher)
                         if process:
-                            processes[command_key] = process
+                            processes[data] = process
                     else:
                         log_publisher.publish_log(f"Command '{data}' is already running.")
                 except ValueError:
                     log_publisher.publish_log(f"Command '{data}' not found in panel names.")
+
+                
+                
 
 
 if __name__ == '__main__':

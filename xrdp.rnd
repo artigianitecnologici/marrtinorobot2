@@ -2,7 +2,10 @@
 
 Configura XRDP per usare MATE:
 Crea o modifica il file ~/.xsession:
+
 echo mate-session > ~/.xsession
+chmod +x ~/.xsession
+
 
 Riavvia il servizio XRDP:
 sudo systemctl restart xrdp
@@ -94,6 +97,8 @@ ResultActive=yes
 ### Configure the Xorg session
 
 Create a file: `~/.xsession`
+
+echo mate-session > ~/.xsession
 
 Paste the following content:
 

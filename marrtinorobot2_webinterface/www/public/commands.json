@@ -1,0 +1,33 @@
+[
+  {
+    "title": "bringup",
+    "startCommand": "bringup.sh",
+    "stopCommand": "bringup_kill",
+    "selected": true
+},
+  {
+      "title": "MicroROS",
+      "startCommand": "microros_start",
+      "stopCommand": "microros_kill",
+      "selected": true
+  },
+  {
+      "title": "WebCam",
+      "startCommand": "webcam.sh",
+      "stopCommand": "webcam_kill",
+      "selected": false
+  },
+  {
+      "title": "TTS",
+      "startCommand": "tts.sh",
+      "stopCommand": "tts_kill",
+      "selected": false
+  },
+  {
+    "title": "rplidar",
+    "startCommand": "rplidar.sh",
+    "stopCommand": "rplidar_kill",
+    "selected": false
+}
+
+]
