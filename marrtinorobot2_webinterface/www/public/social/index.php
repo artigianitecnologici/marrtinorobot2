@@ -129,18 +129,23 @@ h6 {text-align: center;}
     
             <div class="col-md-3">
               <div class="card mb-4 box-shadow"> 
-                <a  href="../chess">
-                <img class="card-img-top" src="image/Marrtino.jpg" alt="Scacchi">
-                 </a>
+                <script>
+                      document.write("<a  class='btn' target=\"_blank\" href=\"https://" + window.location.hostname + ":5000\" class=\"btn waves-effect waves-light blue\"/>")
+                      document.write("<img class='card-img-top' src='image/www.png' alt='www'>")
+                      document.write("</a>")
+                  </script>  
+              
+                
                 <div class="card-body">
-                  <p class="card-text">In this section you can start MARRtino or a simulators and their services, such as sensors or actuators.</p>
+                  <p class="card-text">WEB INTERFACE</br></br></br>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                        <?php    
-                          $mylink =  $_SERVER['HTTP_HOST'];
-                          $mylink = "http://" . substr($mylink,0, strpos($mylink,":8080"));
-                             ?>
-                       <a class="btn btn-primary" href="<?php echo $mylink;?>" role="button">MARRtino ROBOT</a>
+                    <script>
+                      document.write("<a  class='btn btn-primary' target=\"_blank\" href=\"https://" + window.location.hostname + ":5000\" class=\"btn waves-effect waves-light blue\"/>")
+                     
+                      document.write("</a>")
+                    </script>  
+                     
                     </div>
                     
                   </div>
@@ -157,7 +162,7 @@ h6 {text-align: center;}
          
                 <img class="card-img-top" src="image/vnc.png" alt="vnc">
               
-                </a>
+             
                 <div class="card-body">
                   <p class="card-text">VNC interface </br></br></br></br></p>
                   <div class="d-flex justify-content-between align-items-center">

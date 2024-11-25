@@ -13,6 +13,7 @@
 	   <li class="nav-item">
         <a class="nav-link" href="bringup.php" aria-haspopup="true"  >Bringup</a>
       </li>
+      
       <li class="nav-item">
         <a class="nav-link" href="../social/facerobot.php" aria-haspopup="true"  >Facerobot</a>
       </li>

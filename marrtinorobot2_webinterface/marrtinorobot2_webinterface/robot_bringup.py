@@ -90,7 +90,7 @@ def run_server(port, log_publisher):
     print(f"Server started on port {port}")
     log_publisher.publish_log(f"Server started on port {port}")
 
-    panel_names = ['bringup', 'MicroROS', 'webcam', 'tts', 'rplidar']
+    panel_names = ['bringup', 'MicroROS', 'webcam', 'tts', 'rplidar','slam','explorer']
     tmux = TmuxSend('bringup', panel_names)
 
     processes = {}
@@ -141,6 +141,7 @@ if __name__ == '__main__':
 
     # Porta del server
     default_port = 9236
+    log_publisher.publish_log(f"Server bringup on port '{default_port}' ")
 
     # Esegui il server
     server_thread = threading.Thread(target=run_server, args=(default_port, log_publisher))
