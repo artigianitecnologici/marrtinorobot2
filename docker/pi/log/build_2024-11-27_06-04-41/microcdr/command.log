@@ -1,4 +1,0 @@
-Invoking command in '/home/ubuntu/marrtinorobot2_ws/build/microcdr': /usr/bin/cmake --build /home/ubuntu/marrtinorobot2_ws/build/microcdr -- -j8 -l8
-Invoked command in '/home/ubuntu/marrtinorobot2_ws/build/microcdr' returned '0': /usr/bin/cmake --build /home/ubuntu/marrtinorobot2_ws/build/microcdr -- -j8 -l8
-Invoking command in '/home/ubuntu/marrtinorobot2_ws/build/microcdr': /usr/bin/cmake --install /home/ubuntu/marrtinorobot2_ws/build/microcdr
-Invoked command in '/home/ubuntu/marrtinorobot2_ws/build/microcdr' returned '0': /usr/bin/cmake --install /home/ubuntu/marrtinorobot2_ws/build/microcdr
