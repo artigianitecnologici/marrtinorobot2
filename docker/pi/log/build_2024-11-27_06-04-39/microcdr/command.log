@@ -1,0 +1,6 @@
+Invoking command in '/home/ubuntu/marrtinorobot2_ws/build/microcdr': /usr/bin/cmake /home/ubuntu/marrtinorobot2_ws/src/eProsima/Micro-CDR -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON -DUCDR_ISOLATED_INSTALL=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/home/ubuntu/marrtinorobot2_ws/install/microcdr
+Invoked command in '/home/ubuntu/marrtinorobot2_ws/build/microcdr' returned '0': /usr/bin/cmake /home/ubuntu/marrtinorobot2_ws/src/eProsima/Micro-CDR -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON -DUCDR_ISOLATED_INSTALL=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/home/ubuntu/marrtinorobot2_ws/install/microcdr
+Invoking command in '/home/ubuntu/marrtinorobot2_ws/build/microcdr': /usr/bin/cmake --build /home/ubuntu/marrtinorobot2_ws/build/microcdr -- -j8 -l8
+Invoked command in '/home/ubuntu/marrtinorobot2_ws/build/microcdr' returned '0': /usr/bin/cmake --build /home/ubuntu/marrtinorobot2_ws/build/microcdr -- -j8 -l8
+Invoking command in '/home/ubuntu/marrtinorobot2_ws/build/microcdr': /usr/bin/cmake --install /home/ubuntu/marrtinorobot2_ws/build/microcdr
+Invoked command in '/home/ubuntu/marrtinorobot2_ws/build/microcdr' returned '0': /usr/bin/cmake --install /home/ubuntu/marrtinorobot2_ws/build/microcdr

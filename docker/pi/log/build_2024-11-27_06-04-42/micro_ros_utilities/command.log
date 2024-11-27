@@ -1,0 +1,1 @@
+Invoking command in '/home/ubuntu/marrtinorobot2_ws/build/micro_ros_utilities': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/ubuntu/marrtinorobot2_ws/src/uros/micro_ros_utilities -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/home/ubuntu/marrtinorobot2_ws/install/micro_ros_utilities

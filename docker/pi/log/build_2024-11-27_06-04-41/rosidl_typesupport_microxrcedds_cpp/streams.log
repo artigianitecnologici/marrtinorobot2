@@ -1,0 +1,90 @@
+[0.007s] Invoking command in '/home/ubuntu/marrtinorobot2_ws/build/rosidl_typesupport_microxrcedds_cpp': AMENT_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:/home/ubuntu/marrtinorobot2_ws/install/microcdr:/home/ubuntu/marrtinorobot2_ws/install/micro_ros_setup:/opt/ros/humble LD_LIBRARY_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/ubuntu/marrtinorobot2_ws/install/microcdr/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/ubuntu/marrtinorobot2_ws/src/uros/rosidl_typesupport_microxrcedds/rosidl_typesupport_microxrcedds_cpp -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp
+[0.055s] -- The CXX compiler identification is GNU 11.4.0
+[0.060s] -- Detecting CXX compiler ABI info
+[0.117s] -- Detecting CXX compiler ABI info - done
+[0.122s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.122s] -- Detecting CXX compile features
+[0.122s] -- Detecting CXX compile features - done
+[0.124s] -- Found ament_cmake_python: 1.3.10 (/opt/ros/humble/share/ament_cmake_python/cmake)
+[0.125s] -- Found rosidl_runtime_c: 3.1.5 (/opt/ros/humble/share/rosidl_runtime_c/cmake)
+[0.222s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.287s] -- Found rosidl_typesupport_microxrcedds_c: 5.0.1 (/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/share/rosidl_typesupport_microxrcedds_c/cmake)
+[0.294s] -- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.399s] -- Configuring done
+[0.403s] -- Generating done
+[0.406s] -- Build files have been written to: /home/ubuntu/marrtinorobot2_ws/build/rosidl_typesupport_microxrcedds_cpp
+[0.410s] Invoked command in '/home/ubuntu/marrtinorobot2_ws/build/rosidl_typesupport_microxrcedds_cpp' returned '0': AMENT_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:/home/ubuntu/marrtinorobot2_ws/install/microcdr:/home/ubuntu/marrtinorobot2_ws/install/micro_ros_setup:/opt/ros/humble LD_LIBRARY_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/ubuntu/marrtinorobot2_ws/install/microcdr/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/ubuntu/marrtinorobot2_ws/src/uros/rosidl_typesupport_microxrcedds/rosidl_typesupport_microxrcedds_cpp -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp
+[0.410s] Invoking command in '/home/ubuntu/marrtinorobot2_ws/build/rosidl_typesupport_microxrcedds_cpp': AMENT_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:/home/ubuntu/marrtinorobot2_ws/install/microcdr:/home/ubuntu/marrtinorobot2_ws/install/micro_ros_setup:/opt/ros/humble LD_LIBRARY_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/ubuntu/marrtinorobot2_ws/install/microcdr/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/ubuntu/marrtinorobot2_ws/build/rosidl_typesupport_microxrcedds_cpp -- -j8 -l8
+[0.443s] [ 50%] [32mBuilding CXX object CMakeFiles/rosidl_typesupport_microxrcedds_cpp.dir/src/identifier.cpp.o[0m
+[0.449s] [ 50%] Built target ament_cmake_python_copy_rosidl_typesupport_microxrcedds_cpp
+[0.456s] [100%] [32m[1mLinking CXX shared library librosidl_typesupport_microxrcedds_cpp.so[0m
+[0.484s] [100%] Built target rosidl_typesupport_microxrcedds_cpp
+[0.577s] running egg_info
+[0.577s] creating rosidl_typesupport_microxrcedds_cpp.egg-info
+[0.577s] writing rosidl_typesupport_microxrcedds_cpp.egg-info/PKG-INFO
+[0.578s] writing dependency_links to rosidl_typesupport_microxrcedds_cpp.egg-info/dependency_links.txt
+[0.578s] writing top-level names to rosidl_typesupport_microxrcedds_cpp.egg-info/top_level.txt
+[0.578s] writing manifest file 'rosidl_typesupport_microxrcedds_cpp.egg-info/SOURCES.txt'
+[0.579s] reading manifest file 'rosidl_typesupport_microxrcedds_cpp.egg-info/SOURCES.txt'
+[0.579s] writing manifest file 'rosidl_typesupport_microxrcedds_cpp.egg-info/SOURCES.txt'
+[0.600s] [100%] Built target ament_cmake_python_build_rosidl_typesupport_microxrcedds_cpp_egg
+[0.608s] Invoked command in '/home/ubuntu/marrtinorobot2_ws/build/rosidl_typesupport_microxrcedds_cpp' returned '0': AMENT_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:/home/ubuntu/marrtinorobot2_ws/install/microcdr:/home/ubuntu/marrtinorobot2_ws/install/micro_ros_setup:/opt/ros/humble LD_LIBRARY_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/ubuntu/marrtinorobot2_ws/install/microcdr/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/ubuntu/marrtinorobot2_ws/build/rosidl_typesupport_microxrcedds_cpp -- -j8 -l8
+[0.609s] Invoking command in '/home/ubuntu/marrtinorobot2_ws/build/rosidl_typesupport_microxrcedds_cpp': AMENT_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:/home/ubuntu/marrtinorobot2_ws/install/microcdr:/home/ubuntu/marrtinorobot2_ws/install/micro_ros_setup:/opt/ros/humble LD_LIBRARY_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/ubuntu/marrtinorobot2_ws/install/microcdr/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/ubuntu/marrtinorobot2_ws/build/rosidl_typesupport_microxrcedds_cpp
+[0.615s] -- Install configuration: ""
+[0.615s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/environment/pythonpath.sh
+[0.615s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/environment/pythonpath.dsv
+[0.615s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages/rosidl_typesupport_microxrcedds_cpp-5.0.1-py3.10.egg-info
+[0.615s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages/rosidl_typesupport_microxrcedds_cpp-5.0.1-py3.10.egg-info/SOURCES.txt
+[0.615s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages/rosidl_typesupport_microxrcedds_cpp-5.0.1-py3.10.egg-info/dependency_links.txt
+[0.616s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages/rosidl_typesupport_microxrcedds_cpp-5.0.1-py3.10.egg-info/top_level.txt
+[0.616s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages/rosidl_typesupport_microxrcedds_cpp-5.0.1-py3.10.egg-info/PKG-INFO
+[0.616s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages/rosidl_typesupport_microxrcedds_cpp
+[0.616s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages/rosidl_typesupport_microxrcedds_cpp/__init__.py
+[0.638s] Listing '/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages/rosidl_typesupport_microxrcedds_cpp'...
+[0.638s] Compiling '/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages/rosidl_typesupport_microxrcedds_cpp/__init__.py'...
+[0.641s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/environment/library_path.sh
+[0.641s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/environment/library_path.dsv
+[0.642s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/ament_index/resource_index/rosidl_typesupport_cpp/rosidl_typesupport_microxrcedds_cpp
+[0.642s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/ament_index/resource_index/package_run_dependencies/rosidl_typesupport_microxrcedds_cpp
+[0.642s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/ament_index/resource_index/parent_prefix_path/rosidl_typesupport_microxrcedds_cpp
+[0.642s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/environment/ament_prefix_path.sh
+[0.642s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/environment/ament_prefix_path.dsv
+[0.642s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/environment/path.sh
+[0.642s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/environment/path.dsv
+[0.642s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/local_setup.bash
+[0.642s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/local_setup.sh
+[0.642s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/local_setup.zsh
+[0.643s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/local_setup.dsv
+[0.643s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/package.dsv
+[0.643s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/ament_index/resource_index/packages/rosidl_typesupport_microxrcedds_cpp
+[0.643s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/cmake/rosidl_typesupport_microxrcedds_cppExport.cmake
+[0.643s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/cmake/rosidl_typesupport_microxrcedds_cppExport-noconfig.cmake
+[0.643s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/cmake/rosidl_typesupport_microxrcedds_cpp-extras.cmake
+[0.643s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.643s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.643s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/cmake/ament_cmake_export_libraries-extras.cmake
+[0.644s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/cmake/ament_cmake_export_targets-extras.cmake
+[0.644s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/cmake/rosidl_typesupport_microxrcedds_cppConfig.cmake
+[0.644s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/cmake/rosidl_typesupport_microxrcedds_cppConfig-version.cmake
+[0.644s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/package.xml
+[0.644s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/lib/rosidl_typesupport_microxrcedds_cpp/rosidl_typesupport_microxrcedds_cpp
+[0.644s] -- Up-to-date: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/cmake
+[0.644s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/cmake/rosidl_typesupport_microxrcedds_cpp_generate_interfaces.cmake
+[0.644s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/resource
+[0.644s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/resource/srv__type_support_cpp.cpp.em
+[0.644s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/resource/msg__rosidl_typesupport_microxrcedds_cpp.hpp.em
+[0.644s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/resource/msg__type_support_cpp.cpp.em
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/resource/srv__rosidl_typesupport_microxrcedds_cpp.hpp.em
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/resource/rosidl_typesupport_microxrcedds_cpp__visibility_control.h.in
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/resource/idl__rosidl_typesupport_microxrcedds_cpp.hpp.em
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/share/rosidl_typesupport_microxrcedds_cpp/resource/idl__type_support_cpp.cpp.em
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/include
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/include/rosidl_typesupport_microxrcedds_cpp
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/include/rosidl_typesupport_microxrcedds_cpp/visibility_control.h
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/include/rosidl_typesupport_microxrcedds_cpp/service_type_support_decl.hpp
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/include/rosidl_typesupport_microxrcedds_cpp/message_type_support_decl.hpp
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/include/rosidl_typesupport_microxrcedds_cpp/identifier.hpp
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/include/rosidl_typesupport_microxrcedds_cpp/identifier.h
+[0.645s] -- Installing: /home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/lib/librosidl_typesupport_microxrcedds_cpp.so
+[0.646s] -- Set runtime path of "/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_cpp/lib/librosidl_typesupport_microxrcedds_cpp.so" to ""
+[0.647s] Invoked command in '/home/ubuntu/marrtinorobot2_ws/build/rosidl_typesupport_microxrcedds_cpp' returned '0': AMENT_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c:/home/ubuntu/marrtinorobot2_ws/install/microcdr:/home/ubuntu/marrtinorobot2_ws/install/micro_ros_setup:/opt/ros/humble LD_LIBRARY_PATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/ubuntu/marrtinorobot2_ws/install/microcdr/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/marrtinorobot2_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/ubuntu/marrtinorobot2_ws/build/rosidl_typesupport_microxrcedds_cpp

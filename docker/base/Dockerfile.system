@@ -77,8 +77,7 @@ RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src && \
     git clone -b humble-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git && \
     git clone https://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@github.com/artigianitecnologici/marrtinorobot2.git && \
     git clone https://github.com/robo-friends/m-explore-ros2.git
-        # git clone https://github.com/orbbec/OrbbecSDK_ROS2.git && \
-        #git clone -b ${ROS_DISTRO} https://github.com/micro-ROS/micro_ros_setup.git /home/ubuntu/marrtinorobot2_ws/src/micro_ros_setup && \
+   
 
 WORKDIR /home/ubuntu/marrtinorobot2_ws/src
 RUN ln -s /home/ubuntu/src/DynamixelSDK . && \
