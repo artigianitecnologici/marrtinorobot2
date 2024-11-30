@@ -114,7 +114,7 @@ RUN apt-get update -q && \
         ros-humble-rtabmap-ros \
         ros-humble-cartographer \
         ros-humble-cartographer-ros \
-         ros-humble-navigation2 \
+        ros-humble-navigation2 \
         ros-humble-nav2-bringup \
         ros-humble-v4l2-camera \
         ros-humble-camera-calibration-parsers \
@@ -127,38 +127,6 @@ RUN apt-get update -q && \
     rm -rf /var/lib/apt/lists/*
 #  ros-humble-localization \
 
-# ros-$ROS_DISTRO-gazebo-ros-pkgs
-
-# RUN apt-get update -q && \
-#     apt-get install -y && \
-#     ros-$ROS_DISTRO-depthai-ros && \
-#     # navigation
-#      ros-$ROS_DISTRO-rtabmap-ros && \
-#     ## cartographer 
-#      ros-$ROS_DISTRO-cartographer  && \
-#      ros-$ROS_DISTRO-cartographer-ros && \
-#      ros-$ROS_DISTRO-localization && \
-#     ## Navigation Stack for ROS 2
-#      ros-$ROS_DISTRO-navigation2  && \
-#      ros-$ROS_DISTRO-nav2-bringup && \
-#     ## camera
-#      ros-${ROS_DISTRO}-v4l2-camera && \
-#      v4l-utils && \
-#      ros-$ROS_DISTRO-camera-calibration-parsers && \
-#      ros-$ROS_DISTRO-camera-info-manager && \
-#      ros-$ROS_DISTRO-launch-testing-ament-cmake && \
-#     ## gazebo
-#      ros-$ROS_DISTRO-gazebo-ros-pkg && \
-#      ros-$ROS_DISTRO-robot-localization && \
-#     ## web interface 
-#      ros-$ROS_DISTRO-rosbridge-server && \
-#     ### 2.3 Install prerequisite gazebo
-#      ros-$ROS_DISTRO-gazebo-ros-pkgs  && \
-#      ros-$ROS_DISTRO-robot-localization  && \
-# # joy 
-#  ros-$ROS_DISTRO-joy && \
-#  ros-$ROS_DISTRO-teleop-twist-joystick && \
-#  ros-$ROS_DISTRO-joint-state-publisher
 
 RUN echo -e "\033[1;32mInstall Repository MARRtino Robot 2\033[0m"
     #
@@ -224,7 +192,6 @@ RUN if [ "$Dynamixel" = "true" ]; then \
         ln -s /home/ubuntu/src/DynamixelSDK . \
         ln -s /home/ubuntu/src/dynamixel-workbench-msgs .  \
         ln -s /home/ubuntu/src/dynamixel-workbench .; \
-       
         fi
 
 RUN ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_base . && \
