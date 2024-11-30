@@ -68,10 +68,13 @@ RUN useradd -m -s /bin/bash ubuntu && \
 RUN apt-get update && \
     apt-get install -y python3-vcstool build-essential
  
-# Create workspace directory
-RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src 
 
- 
+# Create workspace directory
+RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src && \
+    cd /home/ubuntu/marrtinorobot2_ws/src && \
+    git clone https://github.com/ros/joint_state_publisher.git -b humble && \
+    cd /home/ubuntu/marrtinorobot2_ws && \
+    colcon build 
 
 
 
@@ -102,7 +105,9 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash \
 
 RUN source /opt/ros/$ROS_DISTRO/setup.bash \
     && colcon build
-
+##
+# EOF INSTALLAZIONE MICROROS
+##
  
 
 # Configure the environment for user 'ubuntu'

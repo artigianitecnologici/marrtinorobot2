@@ -40,33 +40,33 @@ RUN apt-get update && \
 RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src 
 WORKDIR /home/ubuntu/marrtinorobot2_ws
 
-RUN git clone --depth 1 -b ${ROS_DISTRO} https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup && \
-    . /opt/ros/$ROS_DISTRO/setup.sh && \
-    apt update && \
-    apt install -y ed python3-pip && \
-    apt install -y ros-$ROS_DISTRO-rmw-fastrtps-cpp && \
-    apt remove -y ros-$ROS_DISTRO-rmw-cyclonedds-cpp && \
-    apt autoremove -y && \
-    rosdep update --rosdistro $ROS_DISTRO && \
-    rosdep install --from-paths src --ignore-src -y && \
-    colcon build && \
-    echo $(/home/ubuntu/marrtinorobot2_ws /home/ubuntu/marrtinorobot2_ws/src/micro_ros_setup/package.xml | grep '<version>' | sed -r 's/.*<version>([0-9]+.[0-9]+.[0-9]+)<\/version>/\1/g') > /version.txt && \
-    rm -rf log/ build/ src/* && \
-    rm -rf /var/lib/apt/lists/*
 
-RUN . /opt/ros/$ROS_DISTRO/setup.sh && \
-    . install/local_setup.sh && \
-    apt update && \
-    ros2 run micro_ros_setup create_agent_ws.sh && \
-    ros2 run micro_ros_setup build_agent.sh && \
-    rm -rf log/ build/ src/
+##
+# INSTALLAZIONE MICROROS
+##
+WORKDIR /home/ubuntu/marrtinorobot2_ws
+RUN git clone -b $ROS_DISTRO https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup
+RUN apt-get update \
+        && rosdep update --rosdistro=${ROS_DISTRO} \
+        && rosdep install --rosdistro=${ROS_DISTRO} --from-paths src -iry --os=ubuntu:$(lsb_release -sc) --skip-keys micro_ros_agent \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update -q && \
-    apt-get install -y \
-    mpg321 sox  libttspico-utils 
+RUN source /opt/ros/$ROS_DISTRO/setup.bash \
+    && colcon build --packages-select micro_ros_setup
 
-RUN pip3 install gtts opencv-python opencv-python-headless
+RUN source /opt/ros/$ROS_DISTRO/setup.bash  \
+    && source /home/ubuntu/marrtinorobot2_ws/install/setup.bash \
+    && ros2 run micro_ros_setup create_agent_ws.sh
 
+RUN source /opt/ros/$ROS_DISTRO/setup.bash \
+    && source /home/ubuntu/marrtinorobot2_ws/install/setup.bash \
+    && ros2 run micro_ros_setup build_agent.sh
+
+RUN source /opt/ros/$ROS_DISTRO/setup.bash \
+    && colcon build
+##
+# EOF INSTALLAZIONE MICROROS
+##
 
 # Installazione di pacchetti e repository MARRtino
 RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src && \
