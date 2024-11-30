@@ -34,7 +34,7 @@ RUN apt-get update -q && \
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
         supervisor wget gosu git sudo python3-pip tini \
-        build-essential vim sudo locales \
+        build-essential vim sudo locales tmux \
         bash-completion tzdata terminator \
         dos2unix && \
     apt-get autoclean && \
@@ -72,7 +72,6 @@ RUN apt-get update && \
 # Create workspace directory
 RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src && \
     cd /home/ubuntu/marrtinorobot2_ws/src && \
-    git clone https://github.com/ros/joint_state_publisher.git -b humble && \
     cd /home/ubuntu/marrtinorobot2_ws && \
     colcon build 
 

@@ -11,7 +11,7 @@ ARG Gazebo=false
 USER root
 RUN apt-get update -q && \
     apt-get install -y \
-    mpg321 sox  libttspico-utils 
+    mpg321 sox  libttspico-utils tmux
 #v4l-util
 RUN pip install gtts opencv-python opencv-python-headless
 
@@ -67,7 +67,6 @@ RUN if [ "$Dynamixel" = "true" ]; then \
         ln -s /home/ubuntu/src/DynamixelSDK . \
         ln -s /home/ubuntu/src/dynamixel-workbench-msgs .  \
         ln -s /home/ubuntu/src/dynamixel-workbench .; \
-       
         fi
 
 RUN ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_base . && \
