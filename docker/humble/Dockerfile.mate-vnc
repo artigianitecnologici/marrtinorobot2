@@ -198,7 +198,6 @@ RUN ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_base . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_bringup . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_description . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_webinterface . && \
-    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_gazebo . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_navigation . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_vision . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_voice . && \
