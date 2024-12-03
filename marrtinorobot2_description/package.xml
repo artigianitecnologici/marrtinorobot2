@@ -3,7 +3,7 @@
 <package format="3">
     <name>marrtinorobot2_description</name>
     <version>0.0.0</version>
-    <description>Linorobot2 Description Package</description>
+    <description>MARRtino robot 2 Description Package</description>
     <maintainer email="jimenojmm@gmail.com">Juan Miguel Jimeno</maintainer>
     <license>Apache 2.0</license>
     <url type="website">linorobot.org</url>

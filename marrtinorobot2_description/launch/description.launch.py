@@ -1,17 +1,3 @@
-# Copyright (c) 2021 Juan Miguel Jimeno
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http:#www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import os
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
@@ -20,55 +6,67 @@ from launch.conditions import IfCondition
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
-
+# Function to generate the launch description
 def generate_launch_description():
+    # Retrieve the base configuration from the environment variable or set a default
     robot_base = os.getenv('MARRTINOROBOT2_BASE')
-    if (robot_base == ""):
+    if not robot_base:  # Check if the variable is not set or is empty
         robot_base = "2wd"
 
+    # Define the path to the URDF file dynamically based on the robot base type
     urdf_path = PathJoinSubstitution(
         [FindPackageShare("marrtinorobot2_description"), "urdf/robots", f"{robot_base}.urdf.xacro"]
     )
 
+    # Define the path to the RViz configuration file
     rviz_config_path = PathJoinSubstitution(
         [FindPackageShare('marrtinorobot2_description'), 'rviz', 'description.rviz']
     )
 
+    # Return the LaunchDescription containing all nodes and configurations
     return LaunchDescription([
+        # Declare a launch argument for specifying the URDF path
         DeclareLaunchArgument(
             name='urdf', 
             default_value=urdf_path,
             description='URDF path'
         ),
         
+        # Declare a launch argument to enable or disable joint state publisher
         DeclareLaunchArgument(
             name='publish_joints', 
             default_value='true',
             description='Launch joint_states_publisher'
         ),
 
+        # Declare a launch argument to enable or disable RViz
         DeclareLaunchArgument(
             name='rviz', 
             default_value='false',
-            description='Run rviz'
+            description='Run RViz'
         ),
 
+        # Declare a launch argument for using simulation time
         DeclareLaunchArgument(
             name='use_sim_time', 
             default_value='false',
             description='Use simulation time'
         ),
 
+        # Launch the joint state publisher if publish_joints is set to true
         Node(
             package='joint_state_publisher',
             executable='joint_state_publisher',
             name='joint_state_publisher',
             condition=IfCondition(LaunchConfiguration("publish_joints"))
+            # The parameters line is commented out because Galactic automatically handles use_sim_time
+            # Uncomment and modify if needed in other versions or contexts
             # parameters=[
             #     {'use_sim_time': LaunchConfiguration('use_sim_time')}
-            # ] #since galactic use_sim_time gets passed somewhere and rejects this when defined from launch file
+            # ]
         ),
 
+        # Launch the robot state publisher to publish the robot description (URDF)
         Node(
             package='robot_state_publisher',
             executable='robot_state_publisher',
@@ -82,6 +80,7 @@ def generate_launch_description():
             ]
         ),
 
+        # Launch RViz if the rviz argument is set to true
         Node(
             package='rviz2',
             executable='rviz2',
@@ -93,7 +92,7 @@ def generate_launch_description():
         )
     ])
 
-#sources: 
-#https://navigation.ros.org/setup_guides/index.html#
-#https://answers.ros.org/question/374976/ros2-launch-gazebolaunchpy-from-my-own-launch-file/
-#https://github.com/ros2/rclcpp/issues/940
+# References:
+# - ROS 2 Navigation Setup Guide: https://navigation.ros.org/setup_guides/index.html
+# - Example ROS 2 launch file: https://answers.ros.org/question/374976/ros2-launch-gazebolaunchpy-from-my-own-launch-file/
+# - ROS 2 issue with Galactic: https://github.com/ros2/rclcpp/issues/940
