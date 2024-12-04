@@ -99,6 +99,7 @@ sudo apt install -y ros-$ROS_DISTRO-joy
 sudo apt install -y ros-$ROS_DISTRO-teleop-twist-joystick
 
 sudo apt install -y ros-$ROS_DISTRO-joint-state-publisher
+sudo apt-get install -y ros-humble-rosbridge-suite
 
 
 # astra camera
