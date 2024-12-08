@@ -1,4 +1,5 @@
-FROM ubuntu:jammy-20240808
+FROM ubuntu:jammy 
+# -20240808
 
 ARG TARGETPLATFORM
 #
@@ -35,7 +36,7 @@ RUN apt-get update -q && \
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
         tigervnc-standalone-server tigervnc-common \
-        supervisor wget curl gosu git sudo python3-pip tini \
+        supervisor wget curl gosu git sudo python3-pip tini tmux netcat \
         build-essential vim sudo lsb-release locales \
         bash-completion tzdata terminator \
         dos2unix && \
@@ -102,11 +103,12 @@ RUN useradd -m -s /bin/bash ubuntu && \
 RUN if [ "$Gazebo" = "true" ]; then \
     apt-get update -q && \
     apt-get install -y \
-    gazebo && \
-    ros-${ROS_DISTRO}-gazebo-ros-pkgs \
-    ros-${ROS_DISTRO}-ros-ign && \
+        gazebo \
+        ros-${ROS_DISTRO}-gazebo-ros-pkgs \
+        ros-${ROS_DISTRO}-ros-gz && \
     rm -rf /var/lib/apt/lists/*; \
     fi
+
    
 RUN apt-get update -q && \
     apt-get install -y \
@@ -123,6 +125,7 @@ RUN apt-get update -q && \
         ros-humble-robot-localization \
         ros-humble-rosbridge-server \
         ros-humble-joy \
+        ros-humble-rplidar-ros \
         ros-humble-joint-state-publisher && \
     rm -rf /var/lib/apt/lists/*
 #  ros-humble-localization \
@@ -182,7 +185,15 @@ RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src && \
     git clone https://github.com/robo-friends/m-explore-ros2.git && \
     git clone -b ros2 https://github.com/MoffKalast/vizanti.git
     
-
+# download from MarrtinoROS2 ?
+RUN if [ "$Dynamixel" = "true" ]; then \
+    echo "Cloning Dynamixel repositories..."; \
+    git clone -b humble-devel https://github.com/ROBOTIS-GIT/dynamixel-workbench.git && \
+    git clone -b humble-devel https://github.com/ROBOTIS-GIT/dynamixel-workbench-msgs.git && \
+    git clone -b humble-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git; \
+else \
+    echo "Skipping Dynamixel repository installation."; \
+fi
 
     
 WORKDIR /home/ubuntu/marrtinorobot2_ws/src
@@ -208,15 +219,23 @@ RUN ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_base . && \
 
 # Configurazione finale per l'utente 'ubuntu'
 WORKDIR /home/ubuntu/marrtinorobot2_ws
+
+RUN cp /home/ubuntu/src/marrtinorobot2/install/script/* .
+
 USER ubuntu
 RUN rosdep update && \
     rosdep install --from-paths src --ignore-src -r -y
 USER root
 
+
+
+
+
     
 RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
     colcon build  && \
     source /home/ubuntu/marrtinorobot2_ws/install/setup.bash
+
 
 
 
@@ -229,7 +248,12 @@ RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/ubuntu/.bashrc && \
     echo "export MARRTINOROBOT2_WS=$HOME/marrtinorobot2_ws" >> $HOME/.bashrc && \
     echo "alias cdmd='cd ~/src/marrtinorobot2/docker'" >> $HOME/.bashrc && \
     echo "alias cdm='cd ~/src/marrtinorobot2'" >> $HOME/.bashrc && \
-    echo "alias cb='cd ~/marrtinorobot2 && colcon build'" >> $HOME/.bashrc
+    echo "alias cb='cd ~/marrtinorobot2_ws && colcon build'" >> $HOME/.bashrc 
+
+RUN if [ "$Gazebo" = "true" ]; then \
+    echo "export GAZEBO_MODEL_PATH=~/.gazebo/models" && \
+    echo "export GAZEBO_RESOURCE_PATH=~/.gazebo" ; \
+    fi
 
 # Copia      
 # Enable apt-get completion after running `apt-get update` in the container

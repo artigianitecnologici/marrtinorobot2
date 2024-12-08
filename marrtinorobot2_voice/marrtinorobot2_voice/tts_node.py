@@ -36,7 +36,8 @@ class TTSNode(Node):
 
     def language_callback(self, msg):
         # Update the language based on received message
-        self.language = msg.data
+        # Convert the language setting to Unicode
+        self.language = msg.data.decode('utf-8')
         self.get_logger().info(f'Language set to: {self.language}')
 
     def tts_callback(self, msg):
@@ -55,6 +56,11 @@ class TTSNode(Node):
             # Publish the fact that the TTS is done
             self.publisher_.publish(String(data='TTS done'))
         else:
+            if self.language == 'it':
+                self.language = 'it-IT'
+            if self.language == 'en':
+                self.language = 'en-US'
+                
             filename = "/tmp/robot_speach.wav"
             cmd = ['pico2wave', '--wave=' + filename, '--lang=' + self.language, text]
             subprocess.call(cmd)

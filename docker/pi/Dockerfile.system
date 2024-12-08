@@ -33,7 +33,7 @@ RUN apt-get update -q && \
 # Add Package
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        supervisor wget gosu git sudo python3-pip tini \
+        supervisor wget gosu git sudo python3-pip tini tmux netcat \
         build-essential vim sudo locales tmux \
         bash-completion tzdata terminator \
         dos2unix && \

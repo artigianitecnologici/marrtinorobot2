@@ -29,7 +29,8 @@ services:
     image: marrtinorobot2:mate-vnc
     container_name: Dockerfile.mate-vnc
     ports:
-      - "8085:80"
+      - "8085:8085"
+      - "9090:9090"
     security_opt:
       - seccomp=unconfined
     shm_size: "512m"
