@@ -36,7 +36,7 @@ RUN apt-get update -q && \
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
         tigervnc-standalone-server tigervnc-common \
-        supervisor wget curl gosu git sudo python3-pip tini tmux netcat \
+        supervisor wget curl gosu git sudo python3-pip tini tmux netcat nano \
         build-essential vim sudo lsb-release locales \
         bash-completion tzdata terminator \
         dos2unix && \
@@ -183,7 +183,8 @@ RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src && \
     cd /home/ubuntu/src && \
     git clone https://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@github.com/artigianitecnologici/marrtinorobot2.git && \
     git clone https://github.com/robo-friends/m-explore-ros2.git && \
-    git clone -b ros2 https://github.com/MoffKalast/vizanti.git
+    git clone -b ros2 https://github.com/MoffKalast/vizanti.git && \
+    git clone https://github.com/ldrobotSensorTeam/ldlidar_stl_ros2.git
     
 # download from MarrtinoROS2 ?
 RUN if [ "$Dynamixel" = "true" ]; then \
@@ -212,9 +213,9 @@ RUN ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_base . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_navigation . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_vision . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_voice . && \
-    ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_ps4_joy_controller . && \
     ln -s /home/ubuntu/src/marrtinorobot2/marrtinorobot2_cartographer . && \
     ln -s /home/ubuntu/src/m-explore-ros2/explore . && \
+    ln -s /home/ubuntu/src/ldlidar-stl-ros2 . && \
     ln -s /home/ubuntu/src/vizanti .
 
 # Configurazione finale per l'utente 'ubuntu'
@@ -229,26 +230,18 @@ USER root
 
 
 
-
+WORKDIR /home/ubuntu
 
     
 RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
     colcon build  && \
     source /home/ubuntu/marrtinorobot2_ws/install/setup.bash
 
+# setup environment
 
-
-
-RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/ubuntu/.bashrc && \
-    echo "source /home/ubuntu/marrtinorobot2_ws/install/setup.bash" >> /home/ubuntu/.bashrc && \
-    echo "export MARRTINOROBOT2_BASE=2wd" >> /home/ubuntu/.bashrc && \
-    echo "export MARRTINOROBOT2_LASER_SENSOR=rplidar" >> /home/ubuntu/.bashrc && \
-    echo "export MARRTINOROBOT2_DEPTH_SENSOR=oakdlite" >> /home/ubuntu/.bashrc && \
-    echo "export MARRTINOROBOT2_WEBI=$HOME/src/marrtinorobot2/marrtinorobot2_webinterface/www" >> $HOME/.bashrc && \
-    echo "export MARRTINOROBOT2_WS=$HOME/marrtinorobot2_ws" >> $HOME/.bashrc && \
-    echo "alias cdmd='cd ~/src/marrtinorobot2/docker'" >> $HOME/.bashrc && \
-    echo "alias cdm='cd ~/src/marrtinorobot2'" >> $HOME/.bashrc && \
-    echo "alias cb='cd ~/marrtinorobot2_ws && colcon build'" >> $HOME/.bashrc 
+COPY setup_environment.sh /home/ubuntu/setup_environment.sh 
+RUN chmod +x /home/ubuntu/setup_environment.sh
+RUN /home/ubuntu/setup_environment.sh
 
 RUN if [ "$Gazebo" = "true" ]; then \
     echo "export GAZEBO_MODEL_PATH=~/.gazebo/models" && \

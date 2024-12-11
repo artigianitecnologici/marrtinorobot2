@@ -1,4 +1,5 @@
 #!/bin/bash
+# 22-04
 
 # Aggiorna il sistema
 echo "Aggiornando il sistema..."

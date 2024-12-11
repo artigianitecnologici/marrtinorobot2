@@ -65,7 +65,7 @@ def execute_command(command, tmux, index, log_publisher):
         log_publisher.publish_log(f"Attempting to execute: {command}")
         process = tmux.cmd(index, command)
         if process:
-            threading.Thread(target=monitor_process, args=(process, log_publisher), daemon=True).start()
+            #threading.Thread(target=monitor_process, args=(process, log_publisher), daemon=True).start()
             log_publisher.publish_log(f"Command executed successfully: {command}. Process PID: {process.pid}")
             print(f"Command executed successfully: {command}. Process PID: {process.pid}")
             return process
