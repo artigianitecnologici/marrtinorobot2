@@ -1,21 +1,3 @@
-# Copyright 2025 robotics-3d.com 
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-# Author: Ferrarini Fabio
-# Email : ferrarini09@gmail.com
-#
-import os
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
@@ -25,7 +7,6 @@ from launch_ros.substitutions import FindPackageShare
 from launch.conditions import IfCondition
 
 def generate_launch_description():
-    laser_sensor_name = os.getenv('MARRTINOROBOT2_LASER_SENSOR', '')
     # Path to description.launch.py
     description_launch_path = PathJoinSubstitution(
         [FindPackageShare('marrtinorobot2_description'), 'launch', 'description.launch.py']
@@ -47,12 +28,8 @@ def generate_launch_description():
     )
 
     # Path to LIDAR node launch file (if needed)
-    ldlidar_robot_launch_path = PathJoinSubstitution(
-        [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'ldlidar.launch.py']
-    )
-
-    rplidar_robot_launch_path = PathJoinSubstitution(
-        [FindPackageShare('marrtinorobot2_bringup'), 'launch', 'rplidar.launch.py']
+    lidar_robot_launch_path = PathJoinSubstitution(
+        [FindPackageShare('marrtinorobot2_lidar'), 'launch', 'lidar.launch.py']
     )
 
     return LaunchDescription([
@@ -82,16 +59,10 @@ def generate_launch_description():
         ),
 
         DeclareLaunchArgument(
-            name='use_ldlidar',
+            name='use_lidar',
             default_value='false',
             description='Condition to launch LIDAR node'
         ),
-        DeclareLaunchArgument(
-            name='use_rplidar',
-            default_value='false',
-            description='Condition to launch LIDAR node'
-        ),
-
 
         # EKF Node
         Node(
@@ -133,12 +104,7 @@ def generate_launch_description():
 
         # Include LIDAR Node Launch (conditional)
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(ldlidar_robot_launch_path),
-            condition=IfCondition(LaunchConfiguration('use_ldlidar'))
-        ),
-        # Include LIDAR Node Launch (conditional)
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(rplidar_robot_launch_path),
-            condition=IfCondition(LaunchConfiguration('use_rplidar'))
+            PythonLaunchDescriptionSource(lidar_robot_launch_path),
+            condition=IfCondition(LaunchConfiguration('use_lidar'))
         )
     ])

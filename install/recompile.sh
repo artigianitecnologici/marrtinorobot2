@@ -30,7 +30,7 @@ git clone -b humble-devel https://github.com/ROBOTIS-GIT/dynamixel-workbench-msg
 git clone -b humble-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 git clone -b ros2 https://github.com/MoffKalast/vizanti.git
 git clone https://github.com/robo-friends/m-explore-ros2.git
-
+git clone https://github.com/ldrobotSensorTeam/ldlidar_stl_ros2.git
 
 
 
@@ -50,10 +50,10 @@ ln -s $HOME/src/m-explore-ros2/explore .
 #ln -s $HOME/src/OrbbecSDK_ROS2 .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_vision .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_voice .
-#ln -s $HOME/src/marrtinorobot2/marrtinorobot2_ui .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_cartographer .
 ln -s $HOME/src/marrtinorobot2/marrtinorobot2_dynamixel .
 ln -s $HOME/src/depthai-ros .
+ln -s $HOME/src/ldlidar_stl_ros2 .
 ln -s $HOME/src/vizanti .
 sudo apt install tmux -y
 
@@ -87,8 +87,8 @@ sudo apt install -y ros-$ROS_DISTRO-camera-calibration-parsers
 sudo apt install -y ros-$ROS_DISTRO-camera-info-manager
 sudo apt install -y ros-$ROS_DISTRO-launch-testing-ament-cmake
 ## gazebo
-sudo apt install -y ros-$ROS_DISTRO-gazebo-ros-pkg
-sudo apt install -y ros-$ROS_DISTRO-robot-localization
+#sudo apt install -y ros-$ROS_DISTRO-gazebo-ros-pkg
+#sudo apt install -y ros-$ROS_DISTRO-robot-localization
 ## web interface 
 sudo apt install ros-$ROS_DISTRO-rosbridge-server -y
 ### 2.3 Install prerequisite gazebo
@@ -96,10 +96,11 @@ sudo apt install ros-$ROS_DISTRO-gazebo-ros-pkgs -y
 sudo apt install ros-$ROS_DISTRO-robot-localization -y
 # joy 
 sudo apt install -y ros-$ROS_DISTRO-joy 
-sudo apt install -y ros-$ROS_DISTRO-teleop-twist-joystick
+# sudo apt install -y ros-$ROS_DISTRO-teleop-twist-joystick
 
 sudo apt install -y ros-$ROS_DISTRO-joint-state-publisher
-sudo apt-get install -y ros-humble-rosbridge-suite
+sudo apt-get install -y ros-$ROS_DISTRO-rosbridge-suite
+sudo apt install -y ros-$ROS_DISTRO-rqt-reconfigure
 
 
 # astra camera

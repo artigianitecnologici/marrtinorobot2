@@ -227,7 +227,7 @@ USER ubuntu
 RUN rosdep update && \
     rosdep install --from-paths src --ignore-src -r -y
 USER root
-
+# rosdep install -i --from-path src/vizanti -y
 
 
 WORKDIR /home/ubuntu

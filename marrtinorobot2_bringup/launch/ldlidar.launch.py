@@ -13,64 +13,73 @@
 # limitations under the License.
 #
 # Author: Ferrarini Fabio
-# email : ferrarini09@gmail.com
-#
-#!/usr/bin/env python3
+# Email : ferrarini09@gmail.com
 from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
-'''
-Parameter Description:
----
-- Set laser scan directon: 
-  1. Set counterclockwise, example: {'laser_scan_dir': True}
-  2. Set clockwise,        example: {'laser_scan_dir': False}
-- Angle crop setting, Mask data within the set angle range:
-  1. Enable angle crop fuction:
-    1.1. enable angle crop,  example: {'enable_angle_crop_func': True}
-    1.2. disable angle crop, example: {'enable_angle_crop_func': False}
-  2. Angle cropping interval setting:
-  - The distance and intensity data within the set angle range will be set to 0.
-  - angle >= 'angle_crop_min' and angle <= 'angle_crop_max' which is [angle_crop_min, angle_crop_max], unit is degress.
-    example:
-      {'angle_crop_min': 135.0}
-      {'angle_crop_max': 225.0}
-      which is [135.0, 225.0], angle unit is degress.
-'''
 
 def generate_launch_description():
-  # LDROBOT LiDAR publisher node
-  ldlidar_node = Node(
-      package='ldlidar_stl_ros2',
-      executable='ldlidar_stl_ros2_node',
-      name='LD06',
-      output='screen',
-      parameters=[
-        {'product_name': 'LDLiDAR_LD06'},
-        {'topic_name': 'scan'},
-        {'frame_id': 'laser'},
-        {'port_name': '/dev/ttyUSB0'},
-        {'port_baudrate': 230400},
-        {'laser_scan_dir': True},
-        {'enable_angle_crop_func': False},
-        {'angle_crop_min': 135.0},
-        {'angle_crop_max': 225.0}
-      ]
-  )
+    return LaunchDescription([
+        DeclareLaunchArgument(
+            name='topic_name', 
+            default_value='scan',
+            description='Laser Topic Name'
+        ),
 
-  # base_link to base_laser tf node
-  base_link_to_laser_tf_node = Node(
-    package='tf2_ros',
-    executable='static_transform_publisher',
-    name='base_link_to_base_laser_ld06',
-    arguments=['0','0','0.18','0','0','0','base_link','base_laser']
-  )
+        DeclareLaunchArgument(
+            name='frame_id', 
+            default_value='laser',
+            description='Laser Frame ID'
+        ),
 
+        DeclareLaunchArgument(
+            name='lidar_transport',
+            default_value='serial',
+            description='Lidar transport: serial, udp_server, udp_client, tcp_server, tcp_client'
+        ),
 
-  # Define LaunchDescription variable
-  ld = LaunchDescription()
+        DeclareLaunchArgument(
+            name='lidar_serial_port',
+            default_value='/dev/ttyUSB0',
+            description='Lidar serial port device name'
+        ),
 
-  ld.add_action(ldlidar_node)
-  ld.add_action(base_link_to_laser_tf_node)
+        DeclareLaunchArgument(
+            name='lidar_server_ip',
+            default_value='0.0.0.0',
+            description='Lidar server ip'
+        ),
 
-  return ld
+        DeclareLaunchArgument(
+            name='lidar_server_port',
+            default_value='8889',
+            description='Lidar server port number'
+        ),
+
+       
+        
+        Node(
+            package='ldlidar_stl_ros2',
+            executable='ldlidar_stl_ros2_node',
+            name='ld19',
+            output='screen',
+            parameters=[
+                {'product_name': 'LDLiDAR_LD19'},
+                {'topic_name': LaunchConfiguration('topic_name')},
+                {'frame_id': LaunchConfiguration('frame_id')},
+                {'comm_mode': LaunchConfiguration('lidar_transport')},
+                {'port_name': LaunchConfiguration('lidar_serial_port')},
+                {'port_baudrate': 230400},
+                {'server_ip': LaunchConfiguration('lidar_server_ip')},
+                {'server_port': LaunchConfiguration('lidar_server_port')},
+                {'laser_scan_dir': True},
+                {'bins': 456},
+                {'enable_angle_crop_func': False},
+                {'angle_crop_min': 135.0},
+                {'angle_crop_max': 225.0}
+            ]
+        )
+    ])
+
