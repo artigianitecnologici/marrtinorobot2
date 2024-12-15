@@ -1,12 +1,26 @@
+<!-- 
+ # Copyright 2025 robotics-3d.com 
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# Author: Ferrarini Fabio
+# Email : ferrarini09@gmail.com
+# -->
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
   <title>MARRtina Robot Face</title>
-  <!-- Bootstrap CSS 
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <script src="bootstrap/js/bootstrap.min.js"></script>-->
   <script type="text/javascript" src="js/roslib.min.js"></script>
   <script type="text/javascript" src="js/eventemitter2.min.js"></script>
   <script type="text/javascript" type="text/javascript">
@@ -68,6 +82,9 @@
 	  if (m.data == "sings") {
         eyes.sings();
       }
+      if (m.data == "fear") {
+        eyes.fear();
+      }
       if (m.data == "startblinking") {
         eyes.startBlinking();
       } 
@@ -76,70 +93,80 @@
       }
    });
 
-   
-
-     
+       
     window.onload = function () {
 	  
-      
 	  
     }
 
   </script>
 
-
   <link rel="stylesheet" href="css/marrtina04.css">
-  
+  <script type="text/javascript">
+    function movePupilsRandomly() {
+      // Seleziona le pupille
+      const leftPupil = document.getElementById("pupsx");
+      const rightPupil = document.getElementById("pupdx");
+
+      setInterval(() => {
+        // Genera spostamenti casuali (range: ±20%)
+        const randomX = Math.random() * 40 - 20; // Da -20% a +20%
+        const randomY = Math.random() * 40 - 20; // Da -20% a +20%
+
+        // Trasforma i valori casuali in una trasformazione comune
+        const transformValue = `translate(${randomX}%, ${randomY}%)`;
+
+        // Applica la stessa trasformazione a entrambe le pupille
+        leftPupil.style.transform = transformValue;
+        rightPupil.style.transform = transformValue;
+      }, 1500); // Cambia posizione ogni 500ms
+    }
+  </script>
 </head>
 
-<body onload= "JavaScript:refreshPage(90000);">
-  
+<body onload="movePupilsRandomly();">
   <div class="buttons">
-    <button onclick="eyes.startBlinking()">Start Blinking</button>
-    <button onclick="eyes.stopBlinking()">Stop Blinking</button>
-    <button onclick="eyes.blink()" >Blink</button>
-	<button onclick="eyes.normal()" >Normal</button>
+    <button onclick="eyes.startBlinking()">Start Blink</button>
+    <button onclick="eyes.stopBlinking()">Stop</button>
+    <!-- <button onclick="eyes.blink()" >Blink</button> -->
+	<button onclick="eyes.normal()" >Nor</button>
 	<button onclick="eyes.speak()" >Speak</button>
     <button onclick="eyes.happy()" >Happy</button>
     <button onclick="eyes.sad()" >Sad</button>
+    <button onclick="eyes.fear()" >Fear</button>
     <button onclick="eyes.angry()" >Mad</button>
-    <button onclick="eyes.focused()" >Focused</button>
-	 <button onclick="eyes.surprise()" >surprise</button>
-    <button onclick="eyes.confused()" >Confused</button>
+    <button onclick="eyes.focused()" >Foc</button>
+	 <button onclick="eyes.surprise()" >sur</button>
+    <button onclick="eyes.confused()" >Conf</button>
   
   </div>
- 
   <div class="face">
-   <div class="eyebrow left"><img id="soprdx" src="image/eyebrowsx1.gif" width="80%"></div>
-   <div class="bulb left">
-    <img id="occhiosx" src="image/face02/eyesx.png" width="80%">
-     <div class="eye left">
-	  
-      <div class="eyelid upper"></div>
-      <div class="eyelid lower"></div>
+    <div class="eyebrow left">
+      <img id="soprdx" src="image/eyebrowsx1.gif" width="80%">
     </div>
-   </div>	
-   <div class="eyebrow right"><img id="soprsx" src="image/eyebrowdx1.gif" width="80%"></div>
-   <div class="bulb right">
-   <img id="occhiodx" src="image/face02/eyedx.png" width="80%">
-    <div class="eye right">
-      <div class="eyelid upper"></div>
-      <div class="eyelid lower"></div>
+    <div class="bulb left">
+      <img id="occhiosx" src="image/face04/BulbSx.png" width="80%">
+      <div class="eye left">
+        <img id="pupsx" src="image/face04/Pupilla.png" class="pupil">
+      </div>
     </div>
-	</div>
+    <div class="eyebrow right">
+      <img id="soprsx" src="image/eyebrowdx1.gif" width="80%">
+    </div>
+    <div class="bulb right">
+      <img id="occhiodx" src="image/face04/BulbDx.png" width="80%">
+      <div class="eye right">
+        <img id="pupdx" src="image/face04/Pupilla.png" class="pupil">
+      </div>
+    </div>
     <div class="nose">
       <img id="naso" src="image/nosetalkmarrtina1.gif" width="100%">
     </div>
-    <div  class="mouth">
-	  <img id="bocca" src="image/face02/boccastabile.png" width="190%">
-     
+    <div class="mouth">
+      <img id="bocca" src="image/face02/boccastabile.png" width="210%">
     </div>
-    
   </div>
-  <!--
-  <p>Connection status: <span id="status"></span></p>
-  <p> on /emotion: <span id="emotion"></span></p>
- 
-  -->
-    <script  src="js/marrtina04.js"></script>
+  <script  src="js/marrtina04.js"></script>
 </body>
+
+</html>

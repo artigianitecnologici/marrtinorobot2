@@ -101,52 +101,52 @@ class EyeController {
   normal() {
 	    document.getElementById("soprdx").src = "image/eyebrowsx1.gif"; 
     	document.getElementById("soprsx").src = "image/eyebrowdx1.gif"; 
-	    document.getElementById("occhiodx").src = "image/face04/BulbDx.png"; 
-    	document.getElementById("occhiosx").src = "image/face04/BulbSx.png"; 	
-    	document.getElementById("bocca").src = "image/face04/boccastabile.png"; 
+	    document.getElementById("occhiodx").src = "image/face02/eyedx.png"; 
+    	document.getElementById("occhiosx").src = "image/face02/eyesx.png"; 	
+    	document.getElementById("bocca").src = "image/face02/boccastabile.png"; 
     	document.getElementById("naso").src = "image/nosetalkmarrtina1.gif"; 
   }	 
   
   happy() {
       document.getElementById("soprdx").src = "image/eyebrowsx1.gif"; 
       document.getElementById("soprsx").src = "image/eyebrowdx1.gif"; 
-	    document.getElementById("occhiodx").src = "image/face04/BulbDx.png"; 
-    	document.getElementById("occhiosx").src = "image/face04/BulbSx.png"; 
-      document.getElementById("bocca").src = "image/face04/boccaaperta.png"; 
+	    document.getElementById("occhiodx").src = "image/face02/eyedx.png"; 
+    	document.getElementById("occhiosx").src = "image/face02/eyesx.png"; 
+      document.getElementById("bocca").src = "image/face02/boccaaperta.png"; 
      	document.getElementById("naso").src = "image/face01/Happy/nose.png"; 
   }	 
 
   sad() {
 	document.getElementById("soprdx").src = "image/face01/Angry/eyebrowdxangry.png"; 
     document.getElementById("soprsx").src = "image/face01/Angry/eyebrowsxangry.png"; 
-    document.getElementById("occhiodx").src = "image/face04/BulbDx.png"; 
-    document.getElementById("occhiosx").src = "image/face04/BulbSx.png"; 	
+    document.getElementById("occhiodx").src = "image/face02/eyedx.png"; 
+    document.getElementById("occhiosx").src = "image/face02/eyesx.png"; 	
     document.getElementById("bocca").src = "image/face01/Angry/mouthangry.png"; 
     document.getElementById("naso").src = "image/face01/Angry/nose.png"; 
   }	 
   angry() {
 	    document.getElementById("soprdx").src = "image/face01/Sad/eyebrowdxsad.png"; 
     	document.getElementById("soprsx").src = "image/face01/Sad/eyebrowsxsad.png"; 
-      document.getElementById("occhiodx").src = "image/face04/BulbDx.png"; 
-    	document.getElementById("occhiosx").src = "image/face04/BulbSx.png"; 
-    	document.getElementById("bocca").src = "image/face04/boccasad.png"; 
+      document.getElementById("occhiodx").src = "image/face02/eyedx.png"; 
+    	document.getElementById("occhiosx").src = "image/face02/eyesx.png"; 
+    	document.getElementById("bocca").src = "image/face02/boccasad.png"; 
     	document.getElementById("naso").src = "image/face01/Sad/nose.png"; 
   }	   
   surprise() {
 	document.getElementById("soprdx").src = "image/face01/Surprise/eyebrowdxsurprise.png"; 
     document.getElementById("soprsx").src = "image/face01/Surprise/eyebrowsxsurprise.png"; 
-    document.getElementById("occhiodx").src = "image/face04/BulbDx.png"; 
-    document.getElementById("occhiosx").src = "image/face04/BulbSx.png"; 
+    document.getElementById("occhiodx").src = "image/face02/eyedx.png"; 
+    document.getElementById("occhiosx").src = "image/face02/eyesx.png"; 
     document.getElementById("bocca").src = "image/face01/Surprise/mouthsurprise.png"; 
     document.getElementById("naso").src = "image/face01/Surprise/nosesurprise.png"; 
   }	  
   speak() {
-    document.getElementById("bocca").src = "image/face04/talk3.gif"; 
+    document.getElementById("bocca").src = "image/face02/talk3.gif"; 
     document.getElementById("naso").src = "image/nosetalkmarrtina1.gif"; 
   }	
 
   sings() {
-    document.getElementById("bocca").src = "image/face04/talk3.gif"; 
+    document.getElementById("bocca").src = "image/face02/talk3.gif"; 
     document.getElementById("naso").src = "image/nosetalkmarrtina1.gif"; 
   }  
 

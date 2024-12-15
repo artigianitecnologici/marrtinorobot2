@@ -181,7 +181,7 @@ RUN pip3 install gtts opencv-python opencv-python-headless
 RUN mkdir -p /home/ubuntu/marrtinorobot2_ws/src && \
     mkdir -p /home/ubuntu/src && \
     cd /home/ubuntu/src && \
-    git clone https://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@github.com/artigianitecnologici/marrtinorobot2.git && \
+    git clone https://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@github.com/artigianitecnologici/marrtinorobot2.git && \
     git clone https://github.com/robo-friends/m-explore-ros2.git && \
     git clone -b ros2 https://github.com/MoffKalast/vizanti.git && \
     git clone https://github.com/ldrobotSensorTeam/ldlidar_stl_ros2.git
@@ -255,7 +255,11 @@ RUN rm /etc/apt/apt.conf.d/docker-clean
 COPY ./entrypoint.sh /
 RUN dos2unix /entrypoint.sh
 ENTRYPOINT [ "/bin/bash", "-c", "/entrypoint.sh" ]
+# ENTRYPOINT [ "/bin/bash", "-c", "/entrypoint.sh && /home/ubuntu/src/marrtinorobot2/bringup/1-bringup.bash -docker" ]
+
 
 ENV USER ubuntu
 ENV PASSWD ubuntu
+# Esegui lo script come CMD
+# CMD [ "/bin/bash", "-ci", "~/src/marrtinorobot2/bringup/1-bringup.bash -docker" ]
 

@@ -1,5 +1,5 @@
 :root {
-  --face-color: rgb(250, 206, 240);
+  --face-color:rgb(250, 206, 240);
   --face-height: 100vh;
   --face-width: 100vw;
   --eye-size: 26.00vmin;
@@ -17,6 +17,13 @@
 body {
   background-color: white;
   margin: 0;
+}
+
+.buttons {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .face {
@@ -51,7 +58,6 @@ body {
   height: calc(var(--bulb-size) * 1.2);
   width: var(--bulb-size);
   top: 22%;
-  position: relative;
 }
 
 .bulb.left {
@@ -64,23 +70,25 @@ body {
 
 .eye {
   position: relative;
+  /* background-color: var(--eye-color); */
   border-radius: 50%;
   height: var(--eye-size);
   width: var(--eye-size);
-  top:10%;
+  top: calc(var(--bulb-size) / 3);
   z-index: 1; /* Gli occhi sono sotto rispetto alle pupille */
 }
 
 .pupil {
   position: absolute;
   top: 50%;
-  left: 30%;
+  left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2; /* Le pupille sono sopra gli occhi */
   width: 40%;
   height: 60%;
+  /* background-color: black; */
   border-radius: 50%;
-  transition: transform 0.5s ease; /* Movimento fluido */
+  animation: movePupil 2s infinite;
 }
 
 .eyelid {
@@ -120,21 +128,35 @@ body {
   position: absolute;
 }
 
-/* Transizione Fluida per il Movimento */
-.pupil {
-  transition: transform 0.5s ease-in-out;
+/* Animazione per le pupille */
+@keyframes movePupil {
+  0% {
+    transform: translate(-50%, -50%) translateX(0);
+  }
+  25% {
+    transform: translate(-50%, -50%) translateX(10px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateX(0);
+  }
+  75% {
+    transform: translate(-50%, -50%) translateX(-10px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateX(0);
+  }
 }
 
-/* Stile pulsanti (se presenti) */
+/* Testo pulsanti */
 button {
   background-color: #333;
   color: white;
   border: none;
-  padding: 5px 10px;
-  margin: 3px;
-  font-size: 12px;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 button:hover {
