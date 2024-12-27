@@ -46,40 +46,22 @@ def generate_launch_description():
             description='Lidar serial port device name'
         ),
 
-        DeclareLaunchArgument(
-            name='lidar_server_ip',
-            default_value='0.0.0.0',
-            description='Lidar server ip'
-        ),
-
-        DeclareLaunchArgument(
-            name='lidar_server_port',
-            default_value='8889',
-            description='Lidar server port number'
-        ),
-
-       
-        
-        Node(
-            package='ldlidar_stl_ros2',
-            executable='ldlidar_stl_ros2_node',
-            name='ld19',
-            output='screen',
-            parameters=[
-                {'product_name': 'LDLiDAR_LD19'},
-                {'topic_name': LaunchConfiguration('topic_name')},
-                {'frame_id': LaunchConfiguration('frame_id')},
-                {'comm_mode': LaunchConfiguration('lidar_transport')},
-                {'port_name': LaunchConfiguration('lidar_serial_port')},
-                {'port_baudrate': 230400},
-                {'server_ip': LaunchConfiguration('lidar_server_ip')},
-                {'server_port': LaunchConfiguration('lidar_server_port')},
-                {'laser_scan_dir': True},
-                {'bins': 456},
-                {'enable_angle_crop_func': False},
-                {'angle_crop_min': 135.0},
-                {'angle_crop_max': 225.0}
-            ]
-        )
-    ])
+               
+    Node(
+        package='ldlidar_stl_ros2',
+        executable='ldlidar_stl_ros2_node',
+        name='LD06',
+        output='screen',
+        parameters=[
+            {'product_name': 'LDLiDAR_LD06'},
+            {'topic_name': 'scan'},
+            {'frame_id': 'base_laser'},
+            {'port_name': '/dev/ttyUSB0'},
+            {'port_baudrate': 230400},
+            {'laser_scan_dir': True},
+            {'enable_angle_crop_func': False},
+            {'angle_crop_min': 135.0},
+            {'angle_crop_max': 225.0}
+        ])
+])
 

@@ -48,7 +48,9 @@ def generate_launch_description():
     lc = LaunchContext()
     ros_distro = EnvironmentVariable('ROS_DISTRO')
     slam_param_name = 'slam_params_file'
-    
+    if ros_distro.perform(lc) == 'foxy': 
+        slam_param_name = 'params_file'
+
     return LaunchDescription([
         DeclareLaunchArgument(
             name='sim', 
