@@ -1,0 +1,10 @@
+QUESTION: ciao; ANSWER: Ciao! Come posso aiutarti?
+QUESTION: come ti chiami; ANSWER: Non conosco la risposta. Vuoi insegnarmi cosa dire? Scrivi: 'Insegna: domanda | risposta'
+QUESTION: come ti chiami; ANSWER: io sono martino robot
+QUESTION: com ti chiami; ANSWER: io sono martino robot
+QUESTION: come ti chiami; ANSWER: io sono martino robot
+QUESTION: come ti chiami; ANSWER: Non conosco la risposta. Vuoi insegnarmi cosa dire? Scrivi: 'Insegna: domanda | risposta'
+QUESTION: come ti chiami?; ANSWER: Non conosco la risposta. Vuoi insegnarmi cosa dire? Scrivi: 'Insegna: domanda | risposta'
+QUESTION: come ti chiami; ANSWER: Non conosco la risposta. Vuoi insegnarmi cosa dire? Scrivi: 'Insegna: domanda | risposta'
+QUESTION: come ti chiami?; ANSWER: Io sono un chatbot! E tu, come ti chiami?
+QUESTION: Fabio; ANSWER: Non conosco la risposta. Vuoi insegnarmi cosa dire? Scrivi: 'Insegna: domanda | risposta'

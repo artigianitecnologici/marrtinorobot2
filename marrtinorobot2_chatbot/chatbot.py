@@ -30,9 +30,10 @@ from nltk.stem import WordNetLemmatizer
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
+user_name = None
 
 # Percorsi
-PATH = os.path.expandvars("$HOME/src/marrtinorobot2/marrtinorobot2_chatbot/")
+PATH = os.path.expandvars("$HOME/Dropbox/src/marrtinorobot2/marrtinorobot2_chatbot/")
 LOG_PATH = os.path.join(PATH, "log")
 KNOWLEDGE_FILE = os.path.join(PATH, "knowledge.json")
 
@@ -84,7 +85,7 @@ class ChatbotModel:
 
     def find_best_match(self, user_input):
         """Trova la migliore corrispondenza per l'input dell'utente."""
-        if not self.tfidf_matrix or not self.questions:
+        if self.tfidf_matrix is None or self.tfidf_matrix.nnz == 0 or not self.questions:
             return None, None
         input_vector = self.vectorizer.transform([preprocess_text(user_input)])
         scores = cosine_similarity(input_vector, self.tfidf_matrix)
@@ -93,6 +94,7 @@ class ChatbotModel:
         if best_score > 0.5:  # Soglia di similarità
             return self.answers[best_index], best_score
         return None, None
+
 
 chatbot_model = ChatbotModel()
 
@@ -106,17 +108,26 @@ def log_to_file(question, answer):
 @app.route("/")
 def home():
     return render_template("index.html")
-
 @app.route("/get", methods=["GET"])
 def get_bot_response():
+    global user_name
     user_query = request.args.get('msg', '').strip()
     print(f"[DEBUG] Received message: {user_query}")
 
-    # Controlla se il messaggio è un comando per insegnare
-    if user_query.lower().startswith("insegna:"):
-        print("[DEBUG] Detected 'Insegna:' command, redirecting to teach_interactive")
-        return teach_interactive()
+    # Gestisci la domanda "Come ti chiami?"
+    if user_query.lower() == "come ti chiami?":
+        bot_response = "Io sono un chatbot! E tu, come ti chiami?"
+        log_to_file(user_query, bot_response)
+        return jsonify({"response": bot_response, "action": "ask_name"})
 
+    # Memorizza il nome dell'utente se ha risposto con un nome
+    if user_name is None and user_query.lower().startswith("mi chiamo"):
+        user_name = user_query[9:].strip()  # Prendi il nome dopo "mi chiamo"
+        bot_response = f"Ciao, {user_name}! Piacere di conoscerti!"
+        log_to_file(user_query, bot_response)
+        return jsonify({"response": bot_response, "action": "ok"})
+
+    # Rispondi normalmente usando il modello TF-IDF
     knowledge = load_knowledge()
     print(f"[DEBUG] Loaded knowledge: {knowledge}")
 
@@ -139,6 +150,39 @@ def get_bot_response():
     bot_response = "Non conosco la risposta. Vuoi insegnarmi cosa dire? Scrivi: 'Insegna: domanda | risposta'"
     log_to_file(user_query, bot_response)
     return jsonify({"response": bot_response, "action": "teach"})
+
+# @app.route("/get", methods=["GET"])
+# def get_bot_response():
+#     user_query = request.args.get('msg', '').strip()
+#     print(f"[DEBUG] Received message: {user_query}")
+
+#     # Controlla se il messaggio è un comando per insegnare
+#     if user_query.lower().startswith("insegna:"):
+#         print("[DEBUG] Detected 'Insegna:' command, redirecting to teach_interactive")
+#         return teach_interactive()
+
+#     knowledge = load_knowledge()
+#     print(f"[DEBUG] Loaded knowledge: {knowledge}")
+
+#     # Aggiorna il modello
+#     chatbot_model.update_model(knowledge)
+
+#     # Controlla se il modello è vuoto
+#     if chatbot_model.tfidf_matrix is None:
+#         bot_response = "Non conosco ancora nulla. Vuoi insegnarmi qualcosa? Scrivi: 'Insegna: domanda | risposta'"
+#         log_to_file(user_query, bot_response)
+#         return jsonify({"response": bot_response, "action": "teach"})
+
+#     # Cerca la risposta migliore
+#     response, score = chatbot_model.find_best_match(user_query)
+#     if response:
+#         log_to_file(user_query, response)
+#         return jsonify({"response": response, "action": "ok"})
+
+#     # Chiede all'utente di insegnare
+#     bot_response = "Non conosco la risposta. Vuoi insegnarmi cosa dire? Scrivi: 'Insegna: domanda | risposta'"
+#     log_to_file(user_query, bot_response)
+#     return jsonify({"response": bot_response, "action": "teach"})
 
 @app.route("/teach", methods=["POST"])
 def teach_bot():
